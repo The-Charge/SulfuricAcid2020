@@ -14,6 +14,9 @@ import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
 
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -27,7 +30,7 @@ public class RobotContainer {
   
   //private final Shoot m_shoot = new Shoot(0.5);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-
+  private static Joystick buttonBox;
 
 
   /**
@@ -37,6 +40,8 @@ public class RobotContainer {
     // Configure the button bindings
     SmartDashboard.putData("Shoot", new Shoot(m_shooter, 0.5));
     configureButtonBindings();
+
+    buttonBox = new Joystick(2);
   }
 
   /**

@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.*;
 
 /**
@@ -40,7 +41,7 @@ public class Shoot extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
-        //double xAxisVal = Robot.oi.buttonBox.getRawAxis(0);
+        double xAxisVal = RobotContainer.buttonBox.getRawAxis(0);
         //NEED to ACCESS OI
         double xAxisVal = 0.5;
         m_shooter.setPercentSpeedPID(xAxisVal);
