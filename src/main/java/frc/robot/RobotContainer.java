@@ -9,7 +9,12 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.PositionsControl;
+import frc.robot.commands.RotationControl;
+import frc.robot.subsystems.ColorSensor;
+import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -25,12 +30,28 @@ public class RobotContainer {
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
+  //private final ControlPanel m_controlPanel = new ControlPanel(m_controlPanel);
 
+  private final ControlPanel m_controlPanel = new ControlPanel();
+
+  public final ColorSensor m_colorSensor = new ColorSensor();
+
+  private final RotationControl m_rotationControl = new RotationControl(m_controlPanel);
+
+  private final PositionsControl m_positionsControl = new PositionsControl(m_controlPanel);
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    SmartDashboard.putData("RotationControl", new RotationControl(m_controlPanel));
+    SmartDashboard.putData("PositionsControl", new PositionsControl(m_controlPanel));
+   
+    //SmartDashboard.putNumber("Red", detectedColor.red);
+    //SmartDashboard.putNumber("Green", detectedColor.green);
+    //SmartDashboard.putNumber("Blue", detectedColor.blue);
+    //SmartDashboard.putNumber("Confidence", match.confidence);
+    //SmartDashboard.putString("Detected Color", colorString);
     // Configure the button bindings
     configureButtonBindings();
   }
