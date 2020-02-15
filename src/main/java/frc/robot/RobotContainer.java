@@ -31,8 +31,10 @@ public class RobotContainer {
 
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  public Drivetrain drivetrain = new Drivetrain();
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+
+  public Drivetrain drivetrain = new Drivetrain();
+  public Shifters shifters = new Shifters();
 
   public static Joystick leftJoystick;
   public static Joystick rightJoystick;
@@ -43,6 +45,7 @@ public class RobotContainer {
   public JoystickButton toggleLockStraightBtn;
   public JoystickButton shootBtn;
   public JoystickButton manualElevation;
+  public JoystickButton driveXFeetBtn;
   public Joystick buttonBox;
 
 
@@ -56,6 +59,9 @@ public class RobotContainer {
     configureButtonBindings();
 
     buttonBox = new Joystick(2);
+    driveXFeetBtn = new JoystickButton(buttonBox, 2);
+    driveXFeetBtn.whenPressed(new DriveXFeetMM(0, 0, 10, drivetrain));
+
 
     manualElevation = new JoystickButton(buttonBox, 6);
     //manualElevation.whileHeld(new ManualTurretElevation(0));
@@ -64,34 +70,35 @@ public class RobotContainer {
     leftJoystick = new Joystick(1);
 
     toggleLockStraightBtn = new JoystickButton(leftJoystick, 1);
-    //toggleLockStraightBtn.whileHeld(new ToggleLockStraight());
+    toggleLockStraightBtn.whileHeld(new ToggleLockStraight(drivetrain));
     rightJoystick = new Joystick(0);
 
     halfSpeedBtn = new JoystickButton(rightJoystick, 5);
-    //halfSpeedBtn.whileHeld(new HalfSpeed());
+    halfSpeedBtn.whileHeld(new HalfSpeed(drivetrain));
     quarterSpeedBtn = new JoystickButton(rightJoystick, 4);
-    //quarterSpeedBtn.whileHeld(new QuarterSpeed());
+    quarterSpeedBtn.whileHeld(new QuarterSpeed(drivetrain));
     shiftLowBtn = new JoystickButton(rightJoystick, 2);
-    //shiftLowBtn.whenPressed(new ShiftLow());
+    shiftLowBtn.whenPressed(new ShiftLow(shifters));
     shiftHighBtn = new JoystickButton(rightJoystick, 1);
-    //shiftHighBtn.whenPressed(new ShiftHigh());
+    shiftHighBtn.whenPressed(new ShiftHigh(shifters));
+
 
     // SmartDashboard Buttons
-    //SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
-    //SmartDashboard.putData("ShiftHigh", new ShiftHigh());
-    //SmartDashboard.putData("ShiftLow", new ShiftLow());
+    SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
+    SmartDashboard.putData("ShiftHigh", new ShiftHigh(shifters));
+    SmartDashboard.putData("ShiftLow", new ShiftLow(shifters));
     //SmartDashboard.putData("Shoot: default", new Shoot(0.4));
     //SmartDashboard.putData("TurretCommand", new TurretCommand());
     //SmartDashboard.putData("RunIntake: default", new RunIntake(0.4));
-    //SmartDashboard.putData("DriveXFeetMM: default", new DriveXFeetMM(0, 0, 30));
+    SmartDashboard.putData("DriveXFeetMM: default", new DriveXFeetMM(0, 0, 30, drivetrain));
     //SmartDashboard.putData("TurnNDegreesAbsolute: default", new TurnNDegreesAbsolute(180));
-    //SmartDashboard.putData("InvertDrive", new InvertDrive());
-    //SmartDashboard.putData("QuarterSpeed", new QuarterSpeed());
+    SmartDashboard.putData("InvertDrive", new InvertDrive(drivetrain));
+    SmartDashboard.putData("QuarterSpeed", new QuarterSpeed(drivetrain));
     //SmartDashboard.putData("RotationControl", new RotationControl());
     //SmartDashboard.putData("PositionControl", new PositionControl());
     //SmartDashboard.putData("Index: default", new Index(0.4));
-    //SmartDashboard.putData("HalfSpeed", new HalfSpeed());
-    //SmartDashboard.putData("ToggleLockStraight", new ToggleLockStraight());
+    SmartDashboard.putData("HalfSpeed", new HalfSpeed(drivetrain));
+    SmartDashboard.putData("ToggleLockStraight", new ToggleLockStraight(drivetrain));
     //SmartDashboard.putData("ManualTurretElevation: default", new ManualTurretElevation(0));
     //SmartDashboard.putData("ManualTurretElevationDegrees: default", new ManualTurretElevationDegrees(0));
     //SmartDashboard.putData("RunTurretVision", new RunTurretVision());
