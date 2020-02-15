@@ -33,6 +33,7 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   public Drivetrain drivetrain = new Drivetrain();
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  public Turret turret = new Turret();
 
   public static Joystick leftJoystick;
   public static Joystick rightJoystick;
@@ -43,7 +44,7 @@ public class RobotContainer {
   public JoystickButton toggleLockStraightBtn;
   public JoystickButton shootBtn;
   public JoystickButton manualElevation;
-  public Joystick buttonBox;
+  public static Joystick buttonBox;
 
 
 
