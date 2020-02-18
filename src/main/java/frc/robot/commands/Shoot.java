@@ -42,8 +42,6 @@ public class Shoot extends CommandBase {
     @Override
     public void execute() {
         double xAxisVal = RobotContainer.buttonBox.getRawAxis(0);
-        //NEED to ACCESS OI
-        double xAxisVal = 0.5;
         m_shooter.setPercentSpeedPID(xAxisVal);
        // Robot.shooter.run(m_speed);
         SmartDashboard.putNumber("XAxisVal", xAxisVal);

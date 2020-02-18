@@ -30,7 +30,7 @@ public class RobotContainer {
   
   //private final Shoot m_shoot = new Shoot(0.5);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-  private static Joystick buttonBox;
+  public static Joystick buttonBox;
 
 
   /**
@@ -43,6 +43,7 @@ public class RobotContainer {
 
     buttonBox = new Joystick(2);
   }
+
 
   /**
    * Use this method to define your button->command mappings.  Buttons can be created by
