@@ -93,10 +93,10 @@ public class RobotContainer {
     //SmartDashboard.putData("Index: default", new Index(0.4));
     //SmartDashboard.putData("HalfSpeed", new HalfSpeed());
     //SmartDashboard.putData("ToggleLockStraight", new ToggleLockStraight());
-    //SmartDashboard.putData("ManualTurretElevation: default", new ManualTurretElevation(0));
-    //SmartDashboard.putData("ManualTurretElevationDegrees: default", new ManualTurretElevationDegrees(0));
-    //SmartDashboard.putData("RunTurretVision", new RunTurretVision());
-    //SmartDashboard.putData("RunTurretManual", new RunTurretManual());
+    SmartDashboard.putData("ManualTurretElevation: default", new ManualTurretElevation(turret, 40));
+    SmartDashboard.putData("ManualTurretElevationDegrees: default", new ManualTurretElevationDegrees(turret, 90));
+    SmartDashboard.putData("RunTurretVision", new RunTurretVision(turret));
+    SmartDashboard.putData("RunTurretManual", new RunTurretManual(turret));
 
     SmartDashboard.putNumber("Degrees:", 0);
     SmartDashboard.putNumber("TurnPID P:", 0.05);
