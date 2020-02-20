@@ -19,7 +19,10 @@ import frc.robot.subsystems.*;
  * project.
  */
 public class Robot extends TimedRobot {
-  private Command m_autonomousCommand;
+  //public static Object m_controlPanel;
+
+
+private Command m_autonomousCommand;
 
   public RobotContainer m_robotContainer;
 

@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 //import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
+import frc.robot.subsystems.ColorSensor;
 //import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanel;
 
@@ -24,11 +25,12 @@ import com.revrobotics.ColorMatch;
  */
 public class RotationControl extends CommandBase {
     private final ControlPanel m_controlPanel;
-   
+    private final ColorSensor m_colorSensor;
 
    
-    public RotationControl(ControlPanel controlPanel) {
+    public RotationControl(ControlPanel controlPanel,ColorSensor colorSensor) {
         m_controlPanel = controlPanel;
+        m_colorSensor = colorSensor;
    
         addRequirements(controlPanel);
 
@@ -45,7 +47,7 @@ public class RotationControl extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
-        m_controlPanel.rotateX();
+        m_controlPanel.rotateX(m_colorSensor);
     }
 
     // Make this return true when this Command no longer needs to run execute()
