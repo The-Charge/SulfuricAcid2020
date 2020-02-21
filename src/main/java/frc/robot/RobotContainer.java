@@ -14,9 +14,10 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.*;
-
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.*;
+import frc.robot.*;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.Drivetrain;
 
@@ -29,15 +30,14 @@ import frc.robot.subsystems.Drivetrain;
 
 public class RobotContainer {
 
+  private final ExampleSubsystem m_ExampleSubsystem = new ExampleSubsystem();
+  private final ExampleCommand m_autoCommand = new ExampleCommand(m_ExampleSubsystem);
 
-    private final ExampleSubsystem m_ExampleSubsystem = new ExampleSubsystem();
-    private final ExampleCommand m_autoCommand = new ExampleCommand(m_ExampleSubsystem);
-
-	public ControlPanel m_controlPanel = new ControlPanel();
+	public ControlPanel controlPanel = new ControlPanel();
 
   public Drivetrain drivetrain = new Drivetrain();
   public Shifters shifters = new Shifters();
-  public Indexer m_Indexer = new Indexer();
+  public Indexer indexer = new Indexer();
   public static Joystick leftJoystick;
   public static Joystick rightJoystick;
   public JoystickButton shiftHighBtn;
@@ -48,11 +48,10 @@ public class RobotContainer {
   public JoystickButton shootBtn;
   public JoystickButton manualElevation;
   public JoystickButton driveXFeetBtn;
-  public Joystick buttonBox;
   public Intake m_Intake = new Intake();
   public ColorSensor m_colorSensor = new ColorSensor();
-  private final RotationControl m_rotationControl = new RotationControl(m_controlPanel, m_colorSensor);
-  private final PositionsControl m_positionsControl = new PositionsControl(m_controlPanel, m_colorSensor);
+  private final RotationControl m_rotationControl = new RotationControl(controlPanel, m_colorSensor);
+  private final PositionsControl m_positionsControl = new PositionsControl(controlPanel, m_colorSensor);
     // Button button = new JoystickButton(stick, buttonNumber);
 
     // There are a few additional built in buttons you can use. Additionally,
@@ -77,8 +76,8 @@ public class RobotContainer {
 
 public static Joystick buttonBox;
     public RobotContainer() {
-    SmartDashboard.putData("RotationControl", new RotationControl(m_controlPanel, m_colorSensor));
-    SmartDashboard.putData("PositionsControl", new PositionsControl(m_controlPanel, m_colorSensor));
+    SmartDashboard.putData("RotationControl", new RotationControl(controlPanel, m_colorSensor));
+    SmartDashboard.putData("PositionsControl", new PositionsControl(controlPanel, m_colorSensor));
     
     //SmartDashboard.putNumber("Red", detectedColor.red);
     //SmartDashboard.putNumber("Green", detectedColor.green);

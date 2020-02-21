@@ -17,8 +17,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj.I2C;
-//import edu.wpi.first.wpilibj.PIDOutput;
-//import edu.wpi.first.wpilibj.PIDSource;
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
 

@@ -47,7 +47,7 @@ public class Index extends CommandBase {
     // Called just before this Command runs the first time
     @Override
     public void initialize() {
-        Robot.m_indexer.initSpeedMode();
+        m_indexer.initSpeedMode();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -55,7 +55,7 @@ public class Index extends CommandBase {
     public void execute() {
     //double yAxisVal = RobotContainer.buttonBox.getRawAxis(1);
     double yAxisVal = m_speed;
-        Robot.m_indexer.setPercentSpeedPID(yAxisVal);
+        m_indexer.setPercentSpeedPID(yAxisVal);
         SmartDashboard.putNumber("Y AXIS VAL", yAxisVal);
     }
 
@@ -68,7 +68,7 @@ public class Index extends CommandBase {
     // Called once after isFinished returns true
     @Override
     public void end(boolean interrupted) {
-        Robot.m_indexer.stop();
+        m_indexer.stop();
        // Robot.indexer.setPercentVBus();
     }
 }
