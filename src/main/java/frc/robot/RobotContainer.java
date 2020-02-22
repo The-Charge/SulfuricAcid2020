@@ -19,6 +19,32 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.List;
+
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.controller.RamseteController;
+import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Transform2d;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
+import edu.wpi.first.wpilibj.trajectory.Trajectory;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
+import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import frc.robot.Constants.AutoConstants;
+import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.OIConstants;
+
+import static edu.wpi.first.wpilibj.XboxController.Button;
+
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -28,10 +54,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class RobotContainer {
-
-  // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   public Drivetrain drivetrain = new Drivetrain();
   public Shifters shifters = new Shifters();
@@ -112,6 +134,205 @@ public class RobotContainer {
     //SmartDashboard.putData("Reinitialize PIDController:", new ReinitializePIDController());
   }
 
+  public Command getAutonomousCommand() {
+
+    // Create a voltage constraint to ensure we don't accelerate too fast
+    var autoVoltageConstraint =
+        new DifferentialDriveVoltageConstraint(
+            new SimpleMotorFeedforward(DriveConstants.ksVolts,
+                                       DriveConstants.kvVoltSecondsPerMeter,
+                                       DriveConstants.kaVoltSecondsSquaredPerMeter),
+            DriveConstants.kDriveKinematics,
+            10);
+
+    // Create config for trajectory
+    TrajectoryConfig config =
+        new TrajectoryConfig(AutoConstants.kMaxSpeedMetersPerSecond,
+                             AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+            // Add kinematics to ensure max speed is actually obeyed
+            .setKinematics(DriveConstants.kDriveKinematics)
+            // Apply the voltage constraint
+            .addConstraint(autoVoltageConstraint);
+
+    //  config.setReversed(true);
+
+    // An example trajectory to follow.  All units in meters.
+
+
+    
+
+    /*
+    
+    Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
+        // Start at the origin facing the +X direction
+        new Pose2d(0, 0, new Rotation2d(0)),
+        // Pass through these two interior waypoints, making an 's' curve path
+        List.of(
+          new Translation2d(1, 0)
+          //new Translation2d(2, 0)
+          //new Translation2d(5, -1)
+        ),
+        // End 3 meters straight ahead of where we started, facing forward
+        new Pose2d(1.4, 2, new Rotation2d(Math.PI/3.25)),
+        // Pass config
+        config
+    );
+
+    */
+
+    
+    /*
+    
+    
+    String trajectoryJSON = "paths/Example.wpilib.json";
+    Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
+      // Start at the origin facing the +X direction
+      new Pose2d(0, 0, new Rotation2d(0)),
+      // Pass through these two interior waypoints, making an 's' curve path
+      List.of(
+        new Translation2d(1, 1)
+      ),
+      // End 3 meters straight ahead of where we started, facing forward
+      new Pose2d(2, 0, new Rotation2d(0)),
+      // Pass config
+      config
+  );
+
+  */
+  
+    try{
+      
+      String trajectoryJSON = "paths/Backwards.wpilib.json";
+    Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
+    Trajectory exampleTrajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+    System.out.println(exampleTrajectory);
+    exampleTrajectory = exampleTrajectory.transformBy(new Transform2d(new Pose2d(0, 0, new Rotation2d(0)), new Pose2d(-3, 5, new Rotation2d(0))));
+    System.out.println(exampleTrajectory);
+    RamseteCommand ramseteCommand = new RamseteCommand(
+        exampleTrajectory,
+        drivetrain::getPose,
+        new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
+        new SimpleMotorFeedforward(DriveConstants.ksVolts,
+                                   DriveConstants.kvVoltSecondsPerMeter,
+                                   DriveConstants.kaVoltSecondsSquaredPerMeter),
+        DriveConstants.kDriveKinematics,
+        drivetrain::getWheelSpeeds,
+        new PIDController(DriveConstants.kPDriveVel, 0, 0),
+        new PIDController(DriveConstants.kPDriveVel, 0, 0),
+        // RamseteCommand passes volts to the callback
+        drivetrain::tankDriveVolts,
+        drivetrain
+    );
+
+    // Run path following command, then stop at the end.
+    return ramseteCommand.andThen(() -> drivetrain.tankDriveVolts(0, 0));
+    }
+    catch (IOException ex)
+    {
+      DriverStation.reportError("Unable to open trajectory", ex.getStackTrace());
+      System.out.println("Inside Catch");
+    }
+    
+
+
+
+    return null;
+  }
+
+  public Command getAutonomousCommand2() {
+
+    // Create a voltage constraint to ensure we don't accelerate too fast
+    var autoVoltageConstraint =
+        new DifferentialDriveVoltageConstraint(
+            new SimpleMotorFeedforward(DriveConstants.ksVolts,
+                                       DriveConstants.kvVoltSecondsPerMeter,
+                                       DriveConstants.kaVoltSecondsSquaredPerMeter),
+            DriveConstants.kDriveKinematics,
+            10);
+
+    // Create config for trajectory
+    TrajectoryConfig config =
+        new TrajectoryConfig(AutoConstants.kMaxSpeedMetersPerSecond,
+                             AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+            // Add kinematics to ensure max speed is actually obeyed
+            .setKinematics(DriveConstants.kDriveKinematics)
+            // Apply the voltage constraint
+            .addConstraint(autoVoltageConstraint);
+
+    //config.setReversed(true);
+
+    // An example trajectory to follow.  All units in meters.
+
+    //config.setReversed(true);
+    
+    
+    Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
+        // Start at the origin facing the +X direction
+        new Pose2d(1.4, 2, new Rotation2d(Math.PI/3.25)),
+        // Pass through these two interior waypoints, making an 's' curve path
+        List.of(
+          //new Translation2d(3, 0)
+          //new Translation2d(5, -1),
+          //new Translation2d(5, -1)
+        ),
+        // End 3 meters straight ahead of where we started, facing forward
+        new Pose2d(3, 0, new Rotation2d(0)),
+        // Pass config
+        config
+    );
+
+    /*
+
+
+    
+    String trajectoryJSON = "paths/Example.wpilib.json";
+    Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
+      // Start at the origin facing the +X direction
+      new Pose2d(0, 0, new Rotation2d(0)),
+      // Pass through these two interior waypoints, making an 's' curve path
+      List.of(
+        new Translation2d(1, 1)
+      ),
+      // End 3 meters straight ahead of where we started, facing forward
+      new Pose2d(2, 0, new Rotation2d(0)),
+      // Pass config
+      config
+  );
+  
+    try{
+
+    Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
+    exampleTrajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+    System.out.println("INside try");
+    }
+    catch (IOException ex)
+    {
+      DriverStation.reportError("Unable to open trajectory", ex.getStackTrace());
+      System.out.println("Inside Catch");
+    }
+    
+*/
+
+
+    RamseteCommand ramseteCommand = new RamseteCommand(
+        exampleTrajectory,
+        drivetrain::getPose,
+        new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
+        new SimpleMotorFeedforward(DriveConstants.ksVolts,
+                                   DriveConstants.kvVoltSecondsPerMeter,
+                                   DriveConstants.kaVoltSecondsSquaredPerMeter),
+        DriveConstants.kDriveKinematics,
+        drivetrain::getWheelSpeeds,
+        new PIDController(DriveConstants.kPDriveVel, 0, 0),
+        new PIDController(DriveConstants.kPDriveVel, 0, 0),
+        // RamseteCommand passes volts to the callback
+        drivetrain::tankDriveVolts,
+        drivetrain
+    );
+
+    // Run path following command, then stop at the end.
+    return ramseteCommand.andThen(() -> drivetrain.tankDriveVolts(0, 0));
+  }
   /**
    * Use this method to define your button->command mappings.  Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
@@ -127,10 +348,7 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return m_autoCommand;
-  }
+  
 
   public Joystick getRightJoystick() {
     return rightJoystick;
@@ -143,11 +361,5 @@ public class RobotContainer {
   public Joystick getButtonBox() {
     return buttonBox;
   }
-
-
-
-
-
-
 
 }
