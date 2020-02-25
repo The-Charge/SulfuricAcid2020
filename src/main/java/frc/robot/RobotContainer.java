@@ -22,6 +22,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.Drivetrain;
 
 
+
+
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -33,11 +35,14 @@ public class RobotContainer {
   private final ExampleSubsystem m_ExampleSubsystem = new ExampleSubsystem();
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_ExampleSubsystem);
 
-	public ControlPanel controlPanel = new ControlPanel();
+  public ControlPanel controlPanel = new ControlPanel();
+  public ColorSensor colorSensor = new ColorSensor();
+  public Intake intake = new Intake();
 
   public Drivetrain drivetrain = new Drivetrain();
   public Shifters shifters = new Shifters();
   public Indexer indexer = new Indexer();
+
   public static Joystick leftJoystick;
   public static Joystick rightJoystick;
   public JoystickButton shiftHighBtn;
@@ -45,13 +50,25 @@ public class RobotContainer {
   public JoystickButton quarterSpeedBtn;
   public JoystickButton halfSpeedBtn;
   public JoystickButton toggleLockStraightBtn;
+  public JoystickButton invertDriveBtn;
   public JoystickButton shootBtn;
   public JoystickButton manualElevation;
   public JoystickButton driveXFeetBtn;
+  public JoystickButton indexBtn;
+  public JoystickButton positionControlBtn;
+  public JoystickButton rotationControlBtn;
+  public JoystickButton runIntakeBtn;
+  public JoystickButton senseColorBtn;
+
+
   public Intake m_Intake = new Intake();
   public ColorSensor m_colorSensor = new ColorSensor();
   private final RotationControl m_rotationControl = new RotationControl(controlPanel, m_colorSensor);
   private final PositionsControl m_positionsControl = new PositionsControl(controlPanel, m_colorSensor);
+
+  public static Joystick buttonBox;
+  public boolean realButtonBox = true;
+
     // Button button = new JoystickButton(stick, buttonNumber);
 
     // There are a few additional built in buttons you can use. Additionally,
@@ -74,7 +91,7 @@ public class RobotContainer {
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
 
-public static Joystick buttonBox;
+
     public RobotContainer() {
     SmartDashboard.putData("RotationControl", new RotationControl(controlPanel, m_colorSensor));
     SmartDashboard.putData("PositionsControl", new PositionsControl(controlPanel, m_colorSensor));
@@ -84,22 +101,61 @@ public static Joystick buttonBox;
     //SmartDashboard.putNumber("Blue", detectedColor.blue);
     //SmartDashboard.putNumber("Confidence", match.confidence);
     //SmartDashboard.putString("Detected Color", colorString);
-	configureButtonBindings();
-
-    buttonBox = new Joystick(2);
-    driveXFeetBtn = new JoystickButton(buttonBox, 2);
-    driveXFeetBtn.whenPressed(new DriveXFeetMM(0, 0, 10, drivetrain));
+	  configureButtonBindings();
 
 
-    manualElevation = new JoystickButton(buttonBox, 6);
-    //manualElevation.whileHeld(new ManualTurretElevation(0));
-    shootBtn = new JoystickButton(buttonBox, 1);
-    //shootBtn.whileHeld(new Shoot(0));
+    rightJoystick = new Joystick(0);
     leftJoystick = new Joystick(1);
 
+    //just in case the ButtonBox doesn't work
+    if (realButtonBox)
+    {
+      buttonBox = new Joystick(2);
+      
+      driveXFeetBtn = new JoystickButton(buttonBox, 2);
+      driveXFeetBtn.whenPressed(new DriveXFeetMM(0, 0, 10, drivetrain));
+  
+      manualElevation = new JoystickButton(buttonBox, 6);
+      //manualElevation.whileHeld(new ManualTurretElevation(0));
+      shootBtn = new JoystickButton(buttonBox, 1);
+      //shootBtn.whileHeld(new Shoot(0));
+      indexBtn = new JoystickButton(buttonBox, 3);
+      indexBtn.whileHeld(new Index(indexer, 0));
+      positionControlBtn = new JoystickButton(buttonBox, 4);
+      positionControlBtn.whileHeld(new PositionsControl(controlPanel, colorSensor));
+      rotationControlBtn = new JoystickButton(buttonBox, 5);
+      rotationControlBtn.whileHeld(new RotationControl(controlPanel, colorSensor));
+      runIntakeBtn = new JoystickButton(buttonBox, 7);
+      runIntakeBtn.whileHeld(new RunIntake(intake, 0));
+      senseColorBtn = new JoystickButton(buttonBox, 8);
+      senseColorBtn.whileHeld(new SenseColor(colorSensor));
+
+
+    }
+    else
+    {
+      driveXFeetBtn = new JoystickButton(leftJoystick, 2);
+      driveXFeetBtn.whenPressed(new DriveXFeetMM(0, 0, 10, drivetrain));
+  
+      manualElevation = new JoystickButton(leftJoystick, 6);
+      //manualElevation.whileHeld(new ManualTurretElevation(0));
+      shootBtn = new JoystickButton(leftJoystick, 1);
+      //shootBtn.whileHeld(new Shoot(0));
+      indexBtn = new JoystickButton(leftJoystick, 3);
+      indexBtn.whileHeld(new Index(indexer, 0));
+      positionControlBtn = new JoystickButton(leftJoystick, 4);
+      positionControlBtn.whileHeld(new PositionsControl(controlPanel, colorSensor));
+      rotationControlBtn = new JoystickButton(leftJoystick, 5);
+      rotationControlBtn.whileHeld(new RotationControl(controlPanel, colorSensor));
+      runIntakeBtn = new JoystickButton(leftJoystick, 7);
+      runIntakeBtn.whileHeld(new RunIntake(intake, 0));
+      senseColorBtn = new JoystickButton(leftJoystick, 8);
+      senseColorBtn.whileHeld(new SenseColor(colorSensor));
+    }
+    
+
     toggleLockStraightBtn = new JoystickButton(leftJoystick, 1);
-    toggleLockStraightBtn.whileHeld(new ToggleLockStraight(drivetrain));
-    rightJoystick = new Joystick(0);
+    toggleLockStraightBtn.whenPressed(new ToggleLockStraight(drivetrain));
 
     halfSpeedBtn = new JoystickButton(rightJoystick, 5);
     halfSpeedBtn.whileHeld(new HalfSpeed(drivetrain));
@@ -109,6 +165,8 @@ public static Joystick buttonBox;
     shiftLowBtn.whenPressed(new ShiftLow(shifters));
     shiftHighBtn = new JoystickButton(rightJoystick, 1);
     shiftHighBtn.whenPressed(new ShiftHigh(shifters));
+    invertDriveBtn = new JoystickButton(buttonBox, 6);
+    invertDriveBtn.whenPressed(new InvertDrive(drivetrain));
 
 
     // SmartDashboard Buttons
@@ -117,14 +175,14 @@ public static Joystick buttonBox;
     SmartDashboard.putData("ShiftLow", new ShiftLow(shifters));
     //SmartDashboard.putData("Shoot: default", new Shoot(0.4));
     //SmartDashboard.putData("TurretCommand", new TurretCommand());
-    //SmartDashboard.putData("RunIntake: default", new RunIntake(0.4));
+    SmartDashboard.putData("RunIntake: default", new RunIntake(intake, 0.4));
     SmartDashboard.putData("DriveXFeetMM: default", new DriveXFeetMM(0, 0, 30, drivetrain));
     //SmartDashboard.putData("TurnNDegreesAbsolute: default", new TurnNDegreesAbsolute(180));
     SmartDashboard.putData("InvertDrive", new InvertDrive(drivetrain));
     SmartDashboard.putData("QuarterSpeed", new QuarterSpeed(drivetrain));
-    //SmartDashboard.putData("RotationControl", new RotationControl());
-    //SmartDashboard.putData("PositionControl", new PositionControl());
-    //SmartDashboard.putData("Index: default", new Index(0.4));
+    SmartDashboard.putData("RotationControl", new RotationControl(controlPanel, colorSensor));
+    SmartDashboard.putData("PositionControl", new PositionsControl(controlPanel, colorSensor));
+    SmartDashboard.putData("Index: default", new Index(indexer, 0.4));
     SmartDashboard.putData("HalfSpeed", new HalfSpeed(drivetrain));
     SmartDashboard.putData("ToggleLockStraight", new ToggleLockStraight(drivetrain));
     //SmartDashboard.putData("ManualTurretElevation: default", new ManualTurretElevation(0));
@@ -148,8 +206,6 @@ public static Joystick buttonBox;
    */
   private void configureButtonBindings() {
   }
-
-
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
