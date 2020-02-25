@@ -62,6 +62,7 @@ public class RobotContainer {
 
   public Drivetrain drivetrain = new Drivetrain();
   public Shifters shifters = new Shifters();
+  public Climber climber = new Climber();
   public Indexer indexer = new Indexer();
   public static Joystick leftJoystick;
   public static Joystick rightJoystick;
@@ -73,6 +74,8 @@ public class RobotContainer {
   public JoystickButton shootBtn;
   public JoystickButton manualElevation;
   public JoystickButton driveXFeetBtn;
+  public JoystickButton climbUp;
+  public JoystickButton climbDown;
   public Intake m_Intake = new Intake();
   public ColorSensor m_colorSensor = new ColorSensor();
   private final RotationControl m_rotationControl = new RotationControl(controlPanel, m_colorSensor);
@@ -135,6 +138,11 @@ public static Joystick buttonBox;
     shiftHighBtn = new JoystickButton(rightJoystick, 1);
     shiftHighBtn.whenPressed(new ShiftHigh(shifters));
 
+    climbDown = new JoystickButton(buttonBox, 6);
+    climbDown.whileHeld(new ClimberSpeedMode(climber, -0.5));
+    climbUp = new JoystickButton(buttonBox, 5);
+    climbUp.whileHeld(new ClimberSpeedMode(climber, 0.5));
+
 
     // SmartDashboard Buttons
     SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
@@ -156,6 +164,8 @@ public static Joystick buttonBox;
     //SmartDashboard.putData("ManualTurretElevationDegrees: default", new ManualTurretElevationDegrees(0));
     //SmartDashboard.putData("RunTurretVision", new RunTurretVision());
     //SmartDashboard.putData("RunTurretManual", new RunTurretManual());
+    SmartDashboard.putData("ClimberSpeedMode: up", new ClimberSpeedMode(climber, 0.5));
+    SmartDashboard.putData("ClimberSpeedMode: down", new ClimberSpeedMode(climber, -0.5));
 
     SmartDashboard.putNumber("Degrees:", 0);
     SmartDashboard.putNumber("TurnPID P:", 0.05);
