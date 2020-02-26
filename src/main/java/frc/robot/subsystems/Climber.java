@@ -62,9 +62,13 @@ goingUp = false;
    
 
    
-    public void stop(){
+    public void stopMotor(){
         climberMotor.set(ControlMode.PercentOutput,0);
-        if(goingUp == false)
+        
+    }
+
+    public void engageBrakes(){
+        if(!goingUp)
             climberBrakeDoubleSolenoid.set(Value.kForward);
     }
 
