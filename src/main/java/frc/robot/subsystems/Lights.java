@@ -34,11 +34,6 @@ public class Lights implements Subsystem {
    
     private boolean running = true;
 
-
-    
-
-    
-
     public Lights() {
         
         setDefaultCommand(new ChangeLights(this));
@@ -75,9 +70,9 @@ public class Lights implements Subsystem {
         else{
             if(running)   
             {
-                canifier.setLEDOutput(236, CANifier.LEDChannel.LEDChannelA);
-                canifier.setLEDOutput(232, CANifier.LEDChannel.LEDChannelB);
-                canifier.setLEDOutput(241, CANifier.LEDChannel.LEDChannelC);
+                canifier.setLEDOutput(250, CANifier.LEDChannel.LEDChannelA);
+                canifier.setLEDOutput(250, CANifier.LEDChannel.LEDChannelB);
+                canifier.setLEDOutput(35, CANifier.LEDChannel.LEDChannelC);
             }
             else if(running)
             {
