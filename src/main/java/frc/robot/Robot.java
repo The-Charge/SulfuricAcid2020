@@ -27,7 +27,8 @@ import frc.robot.Constants.DriveConstants;
  * project.
  */
 public class Robot extends TimedRobot {
- 
+  public static BallSensor ballSensor;
+
 
 
 private Command m_autonomousCommand;
@@ -47,6 +48,7 @@ public RobotContainer m_robotContainer;
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer();
+    ballSensor = new BallSensor();
 
 
   

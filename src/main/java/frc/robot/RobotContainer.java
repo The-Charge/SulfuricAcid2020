@@ -63,6 +63,7 @@ public class RobotContainer {
   public Drivetrain drivetrain = new Drivetrain();
   public Shifters shifters = new Shifters();
   public Indexer indexer = new Indexer();
+  public BallSensor Sensor = new BallSensor();
   public static Joystick leftJoystick;
   public static Joystick rightJoystick;
   public JoystickButton shiftHighBtn;
@@ -73,6 +74,7 @@ public class RobotContainer {
   public JoystickButton shootBtn;
   public JoystickButton manualElevation;
   public JoystickButton driveXFeetBtn;
+  public JoystickButton zeroBalls;
   public Intake m_Intake = new Intake();
   public ColorSensor m_colorSensor = new ColorSensor();
   private final RotationControl m_rotationControl = new RotationControl(controlPanel, m_colorSensor);
@@ -134,6 +136,8 @@ public static Joystick buttonBox;
     shiftLowBtn.whenPressed(new ShiftLow(shifters));
     shiftHighBtn = new JoystickButton(rightJoystick, 1);
     shiftHighBtn.whenPressed(new ShiftHigh(shifters));
+    zeroBalls = new JoystickButton(rightJoystick, 3);
+  zeroBalls.whenPressed(new BallDetector(Sensor));
 
 
     // SmartDashboard Buttons
@@ -161,6 +165,7 @@ public static Joystick buttonBox;
     SmartDashboard.putNumber("TurnPID P:", 0.05);
     SmartDashboard.putNumber("TurnPID I:", 0.00004);
     SmartDashboard.putNumber("TurnPID D:", 0.0025);
+    SmartDashboard.putData("Set Balls 0", new BallDetector());
 
     //SmartDashboard.putData("Reinitialize PIDController:", new ReinitializePIDController());
   }
