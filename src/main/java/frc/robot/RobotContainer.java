@@ -16,6 +16,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.*;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -49,10 +51,12 @@ import frc.robot.Constants.OIConstants;
 import static edu.wpi.first.wpilibj.XboxController.Button;
 
 /**
- * This class is the glue that binds the controls on the physical operator
- * interface to the commands and command groups that allow control of the robot.
+ * This class is where the bulk of the robot should be declared.  Since Command-based is a
+ * Command-based is a "declarative" paradigm, very little robot logic should
+ * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
+ * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
+ * (including subsystems, commands, and button mappings) should be declared here.
  */
-
 
 public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
@@ -66,6 +70,7 @@ public class RobotContainer {
   public Indexer indexer = new Indexer();
   public static Joystick leftJoystick;
   public static Joystick rightJoystick;
+  public static Joystick buttonBox;
   public JoystickButton shiftHighBtn;
   public JoystickButton shiftLowBtn;
   public JoystickButton quarterSpeedBtn;
@@ -85,24 +90,19 @@ public class RobotContainer {
     // There are a few additional built in buttons you can use. Additionally,
     // by subclassing Button you can create custom triggers and bind those to
     // commands the same as any other Button.
-
     //// TRIGGERING COMMANDS WITH BUTTONS
     // Once you have a button, it's trivial to bind it to a button in one of
     // three ways:
-
     // Start the command when the button is pressed and let it run the command
     // until it is finished as determined by it's isFinished method.
     // button.whenPressed(new ExampleCommand());
-
     // Run the command while the button is being held down and interrupt it once
     // the button is released.
     // button.whileHeld(new ExampleCommand());
 
-    // Start the command when the button is released  and let it run the command
+   // The container for the robot.  Contains subsystems, OI devices, and commands.
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
-
-public static Joystick buttonBox;
     public RobotContainer() {
     SmartDashboard.putData("RotationControl", new RotationControl(controlPanel, m_colorSensor));
     SmartDashboard.putData("PositionsControl", new PositionsControl(controlPanel, m_colorSensor));
@@ -118,11 +118,10 @@ public static Joystick buttonBox;
     driveXFeetBtn = new JoystickButton(buttonBox, 2);
     driveXFeetBtn.whenPressed(new DriveXFeetMM(0, 0, 10, drivetrain));
 
-
     manualElevation = new JoystickButton(buttonBox, 6);
-    //manualElevation.whileHeld(new ManualTurretElevation(0));
+    // manualElevation.whileHeld(new ManualTurretElevation(0));
     shootBtn = new JoystickButton(buttonBox, 1);
-    //shootBtn.whileHeld(new Shoot(0));
+    // shootBtn.whileHeld(new Shoot(0));
     leftJoystick = new Joystick(1);
 
     toggleLockStraightBtn = new JoystickButton(leftJoystick, 1);
@@ -141,6 +140,7 @@ public static Joystick buttonBox;
 */
     climbDown = new JoystickButton(buttonBox, 6);
     climbDown.whileHeld(new ClimberSpeedMode(climber, -0.5));
+    climbDown.whenReleased(new SequentialCommandGroup(new WaitCommand(1), new ClimberBrake(climber), new WaitCommand(1)));
     climbUp = new JoystickButton(buttonBox, 5);
     climbUp.whileHeld(new ClimberSpeedMode(climber, 0.5));
 
