@@ -60,7 +60,6 @@ public class RobotContainer {
   public JoystickButton runIntakeBtn;
   public JoystickButton senseColorBtn;
 
-
   public Intake m_Intake = new Intake();
   public ColorSensor m_colorSensor = new ColorSensor();
   private final RotationControl m_rotationControl = new RotationControl(controlPanel, m_colorSensor);
@@ -103,7 +102,6 @@ public class RobotContainer {
     //SmartDashboard.putString("Detected Color", colorString);
 	  configureButtonBindings();
 
-
     rightJoystick = new Joystick(0);
     leftJoystick = new Joystick(1);
 
@@ -112,62 +110,92 @@ public class RobotContainer {
     {
       buttonBox = new Joystick(2);
       
+      //just for testing
       driveXFeetBtn = new JoystickButton(buttonBox, 2);
       driveXFeetBtn.whenPressed(new DriveXFeetMM(0, 0, 10, drivetrain));
-  
-      manualElevation = new JoystickButton(buttonBox, 6);
-      //manualElevation.whileHeld(new ManualTurretElevation(0));
-      shootBtn = new JoystickButton(buttonBox, 1);
-      //shootBtn.whileHeld(new Shoot(0));
-      indexBtn = new JoystickButton(buttonBox, 3);
-      indexBtn.whileHeld(new Index(indexer, 0));
-      positionControlBtn = new JoystickButton(buttonBox, 4);
-      positionControlBtn.whileHeld(new PositionsControl(controlPanel, colorSensor));
-      rotationControlBtn = new JoystickButton(buttonBox, 5);
-      rotationControlBtn.whileHeld(new RotationControl(controlPanel, colorSensor));
+
+      //reverse intake
+      runIntakeBtn = new JoystickButton(buttonBox, 1);
+      runIntakeBtn.whenPressed(new RunIntake(intake, -1));
+
+      //climb up/climb down
+      manualElevation = new JoystickButton(buttonBox, 2);
+     //manualElevation.whenPressed(new ManualTurretElevation(0));
+
+      runIntakeBtn = new JoystickButton(buttonBox, 4);
+      runIntakeBtn.whenPressed(new RunIntake(intake, 1));
+
+      indexBtn = new JoystickButton(buttonBox, 7);
+      indexBtn.whenPressed(new Index(indexer, 1));
       runIntakeBtn = new JoystickButton(buttonBox, 7);
-      runIntakeBtn.whileHeld(new RunIntake(intake, 0));
-      senseColorBtn = new JoystickButton(buttonBox, 8);
-      senseColorBtn.whileHeld(new SenseColor(colorSensor));
+      runIntakeBtn.whenPressed(new RunIntake(intake, 1));
 
-
-    }
-    else
-    {
-      driveXFeetBtn = new JoystickButton(leftJoystick, 2);
-      driveXFeetBtn.whenPressed(new DriveXFeetMM(0, 0, 10, drivetrain));
-  
-      manualElevation = new JoystickButton(leftJoystick, 6);
-      //manualElevation.whileHeld(new ManualTurretElevation(0));
-      shootBtn = new JoystickButton(leftJoystick, 1);
-      //shootBtn.whileHeld(new Shoot(0));
-      indexBtn = new JoystickButton(leftJoystick, 3);
-      indexBtn.whileHeld(new Index(indexer, 0));
-      positionControlBtn = new JoystickButton(leftJoystick, 4);
+      shootBtn = new JoystickButton(buttonBox, 9);
+      //shootBtn.whileHeld(new Shoot(0));  
+     
+      positionControlBtn = new JoystickButton(buttonBox, 5);
       positionControlBtn.whileHeld(new PositionsControl(controlPanel, colorSensor));
-      rotationControlBtn = new JoystickButton(leftJoystick, 5);
+      rotationControlBtn = new JoystickButton(buttonBox, 6);
       rotationControlBtn.whileHeld(new RotationControl(controlPanel, colorSensor));
-      runIntakeBtn = new JoystickButton(leftJoystick, 7);
-      runIntakeBtn.whileHeld(new RunIntake(intake, 0));
-      senseColorBtn = new JoystickButton(leftJoystick, 8);
+
+      senseColorBtn = new JoystickButton(buttonBox, 5);
       senseColorBtn.whileHeld(new SenseColor(colorSensor));
+    }
+
+    else  //use leftJoystick 
+    {
+     //just for testing
+     driveXFeetBtn = new JoystickButton(leftJoystick, 2);
+     driveXFeetBtn.whenPressed(new DriveXFeetMM(0, 0, 10, drivetrain));
+
+     //reverse intake
+     runIntakeBtn = new JoystickButton(leftJoystick, 1);
+     runIntakeBtn.whenPressed(new RunIntake(intake, -1));
+
+     //climb up/climb down
+     manualElevation = new JoystickButton(leftJoystick, 2);
+     //manualElevation.whenPressed(new ManualTurretElevation(0));
+
+     runIntakeBtn = new JoystickButton(leftJoystick, 5);
+     runIntakeBtn.whenPressed(new RunIntake(intake, 1));
+
+     indexBtn = new JoystickButton(leftJoystick, 6);
+     indexBtn.whenPressed(new Index(indexer, 1));
+     runIntakeBtn = new JoystickButton(leftJoystick, 6);
+     runIntakeBtn.whenPressed(new RunIntake(intake, 1));
+
+     shootBtn = new JoystickButton(leftJoystick, 11);
+     //shootBtn.whileHeld(new Shoot(0));  
+     
+     positionControlBtn = new JoystickButton(buttonBox, 5);
+     positionControlBtn.whileHeld(new PositionsControl(controlPanel, colorSensor));
+     rotationControlBtn = new JoystickButton(buttonBox, 6);
+     rotationControlBtn.whileHeld(new RotationControl(controlPanel, colorSensor));
+     senseColorBtn = new JoystickButton(buttonBox, 5);
+     senseColorBtn.whileHeld(new SenseColor(colorSensor));
     }
     
-
-    toggleLockStraightBtn = new JoystickButton(leftJoystick, 1);
+    //Drive Train buttons
+    
+    //left joystick
+    toggleLockStraightBtn = new JoystickButton(leftJoystick, 4 );
     toggleLockStraightBtn.whenPressed(new ToggleLockStraight(drivetrain));
 
-    halfSpeedBtn = new JoystickButton(rightJoystick, 5);
-    halfSpeedBtn.whileHeld(new HalfSpeed(drivetrain));
-    quarterSpeedBtn = new JoystickButton(rightJoystick, 4);
-    quarterSpeedBtn.whileHeld(new QuarterSpeed(drivetrain));
-    shiftLowBtn = new JoystickButton(rightJoystick, 2);
-    shiftLowBtn.whenPressed(new ShiftLow(shifters));
+    //right joystick
     shiftHighBtn = new JoystickButton(rightJoystick, 1);
-    shiftHighBtn.whenPressed(new ShiftHigh(shifters));
-    invertDriveBtn = new JoystickButton(buttonBox, 6);
+    shiftHighBtn.whileHeld(new ShiftHigh(shifters));
+    invertDriveBtn = new JoystickButton(buttonBox, 2);
     invertDriveBtn.whenPressed(new InvertDrive(drivetrain));
-
+    shiftHighBtn = new JoystickButton(rightJoystick, 3);
+    shiftHighBtn.whenPressed(new ShiftHigh(shifters));
+    quarterSpeedBtn = new JoystickButton(rightJoystick, 4);
+    quarterSpeedBtn.whenPressed(new QuarterSpeed(drivetrain));
+    shiftLowBtn = new JoystickButton(rightJoystick, 5);
+    shiftLowBtn.whenPressed(new ShiftLow(shifters));
+    halfSpeedBtn = new JoystickButton(rightJoystick, 6);
+    halfSpeedBtn.whenPressed(new HalfSpeed(drivetrain));
+    
+    
 
     // SmartDashboard Buttons
     SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
@@ -198,6 +226,7 @@ public class RobotContainer {
     //SmartDashboard.putData("Reinitialize PIDController:", new ReinitializePIDController());
   }
 
+
   /**
    * Use this method to define your button->command mappings.  Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
@@ -227,11 +256,5 @@ public class RobotContainer {
   public Joystick getButtonBox() {
     return buttonBox;
   }
-
-
-
-
-
-
 
 }
