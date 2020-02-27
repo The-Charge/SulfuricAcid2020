@@ -61,6 +61,7 @@ public class RobotContainer {
 	public ControlPanel controlPanel = new ControlPanel();
 
   public Drivetrain drivetrain = new Drivetrain();
+  public Turret turret = new Turret();
   public Shifters shifters = new Shifters();
   public Climber climber = new Climber();
   public Indexer indexer = new Indexer();
@@ -78,6 +79,7 @@ public class RobotContainer {
   public JoystickButton climbDown;
   public Intake m_Intake = new Intake();
   public ColorSensor m_colorSensor = new ColorSensor();
+
   private final RotationControl m_rotationControl = new RotationControl(controlPanel, m_colorSensor);
   private final PositionsControl m_positionsControl = new PositionsControl(controlPanel, m_colorSensor);
     // Button button = new JoystickButton(stick, buttonNumber);
