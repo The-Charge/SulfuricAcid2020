@@ -61,7 +61,7 @@ public class RobotContainer {
 	public ControlPanel controlPanel = new ControlPanel();
 
   public Drivetrain drivetrain = new Drivetrain();
-  public Shifters shifters = new Shifters();
+  //public Shifters shifters = new Shifters();
   public Climber climber = new Climber();
   public Indexer indexer = new Indexer();
   public static Joystick leftJoystick;
@@ -133,11 +133,12 @@ public static Joystick buttonBox;
     halfSpeedBtn.whileHeld(new HalfSpeed(drivetrain));
     quarterSpeedBtn = new JoystickButton(rightJoystick, 4);
     quarterSpeedBtn.whileHeld(new QuarterSpeed(drivetrain));
+    /*
     shiftLowBtn = new JoystickButton(rightJoystick, 2);
     shiftLowBtn.whenPressed(new ShiftLow(shifters));
     shiftHighBtn = new JoystickButton(rightJoystick, 1);
     shiftHighBtn.whenPressed(new ShiftHigh(shifters));
-
+*/
     climbDown = new JoystickButton(buttonBox, 6);
     climbDown.whileHeld(new ClimberSpeedMode(climber, -0.5));
     climbUp = new JoystickButton(buttonBox, 5);
@@ -146,8 +147,8 @@ public static Joystick buttonBox;
 
     // SmartDashboard Buttons
     SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
-    SmartDashboard.putData("ShiftHigh", new ShiftHigh(shifters));
-    SmartDashboard.putData("ShiftLow", new ShiftLow(shifters));
+    //SmartDashboard.putData("ShiftHigh", new ShiftHigh(shifters));
+    //SmartDashboard.putData("ShiftLow", new ShiftLow(shifters));
     //SmartDashboard.putData("Shoot: default", new Shoot(0.4));
     //SmartDashboard.putData("TurretCommand", new TurretCommand());
     //SmartDashboard.putData("RunIntake: default", new RunIntake(0.4));

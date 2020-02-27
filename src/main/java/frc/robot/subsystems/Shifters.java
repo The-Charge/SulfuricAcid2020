@@ -40,8 +40,8 @@ private Solenoid shifterSolenoid;
 
     public Shifters() {
        
-    shifterSolenoid = new Solenoid(1, 0);
-    //addChild("ShifterSolenoid",shifterSolenoid);
+    shifterSolenoid = new Solenoid(1, 1);
+ 
 
     }
 

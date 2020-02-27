@@ -49,8 +49,7 @@ private boolean goingUp;
     public Climber() {
 climberMotor = new WPI_TalonSRX(20);
 
-climberBrakeDoubleSolenoid = new DoubleSolenoid(0, 3, 4);
-addChild("ClimberBrakeDoubleSolenoid",climberBrakeDoubleSolenoid);
+//climberBrakeDoubleSolenoid = new DoubleSolenoid(0, 3, 4);
         
 goingUp = false;
 
@@ -64,8 +63,8 @@ goingUp = false;
    
     public void stop(){
         climberMotor.set(ControlMode.PercentOutput,0);
-        if(goingUp == false)
-            climberBrakeDoubleSolenoid.set(Value.kForward);
+        if(goingUp == false);
+            //climberBrakeDoubleSolenoid.set(Value.kForward);
     }
 
     public void initSpeedMode(){
@@ -81,7 +80,7 @@ goingUp = false;
 
     public void set(double percentSpeed)
     {
-        climberBrakeDoubleSolenoid.set(Value.kOff);
+        //climberBrakeDoubleSolenoid.set(Value.kOff);
         if(percentSpeed > 0)
             goingUp = true;
         else
