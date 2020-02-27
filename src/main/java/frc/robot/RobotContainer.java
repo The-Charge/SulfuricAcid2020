@@ -9,10 +9,10 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
-
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.*;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj.Joystick;
@@ -20,12 +20,12 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * This class is where the bulk of the robot should be declared.  Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
- * (including subsystems, commands, and button mappings) should be declared here.
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a "declarative" paradigm, very little robot logic should
+ * actually be handled in the {@link Robot} periodic methods (other than the
+ * scheduler calls). Instead, the structure of the robot (including subsystems,
+ * commands, and button mappings) should be declared here.
  */
-
 
 public class RobotContainer {
 
@@ -51,11 +51,8 @@ public class RobotContainer {
   public JoystickButton climbDown;
   public Joystick buttonBox;
 
-
-
-
   /**
-   * The container for the robot.  Contains subsystems, OI devices, and commands.
+   * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     // Configure the button bindings
@@ -65,11 +62,10 @@ public class RobotContainer {
     driveXFeetBtn = new JoystickButton(buttonBox, 2);
     driveXFeetBtn.whenPressed(new DriveXFeetMM(0, 0, 10, drivetrain));
 
-
     manualElevation = new JoystickButton(buttonBox, 6);
-    //manualElevation.whileHeld(new ManualTurretElevation(0));
+    // manualElevation.whileHeld(new ManualTurretElevation(0));
     shootBtn = new JoystickButton(buttonBox, 1);
-    //shootBtn.whileHeld(new Shoot(0));
+    // shootBtn.whileHeld(new Shoot(0));
     leftJoystick = new Joystick(1);
 
     toggleLockStraightBtn = new JoystickButton(leftJoystick, 1);
@@ -86,8 +82,11 @@ public class RobotContainer {
     shiftHighBtn.whenPressed(new ShiftHigh(shifters));
 
     climbDown = new JoystickButton(buttonBox, 6);
+    // climbDown.whileHeld(new ClimberSpeedMode(climber, -0.5));
     climbDown.whileHeld(new ClimberSpeedMode(climber, -0.5));
+    climbDown.whenReleased(new SequentialCommandGroup(new WaitCommand(1), new ClimberBrake(climber), new WaitCommand(1)));
     climbUp = new JoystickButton(buttonBox, 5);
+    //climbUp.whileHeld(new ClimberSpeedMode(climber, 0.5));
     climbUp.whileHeld(new ClimberSpeedMode(climber, 0.5));
 
 

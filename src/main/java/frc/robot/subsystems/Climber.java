@@ -47,7 +47,7 @@ private boolean goingUp;
    
 
     public Climber() {
-climberMotor = new WPI_TalonSRX(20);
+climberMotor = new WPI_TalonSRX(8);
 
 climberBrakeDoubleSolenoid = new DoubleSolenoid(0, 3, 4);
 addChild("ClimberBrakeDoubleSolenoid",climberBrakeDoubleSolenoid);

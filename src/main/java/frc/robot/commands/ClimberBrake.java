@@ -23,7 +23,7 @@ public class ClimberBrake extends CommandBase {
     // Called just before this Command runs the first time
     @Override
     public void initialize() {
-        
+        m_climber.engageBrakes();
     }
 
     // Called repeatedly when this Command is scheduled to run
