@@ -67,7 +67,8 @@ intakeMotor = new WPI_TalonSRX(9);
         intakeMotor.set(setPower);
 	}
 
-    public void initSpeedMode() {    	
+    public void initSpeedMode() {    
+        intakeMotor.setInverted(true);	
     	intakeMotor.set(ControlMode.Velocity, 0);
         
         intakeMotor.config_kP(PID_SLOT_SPEED_MODE, speedP, TIMEOUT_MS);
@@ -92,6 +93,11 @@ intakeMotor = new WPI_TalonSRX(9);
 
     public int getTicksPerSecond(){
         return intakeMotor.getSelectedSensorVelocity();
+    }
+
+    public void initializeMotor()
+    {
+
     }
 }
 

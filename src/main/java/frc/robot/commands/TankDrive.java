@@ -32,6 +32,7 @@ public class TankDrive extends CommandBase {
     // Called just before this Command runs the first time
     @Override
     public void initialize() {
+        m_subsystem.intializeMotors();
         m_subsystem.setPercentVBus();
     }
 
@@ -48,6 +49,7 @@ public class TankDrive extends CommandBase {
 
 
         m_subsystem.run(leftSpeed, rightSpeed);
+        //m_subsystem.tankDriveVolts(leftSpeed, rightSpeed);
   
     }
 

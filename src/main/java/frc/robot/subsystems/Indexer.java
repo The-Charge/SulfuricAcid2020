@@ -57,15 +57,7 @@ indexerMotorLF = new WPI_TalonSRX(8);
 
 
         
-indexerMotorLB = new WPI_TalonSRX(37);
-
-
-        
 indexerMotorRF = new WPI_TalonSRX(10);
-
-
-        
-indexerMotorRB = new WPI_TalonSRX(38);
 
 
         
@@ -84,8 +76,6 @@ indexerMotorRB = new WPI_TalonSRX(38);
     public void stop(){
         indexerMotorLF.set(0);
         indexerMotorRF.set(0);
-        indexerMotorLB.set(0);
-        indexerMotorRB.set(0);
     
     }
 
@@ -98,15 +88,6 @@ indexerMotorRB = new WPI_TalonSRX(38);
     	indexerMotorLF.config_kF(PID_SLOT_SPEED_MODE, speedF, TIMEOUT_MS);
 
         indexerMotorLF.selectProfileSlot(PID_SLOT_SPEED_MODE, 0);
-
-        indexerMotorLB.set(ControlMode.Velocity, 0);
-        
-        indexerMotorLB.config_kP(PID_SLOT_SPEED_MODE, speedP, TIMEOUT_MS);
-    	indexerMotorLB.config_kI(PID_SLOT_SPEED_MODE, speedI, TIMEOUT_MS);
-    	indexerMotorLB.config_kD(PID_SLOT_SPEED_MODE, speedD, TIMEOUT_MS);
-    	indexerMotorLB.config_kF(PID_SLOT_SPEED_MODE, speedF, TIMEOUT_MS);
-
-        indexerMotorLB.selectProfileSlot(PID_SLOT_SPEED_MODE, 0);
         
         indexerMotorRF.set(ControlMode.Velocity, 0);
         
@@ -116,16 +97,6 @@ indexerMotorRB = new WPI_TalonSRX(38);
     	indexerMotorRF.config_kF(PID_SLOT_SPEED_MODE, speedF, TIMEOUT_MS);
 
         indexerMotorRF.selectProfileSlot(PID_SLOT_SPEED_MODE, 0);
-
-        indexerMotorRB.set(ControlMode.Velocity, 0);
-        
-        indexerMotorRB.config_kP(PID_SLOT_SPEED_MODE, speedP, TIMEOUT_MS);
-    	indexerMotorRB.config_kI(PID_SLOT_SPEED_MODE, speedI, TIMEOUT_MS);
-    	indexerMotorRB.config_kD(PID_SLOT_SPEED_MODE, speedD, TIMEOUT_MS);
-    	indexerMotorRB.config_kF(PID_SLOT_SPEED_MODE, speedF, TIMEOUT_MS);
-
-        indexerMotorRB.selectProfileSlot(PID_SLOT_SPEED_MODE, 0);
-
         
     }
 
@@ -133,9 +104,6 @@ indexerMotorRB = new WPI_TalonSRX(38);
         SmartDashboard.putNumber("PID Val", setSpeed);
         indexerMotorLF.set(ControlMode.Velocity, MAX_TICKS_PER_SEC * setSpeed);
         indexerMotorRF.set(ControlMode.Velocity, MAX_TICKS_PER_SEC * setSpeed);
-        indexerMotorLB.set(ControlMode.Velocity, MAX_TICKS_PER_SEC * setSpeed);
-        indexerMotorRB.set(ControlMode.Velocity, MAX_TICKS_PER_SEC * setSpeed);
-       
     }
 
     public int getTicksPerSecondLeft(){
@@ -144,6 +112,11 @@ indexerMotorRB = new WPI_TalonSRX(38);
 
 	public void setPercentVBus(double setSpeed) {
         
-	}
+    }
+    public void initalizeMotors()
+    {
+        indexerMotorRF.follow(indexerMotorLF);
+
+    }
 }
 

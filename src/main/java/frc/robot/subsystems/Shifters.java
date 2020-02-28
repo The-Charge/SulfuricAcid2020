@@ -32,7 +32,7 @@ private Solenoid shifterSolenoid;
 
     public Shifters() {
        
-    shifterSolenoid = new Solenoid(1, 1);
+    //shifterSolenoid = new Solenoid(1, 1);
  
 
     }

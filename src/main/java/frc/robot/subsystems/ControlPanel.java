@@ -39,7 +39,7 @@ private WPI_TalonSRX controlPanelMotor;
   
     public ControlPanel() {
 
-    controlPanelMotor = new WPI_TalonSRX(33);
+    controlPanelMotor = new WPI_TalonSRX(11);
     }
 
  

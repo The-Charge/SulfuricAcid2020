@@ -47,6 +47,7 @@ public class Index extends CommandBase {
     // Called just before this Command runs the first time
     @Override
     public void initialize() {
+        m_indexer.initalizeMotors();
         m_indexer.initSpeedMode();
     }
 

@@ -122,11 +122,11 @@ public class RobotContainer {
     // manualElevation.whileHeld(new ManualTurretElevation(0));
     shootBtn = new JoystickButton(buttonBox, 1);
     // shootBtn.whileHeld(new Shoot(0));
-    leftJoystick = new Joystick(1);
+    leftJoystick = new Joystick(0);
 
     toggleLockStraightBtn = new JoystickButton(leftJoystick, 1);
     toggleLockStraightBtn.whileHeld(new ToggleLockStraight(drivetrain));
-    rightJoystick = new Joystick(0);
+    rightJoystick = new Joystick(1);
 
     halfSpeedBtn = new JoystickButton(rightJoystick, 5);
     halfSpeedBtn.whileHeld(new HalfSpeed(drivetrain));
@@ -146,19 +146,20 @@ public class RobotContainer {
 
 
     // SmartDashboard Buttons
+    SmartDashboard.putData("TankDrive", new TankDrive(drivetrain));
     SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
     //SmartDashboard.putData("ShiftHigh", new ShiftHigh(shifters));
     //SmartDashboard.putData("ShiftLow", new ShiftLow(shifters));
     //SmartDashboard.putData("Shoot: default", new Shoot(0.4));
     //SmartDashboard.putData("TurretCommand", new TurretCommand());
-    //SmartDashboard.putData("RunIntake: default", new RunIntake(0.4));
+    SmartDashboard.putData("RunIntake: default", new RunIntake(m_Intake, 0.4));
     SmartDashboard.putData("DriveXFeetMM: default", new DriveXFeetMM(0, 0, 30, drivetrain));
     //SmartDashboard.putData("TurnNDegreesAbsolute: default", new TurnNDegreesAbsolute(180));
     SmartDashboard.putData("InvertDrive", new InvertDrive(drivetrain));
     SmartDashboard.putData("QuarterSpeed", new QuarterSpeed(drivetrain));
     //SmartDashboard.putData("RotationControl", new RotationControl());
     //SmartDashboard.putData("PositionControl", new PositionControl());
-    //SmartDashboard.putData("Index: default", new Index(0.4));
+    SmartDashboard.putData("Index: default", new Index(indexer, 0.4));
     SmartDashboard.putData("HalfSpeed", new HalfSpeed(drivetrain));
     SmartDashboard.putData("ToggleLockStraight", new ToggleLockStraight(drivetrain));
     //SmartDashboard.putData("ManualTurretElevation: default", new ManualTurretElevation(0));
