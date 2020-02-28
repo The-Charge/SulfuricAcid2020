@@ -70,8 +70,8 @@ private Solenoid stopperSolenoid;
     //rightMotorShooter = new WPI_TalonSRX(8);
 
     motorShooter = new WPI_TalonFX(8);
-    stopperSolenoid = new Solenoid(0,5);
-    setDefaultCommand(new CloseStopper(this,ballSensor));
+    //stopperSolenoid = new Solenoid(0,5);
+    //setDefaultCommand(new CloseStopper(this,ballSensor));
     }
 
     @Override

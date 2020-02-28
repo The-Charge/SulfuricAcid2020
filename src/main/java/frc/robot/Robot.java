@@ -31,10 +31,6 @@ public class Robot extends TimedRobot {
 
 
 private Command m_autonomousCommand;
-
-
-
-
 public RobotContainer m_robotContainer;
 
 
@@ -46,15 +42,10 @@ public RobotContainer m_robotContainer;
    */
   @Override
   public void robotInit() {
-    m_robotContainer = new RobotContainer();
-
-
-  
 
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
-    
+    m_robotContainer = new RobotContainer(); 
   
   }
 
@@ -93,21 +84,6 @@ public RobotContainer m_robotContainer;
     m_robotContainer.drivetrain.resetEncoders();
     m_robotContainer.drivetrain.resetOdometry(new Pose2d(0, 0, new Rotation2d(0)));
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    //m_robotContainer.m_robotDrive.setEncoders((int)(1/DriveConstants.kEncoderDistancePerPulse), -(int)(1/DriveConstants.kEncoderDistancePerPulse));
-    //m_robotContainer.m_robotDrive.m_odometry.update(new Rotation2d(0) ,1 ,1);
-
-    //m_robotContainer.m_robotDrive.zeroHeading();
-    //new SequentialCommandGroup(m_robotContainer.getAutonomousCommand(), m_robotContainer.getAutonomousCommand2());
-    //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    //new SequentialCommandGroup(m_robotContainer.getAutonomousCommand(), m_robotContainer.getAutonomousCommand2());
-
-    /*
-     * String autoSelected = SmartDashboard.getString("Auto Selector",
-     * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-     * = new MyAutoCommand(); break; case "Default Auto": default:
-     * autonomousCommand = new ExampleCommand(); break; }
-     */
-
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {

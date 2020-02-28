@@ -8,24 +8,15 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.ColorSensor;
-import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-/**
- * An example command that uses an example subsystem.
- */
 public class SenseColor extends CommandBase {
  
   private final ColorSensor m_colorSensor;
 
-  /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
+
   public SenseColor(ColorSensor colorSensor) {
     m_colorSensor = colorSensor;
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_colorSensor);
   }
 

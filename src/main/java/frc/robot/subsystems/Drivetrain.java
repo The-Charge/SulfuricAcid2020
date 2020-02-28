@@ -11,70 +11,38 @@
 package frc.robot.subsystems;
 
 import frc.robot.MathUtil;
-import frc.robot.commands.*;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.SPI.Port;      //might change to I2C
-import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.kauailabs.navx.frc.AHRS;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.kauailabs.navx.frc.AHRS;
-
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-
 import frc.robot.Constants.DriveConstants;
 
 public class Drivetrain extends SubsystemBase {
 
 public WPI_TalonFX leftFrontMotor = new WPI_TalonFX(14);
-  public WPI_TalonFX leftMidMotor = new WPI_TalonFX(13);
-  private  WPI_TalonFX leftBackMotor = new WPI_TalonFX(15);
+public WPI_TalonFX leftMidMotor = new WPI_TalonFX(13);
+private  WPI_TalonFX leftBackMotor = new WPI_TalonFX(15);
  
-  public WPI_TalonFX rightFrontMotor = new WPI_TalonFX(2);
-  private WPI_TalonFX rightMidMotor = new WPI_TalonFX(1);
-  private WPI_TalonFX rightBackMotor = new WPI_TalonFX(3);
+public WPI_TalonFX rightFrontMotor = new WPI_TalonFX(2);
+private WPI_TalonFX rightMidMotor = new WPI_TalonFX(1);
+private WPI_TalonFX rightBackMotor = new WPI_TalonFX(3);
 
-  //private WPI_TalonFX twoMotor = new WPI_TalonFX(3);
-  //private WPI_TalonFX threeMotor = new WPI_TalonFX(3);
-  //private WPI_TalonFX fourMotor = new WPI_TalonFX(3);
-/*
-    //Motors
-  // The motors on the left side of the drive.
-  public WPI_TalonSRX leftFrontMotor = new WPI_TalonSRX(DriveConstants.kLeftMotor1Port);
-  public WPI_TalonSRX leftMidMotor = new WPI_TalonSRX(DriveConstants.kLeftMotor2Port);
-  public WPI_TalonSRX rightFrontMotor = new WPI_TalonSRX(DriveConstants.kRightMotor1Port);
-  private WPI_TalonSRX rightMidMotor = new WPI_TalonSRX(DriveConstants.kRightMotor2Port);
-  private  WPI_TalonSRX leftBackMotor = new WPI_TalonSRX(DriveConstants.kLeftMotor3Port);
-  private WPI_TalonSRX rightBackMotor = new WPI_TalonSRX(DriveConstants.kRightMotor3Port);
-    */
-  private final SpeedControllerGroup m_leftMotors =
-  new SpeedControllerGroup(leftFrontMotor, leftMidMotor,
+private final SpeedControllerGroup m_leftMotors =
+new SpeedControllerGroup(leftFrontMotor, leftMidMotor,
                            leftBackMotor);
 
-// The motors on the right side of the drive.
 private final SpeedControllerGroup m_rightMotors =
-  new SpeedControllerGroup(rightFrontMotor, leftMidMotor,
+  new SpeedControllerGroup(rightFrontMotor, rightMidMotor,
                         rightBackMotor);
 
 
@@ -111,8 +79,6 @@ private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_
 
     public int smoothing = 4;
 
-
-
     /* Decent PID Values for Resistance:
             P: 0.05
             I: 0.00004
@@ -130,21 +96,9 @@ private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_
     private static boolean isReversed = false;
 
     public Drivetrain() {
-        
         resetEncoders();
-
     m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
-
     pidController = new PIDController(PIDTURN_P, PIDTURN_I, PIDTURN_D);
-
-    rightBackMotor.setInverted(true);
-    rightMidMotor.setInverted(true);
-    rightFrontMotor.setInverted(true);
-
-    rightBackMotor.follow(rightFrontMotor);
-    rightMidMotor.follow(rightFrontMotor);
-    leftBackMotor.follow(leftFrontMotor);
-    leftMidMotor.follow(leftFrontMotor);
     }
 
     @Override
@@ -163,11 +117,9 @@ private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_
         double rightSpeed = r;
 
         if(isReversed){
-            leftFrontMotor.set(-1*leftSpeed);
-            rightFrontMotor.set(-1*rightSpeed);
+            m_rightMotors.set(-1*rightSpeed);
+            m_leftMotors.set(-1*leftSpeed);
         }
-        //leftFrontMotor.set(leftSpeed);
-        //rightFrontMotor.set(rightSpeed);
         m_rightMotors.set(rightSpeed);
         m_leftMotors.set(leftSpeed);
     }

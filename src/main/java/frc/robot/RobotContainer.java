@@ -59,23 +59,27 @@ import static edu.wpi.first.wpilibj.XboxController.Button;
  */
 
 public class RobotContainer {
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
+  //SUBSYSTEMS
   public ControlPanel controlPanel = new ControlPanel();
   public ColorSensor colorSensor = new ColorSensor();
   public Intake intake = new Intake();
-
   public Drivetrain drivetrain = new Drivetrain();
   public Turret turret = new Turret();
-  //public Shifters shifters = new Shifters();
+  public Shifters shifters = new Shifters();
   public Climber climber = new Climber();
   public Indexer indexer = new Indexer();
+  public BallSensor ballSensor = new BallSensor();
+  public Shooter shooter = new Shooter(ballSensor);
 
+  //JOYSTICKS
   public static Joystick leftJoystick;
   public static Joystick rightJoystick;
   public static Joystick buttonBox;
-  public JoystickButton shiftHighBtn;
+
+  //JOYSTICK BUTTONS
+  public JoystickButton shiftHighWPBtn;
+  public JoystickButton shiftHighWHBtn;
   public JoystickButton shiftLowBtn;
   public JoystickButton quarterSpeedBtn;
   public JoystickButton halfSpeedBtn;
@@ -89,155 +93,29 @@ public class RobotContainer {
   public JoystickButton positionControlBtn;
   public JoystickButton rotationControlBtn;
   public JoystickButton runIntakeBtn;
+  public JoystickButton runIntakeInverseBtn;
+  public JoystickButton runIntakeIndexerBtn;
+  public JoystickButton sensorColorBtn;
+  public JoystickButton climbDown;
 
-  public Intake m_Intake = new Intake();
-  public ColorSensor m_colorSensor = new ColorSensor();
-  private final RotationControl m_rotationControl = new RotationControl(controlPanel, m_colorSensor);
-  private final PositionsControl m_positionsControl = new PositionsControl(controlPanel, m_colorSensor);
-  public BallSensor m_ballSensor = new BallSensor();
-  public static Joystick buttonBox;
-  public Shooter m_shooter = new Shooter(m_ballSensor);
   public boolean realButtonBox = true;
 
-
-    // Button button = new JoystickButton(stick, buttonNumber);
-
-    // There are a few additional built in buttons you can use. Additionally,
-    // by subclassing Button you can create custom triggers and bind those to
-    // commands the same as any other Button.
-    //// TRIGGERING COMMANDS WITH BUTTONS
-    // Once you have a button, it's trivial to bind it to a button in one of
-    // three ways:
-    // Start the command when the button is pressed and let it run the command
-    // until it is finished as determined by it's isFinished method.
-    // button.whenPressed(new ExampleCommand());
-    // Run the command while the button is being held down and interrupt it once
-    // the button is released.
-    // button.whileHeld(new ExampleCommand());
-
-   // The container for the robot.  Contains subsystems, OI devices, and commands.
-    // until it is finished as determined by it's isFinished method.
-    // button.whenReleased(new ExampleCommand());
+   
     public RobotContainer() {
-    SmartDashboard.putData("RotationControl", new RotationControl(controlPanel, m_colorSensor));
-    SmartDashboard.putData("PositionsControl", new PositionsControl(controlPanel, m_colorSensor));
-    
-    //SmartDashboard.putNumber("Red", detectedColor.red);
-    //SmartDashboard.putNumber("Green", detectedColor.green);
-    //SmartDashboard.putNumber("Blue", detectedColor.blue);
-    //SmartDashboard.putNumber("Confidence", match.confidence);
-    //SmartDashboard.putString("Detected Color", colorString);
-	  configureButtonBindings();
+      if (realButtonBox) configureButtonBindings();
+      else alternateButtonBindings();
+      smartDashboardButtons();   
+  }
 
-    rightJoystick = new Joystick(0);
-    leftJoystick = new Joystick(1);
-
-    //just in case the ButtonBox doesn't work
-    if (realButtonBox)
-    {
-      buttonBox = new Joystick(2);
-      
-      //just for testing
-      driveXFeetBtn = new JoystickButton(buttonBox, 2);
-      driveXFeetBtn.whenPressed(new DriveXFeetMM(0, 0, 10, drivetrain));
-
-      //reverse intake
-      runIntakeBtn = new JoystickButton(buttonBox, 1);
-      runIntakeBtn.whenPressed(new RunIntake(intake, -1));
-      //climb up/climb down
-      manualElevation = new JoystickButton(buttonBox, 2);
-    //manualElevation.whileHeld(new ManualTurretElevation(0));
-
-      runIntakeBtn = new JoystickButton(buttonBox, 4);
-      runIntakeBtn.whenPressed(new RunIntake(intake, 1));
-
-      indexBtn = new JoystickButton(buttonBox, 7);
-      indexBtn.whenPressed(new Index(indexer, 1));
-      runIntakeBtn = new JoystickButton(buttonBox, 7);
-      runIntakeBtn.whenPressed(new RunIntake(intake, 1));
-
-      shootBtn = new JoystickButton(buttonBox, 9);
-    //shootBtn.whileHeld(new Shoot(0));
-     
-      positionControlBtn = new JoystickButton(buttonBox, 5);
-      positionControlBtn.whileHeld(new PositionsControl(controlPanel, colorSensor));
-      rotationControlBtn = new JoystickButton(buttonBox, 6);
-      rotationControlBtn.whileHeld(new RotationControl(controlPanel, colorSensor));
-
-      senseColorBtn = new JoystickButton(buttonBox, 5);
-      senseColorBtn.whileHeld(new SenseColor(colorSensor));
-    }
-
-    else  //use leftJoystick 
-    {
-     //just for testing
-     driveXFeetBtn = new JoystickButton(leftJoystick, 2);
-     driveXFeetBtn.whenPressed(new DriveXFeetMM(0, 0, 10, drivetrain));
-
-     //reverse intake
-     runIntakeBtn = new JoystickButton(leftJoystick, 1);
-     runIntakeBtn.whenPressed(new RunIntake(intake, -1));
-
-     //climb up/climb down
-     manualElevation = new JoystickButton(leftJoystick, 2);
-     //manualElevation.whenPressed(new ManualTurretElevation(0));
-
-     runIntakeBtn = new JoystickButton(leftJoystick, 5);
-     runIntakeBtn.whenPressed(new RunIntake(intake, 1));
-
-     indexBtn = new JoystickButton(leftJoystick, 6);
-     indexBtn.whenPressed(new Index(indexer, 1));
-     runIntakeBtn = new JoystickButton(leftJoystick, 6);
-     runIntakeBtn.whenPressed(new RunIntake(intake, 1));
-
-    leftJoystick = new Joystick(1);
-     //shootBtn.whileHeld(new Shoot(0));  
-     
-     positionControlBtn = new JoystickButton(buttonBox, 5);
-     positionControlBtn.whileHeld(new PositionsControl(controlPanel, colorSensor));
-     rotationControlBtn = new JoystickButton(buttonBox, 6);
-     rotationControlBtn.whileHeld(new RotationControl(controlPanel, colorSensor));
-     senseColorBtn = new JoystickButton(buttonBox, 5);
-     senseColorBtn.whileHeld(new SenseColor(colorSensor));
-    }
-    
-    //Drive Train buttons
-    
-    //left joystick
-    toggleLockStraightBtn = new JoystickButton(leftJoystick, 4 );
-    toggleLockStraightBtn.whenPressed(new ToggleLockStraight(drivetrain));
-
-    //right joystick
-    rightJoystick = new Joystick(0);
-    shiftHighBtn.whileHeld(new ShiftHigh(shifters));
-    invertDriveBtn = new JoystickButton(buttonBox, 2);
-    invertDriveBtn.whenPressed(new InvertDrive(drivetrain));
-    shiftHighBtn = new JoystickButton(rightJoystick, 3);
-    shiftHighBtn.whenPressed(new ShiftHigh(shifters));
-    quarterSpeedBtn = new JoystickButton(rightJoystick, 4);
-    quarterSpeedBtn.whenPressed(new QuarterSpeed(drivetrain));
-    /*
-    shiftLowBtn = new JoystickButton(rightJoystick, 2);
-    shiftLowBtn.whenPressed(new ShiftLow(shifters));
-    shiftHighBtn = new JoystickButton(rightJoystick, 1);
-    shiftHighBtn.whenPressed(new ShiftHigh(shifters));
-*/
-    climbDown = new JoystickButton(buttonBox, 6);
-    climbDown.whileHeld(new ClimberSpeedMode(climber, -0.5));
-    climbDown.whenReleased(new SequentialCommandGroup(new WaitCommand(1), new ClimberBrake(climber), new WaitCommand(1)));
-    climbUp = new JoystickButton(buttonBox, 5);
-    climbUp.whileHeld(new ClimberSpeedMode(climber, 0.5));
-    
-    
-
+  private void smartDashboardButtons() {
     // SmartDashboard Buttons
     SmartDashboard.putData("TankDrive", new TankDrive(drivetrain));
     SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
-    //SmartDashboard.putData("ShiftHigh", new ShiftHigh(shifters));
-    //SmartDashboard.putData("ShiftLow", new ShiftLow(shifters));
-    //SmartDashboard.putData("Shoot: default", new Shoot(0.4));
+    SmartDashboard.putData("ShiftHigh", new ShiftHigh(shifters));
+    SmartDashboard.putData("ShiftLow", new ShiftLow(shifters));
+    SmartDashboard.putData("Shoot: default", new Shoot(0.4, shooter, ballSensor));
     //SmartDashboard.putData("TurretCommand", new TurretCommand());
-    SmartDashboard.putData("RunIntake: default", new RunIntake(m_Intake, 0.4));
+    SmartDashboard.putData("RunIntake: default", new RunIntake(intake, 0.4));
     SmartDashboard.putData("DriveXFeetMM: default", new DriveXFeetMM(0, 0, 30, drivetrain));
     //SmartDashboard.putData("TurnNDegreesAbsolute: default", new TurnNDegreesAbsolute(180));
     SmartDashboard.putData("InvertDrive", new InvertDrive(drivetrain));
@@ -253,7 +131,8 @@ public class RobotContainer {
     //SmartDashboard.putData("RunTurretManual", new RunTurretManual());
     SmartDashboard.putData("ClimberSpeedMode: up", new ClimberSpeedMode(climber, 0.5));
     SmartDashboard.putData("ClimberSpeedMode: down", new ClimberSpeedMode(climber, -0.5));
-
+    SmartDashboard.putData("RotationControl", new RotationControl(controlPanel, colorSensor));
+    SmartDashboard.putData("PositionsControl", new PositionsControl(controlPanel, colorSensor));
     SmartDashboard.putNumber("Degrees:", 0);
     SmartDashboard.putNumber("TurnPID P:", 0.05);
     SmartDashboard.putNumber("TurnPID I:", 0.00004);
@@ -261,12 +140,128 @@ public class RobotContainer {
 
     //SmartDashboard.putData("Reinitialize PIDController:", new ReinitializePIDController());
   }
+private void configureButtonBindings() {
+    rightJoystick = new Joystick(0);
+    leftJoystick = new Joystick(1);
+    buttonBox = new Joystick(2);
+
+    //reverse intake
+    runIntakeInverseBtn = new JoystickButton(buttonBox, 1);
+    runIntakeInverseBtn.whenPressed(new RunIntake(intake, -1));
+      
+    //climb up/climb down
+    climbDown = new JoystickButton(buttonBox, 6);
+    climbDown.whileHeld(new ClimberSpeedMode(climber, -0.5));
+    climbDown.whenReleased(new SequentialCommandGroup(new WaitCommand(1), new ClimberBrake(climber), new WaitCommand(1)));
+    climbUp = new JoystickButton(buttonBox, 5);
+    climbUp.whileHeld(new ClimberSpeedMode(climber, 0.5));
+      
+    manualElevation = new JoystickButton(buttonBox, 2);
+    //manualElevation.whileHeld(new ManualTurretElevation(0));
+
+    //runIntake
+    runIntakeBtn = new JoystickButton(buttonBox, 4);
+    runIntakeBtn.whenPressed(new RunIntake(intake, 1));
+
+    //Intake and Indexer
+    runIntakeIndexerBtn = new JoystickButton(buttonBox, 7);
+    runIntakeIndexerBtn.whenPressed(new Index(indexer, 1));
+    runIntakeIndexerBtn.whenPressed(new RunIntake(intake, 1));
+
+    shootBtn = new JoystickButton(buttonBox, 9);
+    shootBtn.whileHeld(new Shoot(0, shooter, ballSensor));
+     
+    positionControlBtn = new JoystickButton(buttonBox, 5);
+    positionControlBtn.whileHeld(new PositionsControl(controlPanel, colorSensor));
+    rotationControlBtn = new JoystickButton(buttonBox, 6);
+    rotationControlBtn.whileHeld(new RotationControl(controlPanel, colorSensor));
+
+    //senseColorBtn = new JoystickButton(buttonBox, 5);
+    //senseColorBtn.whileHeld(new SenseColor(colorSensor));
+
+    //Drive Train buttons
+    
+    //left joystick
+    toggleLockStraightBtn = new JoystickButton(leftJoystick, 4 );
+    toggleLockStraightBtn.whenPressed(new ToggleLockStraight(drivetrain));
+
+    //right joystick
+    invertDriveBtn = new JoystickButton(rightJoystick, 2);
+    invertDriveBtn.whenPressed(new InvertDrive(drivetrain));
+    shiftHighWPBtn = new JoystickButton(rightJoystick, 3);
+    shiftHighWPBtn.whenPressed(new ShiftHigh(shifters));
+    quarterSpeedBtn = new JoystickButton(rightJoystick, 4);
+    quarterSpeedBtn.whenPressed(new QuarterSpeed(drivetrain));
+    
+    shiftLowBtn = new JoystickButton(rightJoystick, 2);
+    shiftLowBtn.whenPressed(new ShiftLow(shifters));
+    shiftHighWHBtn = new JoystickButton(rightJoystick, 1);
+    shiftHighWHBtn.whileHeld(new ShiftHigh(shifters));
+
+  }
+
+  private void alternateButtonBindings() {
+    rightJoystick = new Joystick(0);
+    leftJoystick = new Joystick(1);
+    buttonBox = new Joystick(2);
+
+    //reverse intake
+    runIntakeInverseBtn = new JoystickButton(buttonBox, 8);
+    runIntakeInverseBtn.whenPressed(new RunIntake(intake, -1));
+      
+    //climb up/climb down
+    climbDown = new JoystickButton(buttonBox, 6);
+    climbDown.whileHeld(new ClimberSpeedMode(climber, -0.5));
+    climbDown.whenReleased(new SequentialCommandGroup(new WaitCommand(1), new ClimberBrake(climber), new WaitCommand(1)));
+    climbUp = new JoystickButton(buttonBox, 5);
+    climbUp.whileHeld(new ClimberSpeedMode(climber, 0.5));
+
+    manualElevation = new JoystickButton(buttonBox, 2);
+    //manualElevation.whileHeld(new ManualTurretElevation(0));
+
+    //runIntake
+    runIntakeBtn = new JoystickButton(buttonBox, 4);
+    runIntakeBtn.whenPressed(new RunIntake(intake, 1));
+
+    //Intake and Indexer
+    runIntakeIndexerBtn = new JoystickButton(buttonBox, 7);
+    runIntakeIndexerBtn.whenPressed(new Index(indexer, 1));
+    runIntakeIndexerBtn.whenPressed(new RunIntake(intake, 1));
+
+    shootBtn = new JoystickButton(buttonBox, 1);
+    shootBtn.whileHeld(new Shoot(0, shooter, ballSensor));
+     
+    positionControlBtn = new JoystickButton(buttonBox, 5);
+    positionControlBtn.whileHeld(new PositionsControl(controlPanel, colorSensor));
+    rotationControlBtn = new JoystickButton(buttonBox, 6);
+    rotationControlBtn.whileHeld(new RotationControl(controlPanel, colorSensor));
+
+    //Drive Train buttons
+    
+    //left joystick
+    toggleLockStraightBtn = new JoystickButton(leftJoystick, 4 );
+    toggleLockStraightBtn.whenPressed(new ToggleLockStraight(drivetrain));
+
+    //right joystick
+    invertDriveBtn = new JoystickButton(rightJoystick, 2);
+    invertDriveBtn.whenPressed(new InvertDrive(drivetrain));
+    shiftHighWPBtn = new JoystickButton(rightJoystick, 3);
+    shiftHighWPBtn.whenPressed(new ShiftHigh(shifters));
+    quarterSpeedBtn = new JoystickButton(rightJoystick, 4);
+    quarterSpeedBtn.whenPressed(new QuarterSpeed(drivetrain));
+    
+    shiftLowBtn = new JoystickButton(rightJoystick, 2);
+    shiftLowBtn.whenPressed(new ShiftLow(shifters));
+    shiftHighWHBtn = new JoystickButton(rightJoystick, 1);
+    shiftHighWHBtn.whileHeld(new ShiftHigh(shifters));
+
+  }
 
   public Command getAutonomousCommand() {
 
     // Create a voltage constraint to ensure we don't accelerate too fast
     var autoVoltageConstraint =
-        new DifferentialDriveVoltageConstraint(
+    new DifferentialDriveVoltageConstraint(
             new SimpleMotorFeedforward(DriveConstants.ksVolts,
                                        DriveConstants.kvVoltSecondsPerMeter,
                                        DriveConstants.kaVoltSecondsSquaredPerMeter),
@@ -275,58 +270,13 @@ public class RobotContainer {
 
     // Create config for trajectory
     TrajectoryConfig config =
-        new TrajectoryConfig(AutoConstants.kMaxSpeedMetersPerSecond,
-                             AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+        new TrajectoryConfig(AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared)
             // Add kinematics to ensure max speed is actually obeyed
             .setKinematics(DriveConstants.kDriveKinematics)
             // Apply the voltage constraint
             .addConstraint(autoVoltageConstraint);
 
     //  config.setReversed(true);
-
-    // An example trajectory to follow.  All units in meters.
-
-
-    
-
-    /*
-    
-    Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
-        // Start at the origin facing the +X direction
-        new Pose2d(0, 0, new Rotation2d(0)),
-        // Pass through these two interior waypoints, making an 's' curve path
-        List.of(
-          new Translation2d(1, 0)
-          //new Translation2d(2, 0)
-          //new Translation2d(5, -1)
-        ),
-        // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(1.4, 2, new Rotation2d(Math.PI/3.25)),
-        // Pass config
-        config
-    );
-
-    */
-
-    
-    /*
-    
-    
-    String trajectoryJSON = "paths/Example.wpilib.json";
-    Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
-      // Start at the origin facing the +X direction
-      new Pose2d(0, 0, new Rotation2d(0)),
-      // Pass through these two interior waypoints, making an 's' curve path
-      List.of(
-        new Translation2d(1, 1)
-      ),
-      // End 3 meters straight ahead of where we started, facing forward
-      new Pose2d(2, 0, new Rotation2d(0)),
-      // Pass config
-      config
-  );
-
-  */
   
     try{
       
@@ -409,39 +359,6 @@ public class RobotContainer {
         config
     );
 
-    /*
-
-
-    
-    String trajectoryJSON = "paths/Example.wpilib.json";
-    Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
-      // Start at the origin facing the +X direction
-      new Pose2d(0, 0, new Rotation2d(0)),
-      // Pass through these two interior waypoints, making an 's' curve path
-      List.of(
-        new Translation2d(1, 1)
-      ),
-      // End 3 meters straight ahead of where we started, facing forward
-      new Pose2d(2, 0, new Rotation2d(0)),
-      // Pass config
-      config
-  );
-  
-    try{
-
-    Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
-    exampleTrajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
-    System.out.println("INside try");
-    }
-    catch (IOException ex)
-    {
-      DriverStation.reportError("Unable to open trajectory", ex.getStackTrace());
-      System.out.println("Inside Catch");
-    }
-    
-*/
-
-
     RamseteCommand ramseteCommand = new RamseteCommand(
         exampleTrajectory,
         drivetrain::getPose,
@@ -461,20 +378,6 @@ public class RobotContainer {
     // Run path following command, then stop at the end.
     return ramseteCommand.andThen(() -> drivetrain.tankDriveVolts(0, 0));
   }
-  /**
-   * Use this method to define your button->command mappings.  Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
-   * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-   */
-  private void configureButtonBindings() {
-  }
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
-  
 
   public Joystick getRightJoystick() {
     return rightJoystick;
