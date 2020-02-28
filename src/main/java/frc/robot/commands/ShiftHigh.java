@@ -27,7 +27,7 @@ public class ShiftHigh extends CommandBase {
     public ShiftHigh(Shifters subsystem) {
         m_subsystem = subsystem;
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(subsystem);
+        addRequirements(m_subsystem);
       }
 
     // Called just before this Command runs the first time

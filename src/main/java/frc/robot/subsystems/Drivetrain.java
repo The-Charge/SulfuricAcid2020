@@ -11,7 +11,7 @@
 package frc.robot.subsystems;
 
 import frc.robot.MathUtil;
-import edu.wpi.first.wpilibj.SPI.Port;      //might change to I2C
+import edu.wpi.first.wpilibj.SPI.Port; //might change to I2C
 import edu.wpi.first.wpilibj.controller.PIDController;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.kauailabs.navx.frc.AHRS;
@@ -26,8 +26,10 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.commands.TankDrive;
 
 public class Drivetrain extends SubsystemBase {
+
 
 public WPI_TalonFX leftFrontMotor = new WPI_TalonFX(14);
 public WPI_TalonFX leftMidMotor = new WPI_TalonFX(13);
@@ -99,6 +101,7 @@ private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_
         resetEncoders();
     m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
     pidController = new PIDController(PIDTURN_P, PIDTURN_I, PIDTURN_D);
+    setDefaultCommand(new TankDrive(this));
     }
 
     @Override

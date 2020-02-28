@@ -58,7 +58,7 @@ public class RunIntake extends CommandBase {
     @Override
     public void execute() {
         double xAxisVal = RobotContainer.buttonBox.getRawAxis(0);
-        m_intake.setPercentSpeedPID(xAxisVal);
+        m_intake.setPercentSpeedPID(m_speed);
         SmartDashboard.putNumber("X-Axis Value:" , xAxisVal);
     }
 

@@ -84,7 +84,8 @@ intakeMotor = new WPI_TalonSRX(9);
 	}
 
     public void setPercentSpeedPID(double setSpeed) {
-		intakeMotor.set(ControlMode.Velocity, MAX_TICKS_PER_SEC * setSpeed);
+        //intakeMotor.set(ControlMode.Velocity, MAX_TICKS_PER_SEC * setSpeed);
+        intakeMotor.set(ControlMode.PercentOutput, setSpeed);
     }
 
 	public void setPercentVBus() {

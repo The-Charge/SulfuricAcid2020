@@ -147,7 +147,8 @@ private void configureButtonBindings() {
 
     //reverse intake
     runIntakeInverseBtn = new JoystickButton(buttonBox, 1);
-    runIntakeInverseBtn.whenPressed(new RunIntake(intake, -1));
+    runIntakeInverseBtn.whileHeld(new RunIntake(intake, -1));
+    runIntakeInverseBtn.whileHeld(new Index(indexer, -1));
       
     //climb up/climb down
     climbDown = new JoystickButton(buttonBox, 6);
@@ -156,20 +157,20 @@ private void configureButtonBindings() {
     climbUp = new JoystickButton(buttonBox, 5);
     climbUp.whileHeld(new ClimberSpeedMode(climber, 0.5));
       
-    manualElevation = new JoystickButton(buttonBox, 2);
+    //manualElevation = new JoystickButton(buttonBox, 2);
     //manualElevation.whileHeld(new ManualTurretElevation(0));
 
     //runIntake
     runIntakeBtn = new JoystickButton(buttonBox, 4);
-    runIntakeBtn.whenPressed(new RunIntake(intake, 1));
+    runIntakeBtn.whileHeld(new RunIntake(intake, 1));
 
     //Intake and Indexer
     runIntakeIndexerBtn = new JoystickButton(buttonBox, 7);
-    runIntakeIndexerBtn.whenPressed(new Index(indexer, 1));
-    runIntakeIndexerBtn.whenPressed(new RunIntake(intake, 1));
+    runIntakeIndexerBtn.whileHeld(new Index(indexer, 1));
+    runIntakeIndexerBtn.whileHeld(new RunIntake(intake, 1));
 
     shootBtn = new JoystickButton(buttonBox, 9);
-    shootBtn.whileHeld(new Shoot(0, shooter, ballSensor));
+    shootBtn.whileHeld(new Shoot(0.5, shooter, ballSensor));
      
     positionControlBtn = new JoystickButton(buttonBox, 5);
     positionControlBtn.whileHeld(new PositionsControl(controlPanel, colorSensor));
@@ -183,7 +184,7 @@ private void configureButtonBindings() {
     
     //left joystick
     toggleLockStraightBtn = new JoystickButton(leftJoystick, 4 );
-    toggleLockStraightBtn.whenPressed(new ToggleLockStraight(drivetrain));
+    toggleLockStraightBtn.whileHeld(new ToggleLockStraight(drivetrain));
 
     //right joystick
     invertDriveBtn = new JoystickButton(rightJoystick, 2);
@@ -193,7 +194,7 @@ private void configureButtonBindings() {
     quarterSpeedBtn = new JoystickButton(rightJoystick, 4);
     quarterSpeedBtn.whenPressed(new QuarterSpeed(drivetrain));
     
-    shiftLowBtn = new JoystickButton(rightJoystick, 2);
+    shiftLowBtn = new JoystickButton(rightJoystick, 5);
     shiftLowBtn.whenPressed(new ShiftLow(shifters));
     shiftHighWHBtn = new JoystickButton(rightJoystick, 1);
     shiftHighWHBtn.whileHeld(new ShiftHigh(shifters));
@@ -207,7 +208,7 @@ private void configureButtonBindings() {
 
     //reverse intake
     runIntakeInverseBtn = new JoystickButton(buttonBox, 8);
-    runIntakeInverseBtn.whenPressed(new RunIntake(intake, -1));
+    runIntakeInverseBtn.whileHeld(new RunIntake(intake, -1));
       
     //climb up/climb down
     climbDown = new JoystickButton(buttonBox, 6);
