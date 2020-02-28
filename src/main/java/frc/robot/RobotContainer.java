@@ -86,6 +86,10 @@ public class RobotContainer {
   public ColorSensor m_colorSensor = new ColorSensor();
   private final RotationControl m_rotationControl = new RotationControl(controlPanel, m_colorSensor);
   private final PositionsControl m_positionsControl = new PositionsControl(controlPanel, m_colorSensor);
+  public BallSensor m_ballSensor = new BallSensor();
+  public Shooter m_shooter = new Shooter(m_ballSensor);
+
+
     // Button button = new JoystickButton(stick, buttonNumber);
 
     // There are a few additional built in buttons you can use. Additionally,
