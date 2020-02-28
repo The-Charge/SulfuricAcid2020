@@ -65,6 +65,7 @@ public class RobotContainer {
 	public ControlPanel controlPanel = new ControlPanel();
 
   public Drivetrain drivetrain = new Drivetrain();
+  public Turret turret = new Turret();
   //public Shifters shifters = new Shifters();
   public Climber climber = new Climber();
   public Indexer indexer = new Indexer();
