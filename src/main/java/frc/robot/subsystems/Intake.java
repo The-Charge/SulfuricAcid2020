@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 
@@ -95,10 +96,16 @@ intakeMotor = new WPI_TalonSRX(9);
     public int getTicksPerSecond(){
         return intakeMotor.getSelectedSensorVelocity();
     }
-
-    public void initializeMotor()
-    {
-
+    public void setBrakeMode(){
+		intakeMotor.setNeutralMode(NeutralMode.Brake);
     }
+	public void setCoastMode(){
+        intakeMotor.setNeutralMode(NeutralMode.Coast);
+    }
+	public void initializeMotor()
+    {
+        intakeMotor.setInverted(true);
+    }
+  
 }
 

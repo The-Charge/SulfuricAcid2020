@@ -18,12 +18,12 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.I2C;  //not sure if I need this. This is for the port
+import edu.wpi.first.wpilibj.I2C; //not sure if I need this. This is for the port
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.*;
 
-
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -94,6 +94,12 @@ public int getCounter(){
 public void setCounter(int counter){
   ctr = counter;
 }
+public void setBrakeMode(){
+  controlPanelMotor.setNeutralMode(NeutralMode.Brake);
+  }
+  public void setCoastMode(){
+  controlPanelMotor.setNeutralMode(NeutralMode.Coast);
+  }
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.

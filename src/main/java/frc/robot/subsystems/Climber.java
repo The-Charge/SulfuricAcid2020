@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 
@@ -52,14 +53,8 @@ climberBrakeDoubleSolenoid = new DoubleSolenoid(0, 3, 4);
         
 goingUp = false;
 
-    climberMotor.setInverted(true);
     }
 
-    
-   
-   
-
-   
     public void stopMotor(){
         climberMotor.set(ControlMode.PercentOutput,0);
         
@@ -83,7 +78,7 @@ goingUp = false;
 
     public void set(double percentSpeed)
     {
-        //climberBrakeDoubleSolenoid.set(Value.kOff);
+        climberBrakeDoubleSolenoid.set(Value.kOff);
         if(percentSpeed > 0)
             goingUp = true;
         else
@@ -98,6 +93,17 @@ goingUp = false;
     {
         climberMotor.set(ControlMode.PercentOutput, pow);
     }
+    public void setBrakeMode(){
+		climberMotor.setNeutralMode(NeutralMode.Brake);
+    }
+    public void setCoastMode(){
+		climberMotor.setNeutralMode(NeutralMode.Coast);
+    }
+	public void initalizeMotor(){
+	
+	climberMotor.setInverted(true);
+	}
 
     }
+    
 
