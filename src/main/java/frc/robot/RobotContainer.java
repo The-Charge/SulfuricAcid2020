@@ -129,8 +129,8 @@ public class RobotContainer {
     //SmartDashboard.putData("ManualTurretElevationDegrees: default", new ManualTurretElevationDegrees(0));
     //SmartDashboard.putData("RunTurretVision", new RunTurretVision());
     //SmartDashboard.putData("RunTurretManual", new RunTurretManual());
-    SmartDashboard.putData("ClimberSpeedMode: up", new ClimberSpeedMode(climber, 0.5));
-    SmartDashboard.putData("ClimberSpeedMode: down", new ClimberSpeedMode(climber, -0.5));
+    SmartDashboard.putData("ClimberRun: up", new ClimberRun(climber, 0.5));
+    SmartDashboard.putData("ClimberRun: down", new ClimberRun(climber, -0.5));
     SmartDashboard.putData("RotationControl", new RotationControl(controlPanel, colorSensor));
     SmartDashboard.putData("PositionsControl", new PositionsControl(controlPanel, colorSensor));
     SmartDashboard.putNumber("Degrees:", 0);
@@ -152,10 +152,10 @@ private void configureButtonBindings() {
       
     //climb up/climb down
     climbDown = new JoystickButton(buttonBox, 6);
-    climbDown.whileHeld(new ClimberSpeedMode(climber, -0.5));
+    climbDown.whileHeld(new ClimberRun(climber, -15));
     climbDown.whenReleased(new SequentialCommandGroup(new WaitCommand(1), new ClimberBrake(climber), new WaitCommand(1)));
     climbUp = new JoystickButton(buttonBox, 5);
-    climbUp.whileHeld(new ClimberSpeedMode(climber, 0.5));
+    climbUp.whileHeld(new ClimberRun(climber, 15));
       
     //manualElevation = new JoystickButton(buttonBox, 2);
     //manualElevation.whileHeld(new ManualTurretElevation(0));
@@ -212,10 +212,10 @@ private void configureButtonBindings() {
       
     //climb up/climb down
     climbDown = new JoystickButton(buttonBox, 6);
-    climbDown.whileHeld(new ClimberSpeedMode(climber, -0.5));
+    climbDown.whileHeld(new ClimberRun(climber, -0.5));
     climbDown.whenReleased(new SequentialCommandGroup(new WaitCommand(1), new ClimberBrake(climber), new WaitCommand(1)));
     climbUp = new JoystickButton(buttonBox, 5);
-    climbUp.whileHeld(new ClimberSpeedMode(climber, 0.5));
+    climbUp.whileHeld(new ClimberRun(climber, 0.5));
 
     manualElevation = new JoystickButton(buttonBox, 2);
     //manualElevation.whileHeld(new ManualTurretElevation(0));

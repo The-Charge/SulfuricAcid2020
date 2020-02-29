@@ -35,20 +35,12 @@ private WPI_TalonSRX climberMotor;
 private DoubleSolenoid climberBrakeDoubleSolenoid;
 private boolean goingUp;
 
-    
-    private final static double P_CONSTANT = 1;   //needs tuning
-    private final static double I_CONSTANT = 0.001;  //needs tuning
-	private final static double D_CONSTANT = 0.0;   //needs tuning
-    private final static double F_CONSTANT = 100;   //needs tuning
-      
-    private final static int PID_SLOT_SPEED_MODE = 0;
-
     final int TIMEOUT_MS = 10;   //needs tuning
     private final static int MAX_TICKS_PER_SEC = 934;
    
 
     public Climber() {
-climberMotor = new WPI_TalonSRX(12);
+climberMotor = new WPI_TalonSRX(9);
 climberBrakeDoubleSolenoid = new DoubleSolenoid(0, 3, 4);
         
 goingUp = false;
@@ -65,17 +57,6 @@ goingUp = false;
             climberBrakeDoubleSolenoid.set(Value.kForward);
     }
 
-    public void initSpeedMode(){
-        climberMotor.set(ControlMode.Velocity, 0);
-
-        climberMotor.config_kP(PID_SLOT_SPEED_MODE, P_CONSTANT, TIMEOUT_MS);
-    	climberMotor.config_kI(PID_SLOT_SPEED_MODE, I_CONSTANT, TIMEOUT_MS);
-    	climberMotor.config_kD(PID_SLOT_SPEED_MODE, D_CONSTANT, TIMEOUT_MS);
-        climberMotor.config_kF(PID_SLOT_SPEED_MODE, F_CONSTANT, TIMEOUT_MS);
-
-        
-    }
-
     public void set(double percentSpeed)
     {
         climberBrakeDoubleSolenoid.set(Value.kOff);
@@ -83,15 +64,11 @@ goingUp = false;
             goingUp = true;
         else
             goingUp = false;
-        climberMotor.set(ControlMode.Velocity, 10 * percentSpeed);
+        climberMotor.set(ControlMode.PercentOutput, 10 * percentSpeed);
     }
     public void setPercentVBus()
     {
         climberMotor.set(ControlMode.PercentOutput, 0);
-    }
-    public void manual (double pow)
-    {
-        climberMotor.set(ControlMode.PercentOutput, pow);
     }
     public void setBrakeMode(){
 		climberMotor.setNeutralMode(NeutralMode.Brake);
@@ -104,6 +81,22 @@ goingUp = false;
 	climberMotor.setInverted(true);
 	}
 
+    public double getCurrent()
+    {
+        return climberMotor.getSupplyCurrent();
     }
+ 
+    public void limitCurrent()
+    {
+        //Don't know the exact max current number
+        climberMotor.configPeakCurrentLimit(40); // don't activate current limit until current exceeds 30 A ...
+        climberMotor.configPeakCurrentDuration(100); // ... for at least 100 ms
+        climberMotor.configContinuousCurrentLimit(35); // once current-limiting is actived, hold at 20A
+        climberMotor.enableCurrentLimit(true);
+        //Enabling Current Limit means the Talon SRX will automatically monitor the current output
+        //  and restrict the output with a limit cap.
+    }
+
+}
     
 
