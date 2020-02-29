@@ -32,7 +32,7 @@ public class Lights implements Subsystem {
     public static CANifier canifier = new CANifier(0);
     public final static CANifier.PWMChannel kMotorControllerCh = CANifier.PWMChannel.PWMChannel2;
    
-    private boolean running = true;
+ 
 
     public Lights() {   
         setDefaultCommand(new ChangeLights(this));
@@ -47,7 +47,6 @@ public class Lights implements Subsystem {
 
     public void onStop(){
         canifier.enablePWMOutput(kMotorControllerCh.value, false);
-        running = false;
     }
     public void onLoop(){}
 
@@ -64,31 +63,31 @@ public class Lights implements Subsystem {
             canifier.setLEDOutput(53, CANifier.LEDChannel.LEDChannelC);
         }
         else{
-            if(running)   
+            if(BallSensor.getOutput() == 1)   
             {
                 canifier.setLEDOutput(250, CANifier.LEDChannel.LEDChannelA);
                 canifier.setLEDOutput(250, CANifier.LEDChannel.LEDChannelB);
                 canifier.setLEDOutput(35, CANifier.LEDChannel.LEDChannelC);
             }
-            else if(running)
+            else if(BallSensor.getOutput() == 2)
             {
                 canifier.setLEDOutput(185, CANifier.LEDChannel.LEDChannelA);
                 canifier.setLEDOutput(242, CANifier.LEDChannel.LEDChannelB);
                 canifier.setLEDOutput(61, CANifier.LEDChannel.LEDChannelC);
             } 
-            else if (running)
+            else if (BallSensor.getOutput() == 3)
             {
                 canifier.setLEDOutput(139, CANifier.LEDChannel.LEDChannelA);
                 canifier.setLEDOutput(242, CANifier.LEDChannel.LEDChannelB);
                 canifier.setLEDOutput(61, CANifier.LEDChannel.LEDChannelC);
             }
-            else if (running)
+            else if (BallSensor.getOutput() == 4)
             {
                 canifier.setLEDOutput(91, CANifier.LEDChannel.LEDChannelA);
                 canifier.setLEDOutput(242, CANifier.LEDChannel.LEDChannelB);
                 canifier.setLEDOutput(61, CANifier.LEDChannel.LEDChannelC);
             }
-            else if (running)
+            else if (BallSensor.getOutput() == 5)
             {
                 canifier.setLEDOutput(48, CANifier.LEDChannel.LEDChannelA);
                 canifier.setLEDOutput(201, CANifier.LEDChannel.LEDChannelB);

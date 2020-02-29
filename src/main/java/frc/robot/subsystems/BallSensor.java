@@ -90,6 +90,7 @@ setDefaultCommand(new BallCounter(this));
     // here. Call these from Commands.
 
 }
+
 public void setBallsgained(){
     GainedTemp = 1;
     LostTemp = 1;
@@ -118,6 +119,10 @@ if(output < 0){
 System.out.println(output);
     SmartDashboard.putNumber("Balls: ",output);
 
+}
+public static int getOutput()
+{
+    return output;
 }
 }
 
