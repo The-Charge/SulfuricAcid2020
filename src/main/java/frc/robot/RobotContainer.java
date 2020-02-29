@@ -59,7 +59,7 @@ public class RobotContainer {
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
 	public ControlPanel controlPanel = new ControlPanel();
-
+  public Lights lights = new Lights();
   public Drivetrain drivetrain = new Drivetrain();
   public Shifters shifters = new Shifters();
   public Climber climber = new Climber();
@@ -106,7 +106,7 @@ public static Joystick buttonBox;
     public RobotContainer() {
     SmartDashboard.putData("RotationControl", new RotationControl(controlPanel, m_colorSensor));
     SmartDashboard.putData("PositionsControl", new PositionsControl(controlPanel, m_colorSensor));
-    
+    SmartDashboard.putData("TurnOffLights", new TurnOffLights(lights));
     //SmartDashboard.putNumber("Red", detectedColor.red);
     //SmartDashboard.putNumber("Green", detectedColor.green);
     //SmartDashboard.putNumber("Blue", detectedColor.blue);

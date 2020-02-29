@@ -34,10 +34,8 @@ public class Lights implements Subsystem {
    
     private boolean running = true;
 
-    public Lights() {
-        
+    public Lights() {   
         setDefaultCommand(new ChangeLights(this));
-
     }
 
     
@@ -45,7 +43,6 @@ public class Lights implements Subsystem {
     
     public void onStart(){
         canifier.enablePWMOutput(kMotorControllerCh.value, true);
-
     }
 
     public void onStop(){
@@ -57,7 +54,6 @@ public class Lights implements Subsystem {
     public boolean isDone(){return false;}
     public String vision = "Locked";
    
-    
     public void changeLight()
     {
 
