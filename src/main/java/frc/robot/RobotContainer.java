@@ -113,7 +113,7 @@ public class RobotContainer {
     SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
     SmartDashboard.putData("ShiftHigh", new ShiftHigh(shifters));
     SmartDashboard.putData("ShiftLow", new ShiftLow(shifters));
-    SmartDashboard.putData("Shoot: default", new Shoot(0.4, shooter, ballSensor));
+    SmartDashboard.putData("Shoot: default", new Shoot(0.4, shooter, ballSensor,indexer));
     //SmartDashboard.putData("TurretCommand", new TurretCommand());
     SmartDashboard.putData("RunIntake: default", new RunIntake(intake, 0.4));
     SmartDashboard.putData("DriveXFeetMM: default", new DriveXFeetMM(0, 0, 30, drivetrain));
@@ -170,7 +170,7 @@ private void configureButtonBindings() {
     runIntakeIndexerBtn.whileHeld(new RunIntake(intake, 1));
 
     shootBtn = new JoystickButton(buttonBox, 9);
-    shootBtn.whileHeld(new Shoot(0.5, shooter, ballSensor));
+    shootBtn.whileHeld(new Shoot(0.5, shooter, ballSensor,indexer));
     shootBtn.whileHeld(new Index(indexer, 0.5));  //Indexer will run slower if shooting at the same time
      
     positionControlBtn = new JoystickButton(buttonBox, 5);
@@ -231,7 +231,7 @@ private void configureButtonBindings() {
     runIntakeIndexerBtn.whenPressed(new RunIntake(intake, 1));
 
     shootBtn = new JoystickButton(buttonBox, 1);
-    shootBtn.whileHeld(new Shoot(0, shooter, ballSensor));
+    shootBtn.whileHeld(new Shoot(0, shooter, ballSensor,indexer));
      
     positionControlBtn = new JoystickButton(buttonBox, 5);
     positionControlBtn.whileHeld(new PositionsControl(controlPanel, colorSensor));

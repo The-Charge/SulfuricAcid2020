@@ -73,7 +73,7 @@ private Solenoid stopperSolenoid;
 
     motorShooter = new WPI_TalonFX(0);
     stopperSolenoid = new Solenoid(0,2);
-    setDefaultCommand(new DefaultStopper(this));
+   // setDefaultCommand(new DefaultStopper(this));
     }
 
     @Override

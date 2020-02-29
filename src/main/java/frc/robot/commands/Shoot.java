@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.BallSensor;
+import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Shooter;
 
 /**
@@ -23,15 +24,17 @@ import frc.robot.subsystems.Shooter;
  */
 public class Shoot extends CommandBase {
 
+    private final Indexer m_indexer;
     private double m_speed;
     private final Shooter m_shooter;
     private final BallSensor m_ballSensor;
 
-    public Shoot(double speed, Shooter shooter, BallSensor ballSensor) {
+    public Shoot(double speed, Shooter shooter, BallSensor ballSensor, Indexer indexer) {
         m_shooter = shooter;
         m_speed = speed;
         m_ballSensor = ballSensor;
-        addRequirements(m_shooter,m_ballSensor);
+        m_indexer = indexer;
+        addRequirements(m_shooter,m_ballSensor, m_indexer);
 
     }
 
@@ -69,7 +72,13 @@ public class Shoot extends CommandBase {
     // Called once after isFinished returns true
     @Override
     public void end(boolean interrupted) {
+        
         m_shooter.stop();
+
+        m_indexer.setPercentSpeedPID(-.5);
+        new WaitCommand(2);
+        m_indexer.stop();
+        
         if (!m_ballSensor.ballSensed())
         {
             m_shooter.activateStopper();
@@ -77,6 +86,11 @@ public class Shoot extends CommandBase {
         else{
             new CloseStopper(m_shooter,m_ballSensor);
         }
+
+        
+
+
+
     }
 
     

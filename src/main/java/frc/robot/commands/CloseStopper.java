@@ -30,7 +30,7 @@ public class CloseStopper extends CommandBase {
 
     m_shooter = shooter;
     m_BallSensor = ballSensor;
-        addRequirements(m_shooter);
+        addRequirements(m_shooter,m_BallSensor);
     }
 
     // Called just before this Command runs the first time
