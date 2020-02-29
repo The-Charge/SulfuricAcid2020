@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -52,7 +53,7 @@ public final class Constants {
     public static final double kaVoltSecondsSquaredPerMeter = 0.969;
 
     // Example value only - as above, this must be tuned for your drive!
-    public static final double kPDriveVel = 22.4;
+    public static final double kPDriveVel = SmartDashboard.getNumber("Trajectory P Val", 1);  //original val: 22.4
   }
 
   public static final class OIConstants {
