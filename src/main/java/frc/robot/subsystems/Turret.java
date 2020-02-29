@@ -168,13 +168,19 @@ private final Servo elevationServo;
         setHorizontalAngleAbsolute(setpoint + getHorizontalAngle());
     }
     
-    public void runHorizontalManual(double percent) {
-        int ticks = turretMotor.getSelectedSensorPosition();
+    public void runHorizontalManual(double position) {
+        double ticks = turretMotor.getSelectedSensorPosition();       
         SmartDashboard.putNumber("Turrentticks", ticks);
-        if ((ticks < H_MIN_ENCODER_TICKS && percent < 0) || (ticks > H_MAX_ENCODER_TICKS && percent > 0)) {
+        if (Math.abs(ticks-position) > 10)
+        {
+            if (ticks-position > 0)
+            turretMotor.set(ControlMode.PercentOutput, 0.2);
+            else{
+            turretMotor.set(ControlMode.PercentOutput, -0.2);
+            }
+        }
+        else{
             stopHorizontal();
-        } else {
-            turretMotor.set(ControlMode.PercentOutput, percent);
         }
         checkHorizontalLimitSwitches();
     }

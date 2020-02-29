@@ -67,13 +67,13 @@ private Solenoid stopperSolenoid;
 
     motorShooter = new WPI_TalonFX(0);
     stopperSolenoid = new Solenoid(0,2);
-    setDefaultCommand(new CloseStopper(this,ballSensor));
+    setDefaultCommand(new DefaultStopper(this));
     }
 
     @Override
     public void periodic() {
         // Put code here to be run every loop
-        
+        //stopperSolenoid.set(true);
     }
 
     public void stop(){

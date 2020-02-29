@@ -27,8 +27,8 @@ public class Intake implements Subsystem {
 
 private WPI_TalonSRX intakeMotor;
 
-     private final static double SPEED_P_CONSTANT = 0.1;
-	private final static double SPEED_I_CONSTANT = 0.00001;
+     private final static double SPEED_P_CONSTANT = 1;
+	private final static double SPEED_I_CONSTANT = 0.1;
 	private final static double SPEED_D_CONSTANT = 0.0;
 	private final static double SPEED_F_CONSTANT = 0.0;
     
