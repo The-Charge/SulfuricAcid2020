@@ -12,6 +12,7 @@ package frc.robot.subsystems;
 
 import frc.robot.commands.*;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
@@ -32,10 +33,17 @@ private WPI_TalonSRX intakeMotor;
 	private final static double SPEED_D_CONSTANT = 0.0;
 	private final static double SPEED_F_CONSTANT = 0.0;
     
-    public double speedP = SPEED_P_CONSTANT;
+   /* public double speedP = SPEED_P_CONSTANT;
 	public double speedI = SPEED_I_CONSTANT;
 	public double speedD = SPEED_D_CONSTANT;
     public double speedF = SPEED_F_CONSTANT;
+    */
+
+    public double speedP = SmartDashboard.getNumber("Intake P", 1);
+	public double speedI = SmartDashboard.getNumber("Intake I", 1);
+	public double speedD = SmartDashboard.getNumber("Intake D", 1);
+    public double speedF = SPEED_F_CONSTANT;
+
     
     public final static int PID_SLOT_SPEED_MODE = 1;
     

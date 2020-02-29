@@ -40,9 +40,15 @@ private WPI_TalonSRX indexerMotorRF;
 	private final static double SPEED_D_CONSTANT = 0.0;
 	private final static double SPEED_F_CONSTANT = 0.0;
     
-    public double speedP = SPEED_P_CONSTANT;
+  /*  public double speedP = SPEED_P_CONSTANT;
 	public double speedI = SPEED_I_CONSTANT;
 	public double speedD = SPEED_D_CONSTANT;
+    public double speedF = SPEED_F_CONSTANT;
+
+    */
+    public double speedP = SmartDashboard.getNumber("Indexer P", 1);
+	public double speedI = SmartDashboard.getNumber("Indexer I", 1);
+	public double speedD = SmartDashboard.getNumber("Indexer D", 1);
     public double speedF = SPEED_F_CONSTANT;
 
     
