@@ -27,7 +27,8 @@ import frc.robot.Constants.DriveConstants;
  * project.
  */
 public class Robot extends TimedRobot {
- 
+  public static BallSensor ballSensor;
+
 
 
 private Command m_autonomousCommand;
@@ -49,11 +50,12 @@ public RobotContainer m_robotContainer;
     m_robotContainer = new RobotContainer();
 
 
+
   
 
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
+
     
   
   }
