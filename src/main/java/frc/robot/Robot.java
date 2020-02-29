@@ -92,7 +92,7 @@ private SendableChooser chooser;
   public void autonomousInit() {
     m_robotContainer.drivetrain.resetEncoders();
     m_robotContainer.drivetrain.resetOdometry(new Pose2d(0, 0, new Rotation2d(0)));
-    m_autonomousCommand = (Command) chooser.getSelected();
+    m_autonomousCommand =  (Command) chooser.getSelected();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
