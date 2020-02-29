@@ -10,6 +10,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
@@ -37,10 +38,14 @@ public class RunTurretManual extends CommandBase {
     @Override
     public void execute() {
         turretHorizontal = -RobotContainer.buttonBox.getY();
+        SmartDashboard.putNumber("TurretHorizontal", turretHorizontal);
         m_turret.runHorizontalManual(turretHorizontal);
 
-        turretVertical = -RobotContainer.buttonBox.getX();
+        turretVertical = RobotContainer.buttonBox.getX();
+        turretVertical = (1+turretVertical)/2;
+        SmartDashboard.putNumber("TurretVertical", turretVertical);
         m_turret.setRawVertical(turretVertical);
+
     }
 
     // Make this return true when this Command no longer needs to run execute()

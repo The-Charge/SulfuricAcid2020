@@ -54,10 +54,8 @@ public class Index extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
-    //double yAxisVal = RobotContainer.buttonBox.getRawAxis(1);
-    double yAxisVal = m_speed;
-        m_indexer.setPercentSpeedPID(yAxisVal);
-        SmartDashboard.putNumber("Y AXIS VAL", yAxisVal);
+        m_indexer.setPercentSpeedPID(m_speed);
+        //SmartDashboard.putNumber("Y AXIS VAL", yAxisVal);
     }
 
     // Make this return true when this Command no longer needs to run execute()
