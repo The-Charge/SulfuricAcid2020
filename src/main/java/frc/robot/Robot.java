@@ -49,7 +49,12 @@ private SendableChooser chooser;
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer(); 
     chooser = new SendableChooser<Command>();
-    chooser.setDefaultOption("Drive Straight", m_robotContainer.getAutonomousForward());
+    chooser.setDefaultOption("Drive Forward", new SequentialCommandGroup(m_robotContainer.getAutonomousForward()));
+    chooser.addOption("Drive Backward", new SequentialCommandGroup(m_robotContainer.getAutonomousBackward()));
+    chooser.addOption("Corner", new SequentialCommandGroup(m_robotContainer.getAutonomousCorner(), m_robotContainer.getAutonomousCorner2()));
+    chooser.addOption("PortTR", new SequentialCommandGroup(m_robotContainer.getAutonomousPortTR(), m_robotContainer.getAutonomousPortTR2()));
+
+    SmartDashboard.putData("AutoSelect", chooser);
   
   }
 
@@ -87,7 +92,7 @@ private SendableChooser chooser;
   public void autonomousInit() {
     m_robotContainer.drivetrain.resetEncoders();
     m_robotContainer.drivetrain.resetOdometry(new Pose2d(0, 0, new Rotation2d(0)));
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_autonomousCommand = (Command) chooser.getSelected();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
