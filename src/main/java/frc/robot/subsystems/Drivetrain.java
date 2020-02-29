@@ -11,10 +11,11 @@
 package frc.robot.subsystems;
 
 import frc.robot.MathUtil;
-import edu.wpi.first.wpilibj.SPI.Port; //might change to I2C
+import edu.wpi.first.wpilibj.SerialPort.Port; //might change to I2C
 import edu.wpi.first.wpilibj.controller.PIDController;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.kauailabs.navx.frc.AHRS;
+import com.kauailabs.navx.frc.*;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
@@ -94,8 +95,8 @@ private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_
 
     public PIDController pidController;
 
-    private static final AHRS ahrs = new AHRS(Port.kMXP);
-
+    private static final AHRS ahrs = new AHRS(Port.kUSB);
+    
     private static boolean isReversed = false;
 
     public Drivetrain() {
