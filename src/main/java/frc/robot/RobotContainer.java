@@ -171,6 +171,7 @@ private void configureButtonBindings() {
 
     shootBtn = new JoystickButton(buttonBox, 9);
     shootBtn.whileHeld(new Shoot(0.5, shooter, ballSensor));
+    shootBtn.whileHeld(new Index(indexer, 0.5));  //Indexer will run slower if shooting at the same time
      
     positionControlBtn = new JoystickButton(buttonBox, 5);
     positionControlBtn.whileHeld(new PositionsControl(controlPanel, colorSensor));
