@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
@@ -82,7 +83,7 @@ public RobotContainer m_robotContainer;
   public void autonomousInit() {
     m_robotContainer.drivetrain.resetEncoders();
     m_robotContainer.drivetrain.resetOdometry(new Pose2d(0, 0, new Rotation2d(0)));
-    m_autonomousCommand = m_robotContainer.rIntake();
+    m_autonomousCommand = new ParallelCommandGroup(m_robotContainer.getAutonomousCommand2(), m_robotContainer.rIntake());
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
