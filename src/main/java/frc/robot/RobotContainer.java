@@ -62,52 +62,20 @@ import static edu.wpi.first.wpilibj.XboxController.Button;
 public class RobotContainer {
 
   //SUBSYSTEMS
-  public ControlPanel controlPanel = new ControlPanel();
-  public ColorSensor colorSensor = new ColorSensor();
-  public Intake intake = new Intake();
+  
   public Drivetrain drivetrain = new Drivetrain();
-  public Turret turret = new Turret();
-  public Shifters shifters = new Shifters();
-  public Climber climber = new Climber();
-  public Indexer indexer = new Indexer();
-  public Stopper stopper = new Stopper();
-  public Shooter shooter = new Shooter();
+  
 
   //JOYSTICKS
-  public static Joystick leftJoystick;
-  public static Joystick rightJoystick;
-  public static Joystick buttonBox;
-
-  //JOYSTICK BUTTONS
-  public JoystickButton shiftHighWPBtn;
-  public JoystickButton shiftHighWHBtn;
-  public JoystickButton shiftLowBtn;
-  public JoystickButton quarterSpeedBtn;
-  public JoystickButton halfSpeedBtn;
-  public JoystickButton toggleLockStraightBtn;
-  public JoystickButton invertDriveBtn;
-  public JoystickButton shootBtn;
-  public JoystickButton manualElevation;
-  public JoystickButton driveXFeetBtn;
-  public JoystickButton climbUp;
-  public JoystickButton indexBtn;
-  public JoystickButton positionControlBtn;
-  public JoystickButton rotationControlBtn;
-  public JoystickButton runIntakeBtn;
-  public JoystickButton runIntakeInverseBtn;
-  public JoystickButton runIntakeIndexerBtn;
-  public JoystickButton sensorColorBtn;
-  public JoystickButton climbDown;
-
+ 
   public boolean realButtonBox = true;
 
    
     public RobotContainer() {
-      if (realButtonBox) configureButtonBindings();
-      else alternateButtonBindings();
-      smartDashboardButtons();   
+
   }
 
+  /*
   private void smartDashboardButtons() {
     // SmartDashboard Buttons
     SmartDashboard.putData("TankDrive", new TankDrive(drivetrain));
@@ -265,6 +233,11 @@ private void configureButtonBindings() {
 
   }
 
+*/
+
+
+
+
   public Command getAutonomousCommand() {
 
     // Create a voltage constraint to ensure we don't accelerate too fast
@@ -354,7 +327,7 @@ private void configureButtonBindings() {
     
     Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
         // Start at the origin facing the +X direction
-        new Pose2d(1.4, 2, new Rotation2d(Math.PI/3.25)),
+        new Pose2d(0, 0, new Rotation2d(0)),
         // Pass through these two interior waypoints, making an 's' curve path
         List.of(
           //new Translation2d(3, 0)
@@ -362,7 +335,7 @@ private void configureButtonBindings() {
           //new Translation2d(5, -1)
         ),
         // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(3, 0, new Rotation2d(0)),
+        new Pose2d(1, 0, new Rotation2d(0)),
         // Pass config
         config
     );
@@ -387,16 +360,6 @@ private void configureButtonBindings() {
     return ramseteCommand.andThen(() -> drivetrain.tankDriveVolts(0, 0));
   }
 
-  public Joystick getRightJoystick() {
-    return rightJoystick;
-  }
-
-  public Joystick getLeftJoystick() {
-    return leftJoystick;
-  }
-
-  public Joystick getButtonBox() {
-    return buttonBox;
-  }
+  
 
 }

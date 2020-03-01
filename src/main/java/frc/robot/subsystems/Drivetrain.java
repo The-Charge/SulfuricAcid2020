@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.kauailabs.navx.frc.AHRS;
 import com.kauailabs.navx.frc.*;
+import edu.wpi.first.wpilibj.SerialPort.Port;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
@@ -27,7 +28,7 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.commands.TankDrive;
+
 
 public class Drivetrain extends SubsystemBase {
 
@@ -53,7 +54,7 @@ private final SpeedControllerGroup m_rightMotors =
 private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
 
   // The gyro sensor
-  private final AHRS m_gyro = new AHRS(Port.kMXP);
+  private final AHRS m_gyro = new AHRS(Port.kUSB);
 
   // Odometry class for tracking robot pose
       public final DifferentialDriveOdometry m_odometry;
@@ -101,8 +102,7 @@ private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_
     public Drivetrain() {
         resetEncoders();
     m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
-    pidController = new PIDController(PIDTURN_P, PIDTURN_I, PIDTURN_D);
-    setDefaultCommand(new TankDrive(this));
+    
     }
 
     @Override

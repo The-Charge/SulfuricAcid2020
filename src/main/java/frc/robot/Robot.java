@@ -82,7 +82,7 @@ public RobotContainer m_robotContainer;
   public void autonomousInit() {
     m_robotContainer.drivetrain.resetEncoders();
     m_robotContainer.drivetrain.resetOdometry(new Pose2d(0, 0, new Rotation2d(0)));
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand2();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
