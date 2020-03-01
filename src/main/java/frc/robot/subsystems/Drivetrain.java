@@ -30,7 +30,7 @@ import frc.robot.commands.TankDrive;
 
 public class Drivetrain extends SubsystemBase {
 
-/*
+
 public WPI_TalonFX leftFrontMotor = new WPI_TalonFX(14);
 public WPI_TalonFX leftMidMotor = new WPI_TalonFX(13);
 private  WPI_TalonFX leftBackMotor = new WPI_TalonFX(15);
@@ -39,8 +39,8 @@ private  WPI_TalonFX leftBackMotor = new WPI_TalonFX(15);
 public WPI_TalonFX rightFrontMotor = new WPI_TalonFX(2);
 private WPI_TalonFX rightMidMotor = new WPI_TalonFX(1);
 private WPI_TalonFX rightBackMotor = new WPI_TalonFX(3);
-*/
 
+/*
 public WPI_TalonFX leftFrontMotor = new WPI_TalonFX(7);
 public WPI_TalonFX leftMidMotor = new WPI_TalonFX(0);
 private  WPI_TalonFX leftBackMotor = new WPI_TalonFX(8);
@@ -49,6 +49,7 @@ private  WPI_TalonFX leftBackMotor = new WPI_TalonFX(8);
 public WPI_TalonFX rightFrontMotor = new WPI_TalonFX(2);
 private WPI_TalonFX rightMidMotor = new WPI_TalonFX(1);
 private WPI_TalonFX rightBackMotor = new WPI_TalonFX(3);
+*/
 
 private final SpeedControllerGroup m_leftMotors =
 new SpeedControllerGroup(leftFrontMotor, leftMidMotor,
@@ -417,7 +418,7 @@ private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_
       public double getTurnRate() {
         return m_gyro.getRate() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
       }
-      public void intializeMotors()
+      public void initializeMotors()
       {
     rightBackMotor.setInverted(true);
     rightMidMotor.setInverted(true);
