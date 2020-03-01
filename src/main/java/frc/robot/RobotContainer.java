@@ -64,6 +64,7 @@ public class RobotContainer {
   //SUBSYSTEMS
   
   public Drivetrain drivetrain = new Drivetrain();
+  public Intake intake = new Intake(); 
   
 
   //JOYSTICKS
@@ -360,6 +361,9 @@ private void configureButtonBindings() {
     return ramseteCommand.andThen(() -> drivetrain.tankDriveVolts(0, 0));
   }
 
-  
+  public Command rIntake()
+  {
+    return new RunIntake(intake, 0.4);
+  }
 
 }
