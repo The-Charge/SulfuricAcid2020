@@ -30,8 +30,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 public class Turret implements Subsystem {
     private static final double H_DEGREES_PER_TICK = 0.0;  // how many degrees traveled per encoder tick
     private static final double H_TICKS_PER_DEGREE = 1 / H_DEGREES_PER_TICK;
-    private static final int H_MIN_ENCODER_TICKS = -50000;  // used to stop turret from rotating past ends
-    private static final int H_MAX_ENCODER_TICKS = -H_MIN_ENCODER_TICKS;
+    private static final int H_MIN_ENCODER_TICKS = -482070;  // used to stop turret from rotating past ends
+    private static final int H_MAX_ENCODER_TICKS = 484191;
     private static final double H_MIN_ANGLE = H_MIN_ENCODER_TICKS * H_DEGREES_PER_TICK;
     private static final double H_MAX_ANGLE = H_MAX_ENCODER_TICKS * H_DEGREES_PER_TICK;
     private static final double H_TOLERANCE = 5;
@@ -175,18 +175,20 @@ private final Relay decorativeLights;
     }
     
     public void runHorizontalManual(double position) {
-        position = position*479017;
+        SmartDashboard.putNumber("Slider", position);
+        position = position * 482070;
         double ticks = turretMotor.getSelectedSensorPosition();       
-        SmartDashboard.putNumber("Turrentticks", ticks);
-        if (Math.abs(ticks-position) > 5000)
-        {
-            if (ticks-position > 0)
-            turretMotor.set(ControlMode.PercentOutput, 0.3);
+        double error = position - ticks;
+        SmartDashboard.putNumber("Current", ticks);
+        SmartDashboard.putNumber("Target", position);
+        SmartDashboard.putNumber("Error", error);
+        if (Math.abs(error) > 400) {
+            if (error > 0)
+                turretMotor.set(ControlMode.PercentOutput, 0.15);
             else{
-            turretMotor.set(ControlMode.PercentOutput, -0.3);
+                turretMotor.set(ControlMode.PercentOutput, -0.15);
             }
-        }
-        else{
+        } else{
             stopHorizontal();
         }
         checkHorizontalLimitSwitches();
