@@ -33,10 +33,11 @@ private Solenoid stopperSolenoid;
 
     public Stopper() {
 
-    ballSensor = new DigitalInput(0);
+    ballSensor = new DigitalInput(1);
     stopperSolenoid = new Solenoid(0,2);
     
-    setDefaultCommand(new CloseStopper(this));
+    //setDefaultCommand(new CloseStopper(this));
+    stopperSolenoid.set(true);
         
     }
 
@@ -58,8 +59,9 @@ private Solenoid stopperSolenoid;
     }
 
     public void closeStopper(){
-        if (!ballSensed()) stopperSolenoid.set(true);
-        else new CloseStopper(this);
+        //if (!ballSensed()) stopperSolenoid.set(true);
+        //else new CloseStopper(this);
+        stopperSolenoid.set(true);
     }
 
 }

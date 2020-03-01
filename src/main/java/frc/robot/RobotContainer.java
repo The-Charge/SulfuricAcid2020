@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.*;
@@ -171,8 +172,11 @@ private void configureButtonBindings() {
     
 
     shootBtn = new JoystickButton(buttonBox, 9);
-    shootBtn.whileHeld(new SequentialCommandGroup(new OpenStopper(stopper)));
-    shootBtn.whenReleased(new CloseStopper(stopper));
+    //shootBtn.whileHeld(new ParallelCommandGroup(new OpenStopper(stopper))); indexer, slow speed
+    shootBtn.whileHeld(new ParallelCommandGroup(new OpenStopper(stopper), new Index(indexer, 0.2)));
+    shootBtn.whenReleased(new ParallelCommandGroup (new CloseStopper(stopper, indexer)));
+
+    
     //shootBtn.whileHeld(new Index(indexer, 0.5));  //Indexer will run slower if shooting at the same time
      
     positionControlBtn = new JoystickButton(buttonBox, 5);
