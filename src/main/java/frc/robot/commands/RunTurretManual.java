@@ -38,14 +38,12 @@ public class RunTurretManual extends CommandBase {
     @Override
     public void execute() {
         turretHorizontal = -RobotContainer.buttonBox.getY();
-        SmartDashboard.putNumber("TurretHorizontal", turretHorizontal);
         m_turret.runHorizontalManual(turretHorizontal);
 
         turretVertical = RobotContainer.buttonBox.getX();
-        turretVertical = (1+turretVertical)/2;
-        SmartDashboard.putNumber("TurretVertical", turretVertical);
+        turretVertical = (1 + turretVertical) / 2;
+        turretVertical = .4 * turretVertical + .4;
         m_turret.setRawVertical(turretVertical);
-
     }
 
     // Make this return true when this Command no longer needs to run execute()
