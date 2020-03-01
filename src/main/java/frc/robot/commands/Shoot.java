@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.BallSensor;
 import frc.robot.subsystems.Shooter;
 
 /**
@@ -25,13 +24,11 @@ public class Shoot extends CommandBase {
 
     private double m_speed;
     private final Shooter m_shooter;
-    private final BallSensor m_ballSensor;
 
-    public Shoot(double speed, Shooter shooter, BallSensor ballSensor) {
+    public Shoot(Shooter shooter, double speed) {
         m_shooter = shooter;
         m_speed = speed;
-        m_ballSensor = ballSensor;
-        addRequirements(m_shooter,m_ballSensor);
+        addRequirements(m_shooter);
 
     }
 
@@ -45,37 +42,25 @@ public class Shoot extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
-        double xAxisVal = RobotContainer.buttonBox.getRawAxis(2);
-        xAxisVal = (xAxisVal + 1)/2;
-        m_shooter.setPercentSpeedPID(xAxisVal);
+        m_speed = RobotContainer.buttonBox.getRawAxis(2);
+        m_speed = (m_speed + 1)/2;
+        m_shooter.setPercentSpeedPID(m_speed);
 
-        SmartDashboard.putNumber("ShooterSpeed", xAxisVal);
-    
-        if (Math.abs(m_shooter.getCurrentSpeed() - xAxisVal) < 0.1)
-        {
-            //m_shooter.deactivateStopper();
-        }
-       
+        SmartDashboard.putNumber("ShooterSpeed", m_speed);
 
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     public boolean isFinished() {
+        //return  (Math.abs(m_shooter.getCurrentSpeed() - m_speed) < 0.1);
         return false;
     }
 
     // Called once after isFinished returns true
     @Override
     public void end(boolean interrupted) {
-        m_shooter.stop();
-        if (!m_ballSensor.ballSensed())
-        {
-            //m_shooter.activateStopper();
-        }
-        else{
-            //new CloseStopper(m_shooter,m_ballSensor);
-        }
+        //m_shooter.stop();
     }
 
     

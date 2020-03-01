@@ -37,7 +37,7 @@ public class Shooter implements Subsystem {
 
     
 private WPI_TalonFX motorShooter;
-private Solenoid stopperSolenoid;
+
 //set to use TalonSRX for testing, will later change to TalonFX 
                                  //in robotbuilder   
 
@@ -45,7 +45,7 @@ private Solenoid stopperSolenoid;
 //TODO: Tune PID values, current values based on Plybot
   
     private final static double SPEED_P_CONSTANT = 0.1;
-	private final static double SPEED_I_CONSTANT = 0.001;
+	private final static double SPEED_I_CONSTANT = 0.0001;
 	private final static double SPEED_D_CONSTANT = 0.0;
 	private final static double SPEED_F_CONSTANT = 0.0;
     
@@ -69,11 +69,10 @@ private Solenoid stopperSolenoid;
     private final int TIMEOUT_MS = 10;
     private static final int MAX_TICKS_PER_SEC = 20000;
 
-    public Shooter(BallSensor ballSensor) {
+    public Shooter() {
 
     motorShooter = new WPI_TalonFX(0);
-    stopperSolenoid = new Solenoid(0,2);
-    //setDefaultCommand(new DefaultStopper(this));
+    setDefaultCommand(new Shoot(this, 0));
     }
 
     @Override
@@ -122,11 +121,5 @@ private Solenoid stopperSolenoid;
         return motorShooter.getSelectedSensorVelocity();
     }
 
-    public void deactivateStopper(){
-        stopperSolenoid.set(false);
-    }
-
-    public void activateStopper(){
-        stopperSolenoid.set(true);
-    }
+   
 }
