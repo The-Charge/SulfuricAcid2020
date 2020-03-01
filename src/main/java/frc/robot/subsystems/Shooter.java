@@ -45,7 +45,7 @@ private WPI_TalonFX motorShooter;
 //TODO: Tune PID values, current values based on Plybot
   
     private final static double SPEED_P_CONSTANT = 0.1;
-	private final static double SPEED_I_CONSTANT = 0.001;
+	private final static double SPEED_I_CONSTANT = 0.0001;
 	private final static double SPEED_D_CONSTANT = 0.0;
 	private final static double SPEED_F_CONSTANT = 0.0;
     
