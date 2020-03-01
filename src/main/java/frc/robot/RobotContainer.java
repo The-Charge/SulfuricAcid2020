@@ -65,6 +65,7 @@ public class RobotContainer {
   
   public Drivetrain drivetrain = new Drivetrain();
   public Intake intake = new Intake(); 
+  public Indexer indexer = new Indexer();
   
 
   //JOYSTICKS
@@ -262,11 +263,11 @@ private void configureButtonBindings() {
   
     try{
       
-      String trajectoryJSON = "paths/Backwards.wpilib.json";
+      String trajectoryJSON = "paths/Corner.wpilib.json";
     Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
     Trajectory exampleTrajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
     System.out.println(exampleTrajectory);
-    exampleTrajectory = exampleTrajectory.transformBy(new Transform2d(new Pose2d(0, 0, new Rotation2d(0)), new Pose2d(-3, 5, new Rotation2d(0))));
+    exampleTrajectory = exampleTrajectory.transformBy(new Transform2d(new Pose2d(0, 0, new Rotation2d(0)), new Pose2d(-4, 6, new Rotation2d(0))));
     System.out.println(exampleTrajectory);
     RamseteCommand ramseteCommand = new RamseteCommand(
         exampleTrajectory,
@@ -364,6 +365,11 @@ private void configureButtonBindings() {
   public Command rIntake()
   {
     return new RunIntake(intake, 0.4);
+  }
+
+  public Command rIndex()
+  {
+    return new Index(indexer, 0.4);
   }
 
 }
