@@ -45,16 +45,15 @@ public class Shoot extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
-        double xAxisVal = RobotContainer.buttonBox.getRawAxis(0);
+        double xAxisVal = RobotContainer.buttonBox.getRawAxis(2);
+        xAxisVal = (xAxisVal + 1)/2;
         m_shooter.setPercentSpeedPID(xAxisVal);
-       // Robot.shooter.run(m_speed);
-       // FIXME: Need a better smart dashboard key
-       // Would recommend throwing in class name
-        SmartDashboard.putNumber("XAxisValShoot", xAxisVal);
 
-        if (m_shooter.getCurrentSpeed() == xAxisVal)
+        SmartDashboard.putNumber("ShooterSpeed", xAxisVal);
+    
+        if (Math.abs(m_shooter.getCurrentSpeed() - xAxisVal) < 0.1)
         {
-            m_shooter.deactivateStopper();
+            //m_shooter.deactivateStopper();
         }
        
 
@@ -72,10 +71,10 @@ public class Shoot extends CommandBase {
         m_shooter.stop();
         if (!m_ballSensor.ballSensed())
         {
-            m_shooter.activateStopper();
+            //m_shooter.activateStopper();
         }
         else{
-            new CloseStopper(m_shooter,m_ballSensor);
+            //new CloseStopper(m_shooter,m_ballSensor);
         }
     }
 

@@ -45,20 +45,20 @@ private Solenoid stopperSolenoid;
 //TODO: Tune PID values, current values based on Plybot
   
     private final static double SPEED_P_CONSTANT = 0.1;
-	private final static double SPEED_I_CONSTANT = 0.00001;
+	private final static double SPEED_I_CONSTANT = 0.001;
 	private final static double SPEED_D_CONSTANT = 0.0;
 	private final static double SPEED_F_CONSTANT = 0.0;
     
-   /* public double speedP = SPEED_P_CONSTANT;
+    public double speedP = SPEED_P_CONSTANT;
 	public double speedI = SPEED_I_CONSTANT;
 	public double speedD = SPEED_D_CONSTANT;
     public double speedF = SPEED_F_CONSTANT;
-    */
+    
 
-    public double speedP = SmartDashboard.getNumber("Shooter P", 1);
-	public double speedI = SmartDashboard.getNumber("Shooter I", 1);
-	public double speedD = SmartDashboard.getNumber("Shooter D", 1);
-    public double speedF = SPEED_F_CONSTANT;
+    //public double speedP = SmartDashboard.getNumber("Shooter P", 0.1);
+	//public double speedI = SmartDashboard.getNumber("Shooter I", 1);
+	//public double speedD = SmartDashboard.getNumber("Shooter D", 1);
+    //public double speedF = SPEED_F_CONSTANT;
 
     
     public final static int PID_SLOT_SPEED_MODE = 0;
@@ -67,24 +67,23 @@ private Solenoid stopperSolenoid;
     public double SHOOTER_OUTWARD_MULTIPLIER = 0;
 
     private final int TIMEOUT_MS = 10;
-    private static final int MAX_TICKS_PER_SEC = 9000;
+    private static final int MAX_TICKS_PER_SEC = 20000;
 
     public Shooter(BallSensor ballSensor) {
 
     motorShooter = new WPI_TalonFX(0);
     stopperSolenoid = new Solenoid(0,2);
-    setDefaultCommand(new DefaultStopper(this));
+    //setDefaultCommand(new DefaultStopper(this));
     }
 
     @Override
     public void periodic() {
-        // Put code here to be run every loop
-        //stopperSolenoid.set(true);
+
     }
 
     public void stop(){
         motorShooter.set(0); 
-        motorShooter.setNeutralMode(NeutralMode.Brake);
+        motorShooter.setNeutralMode(NeutralMode.Coast);
     }
 
     public void run(double pow) {    	
@@ -107,6 +106,7 @@ private Solenoid stopperSolenoid;
     public void setPercentSpeedPID(double setSpeed) {
         SmartDashboard.putNumber("Shooter PID Val", setSpeed);
         motorShooter.set(ControlMode.Velocity, MAX_TICKS_PER_SEC * setSpeed);
+        //motorShooter.set(ControlMode.PercentOutput, setSpeed);
   
     }
     

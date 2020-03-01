@@ -162,16 +162,17 @@ private void configureButtonBindings() {
 
     //runIntake
     runIntakeBtn = new JoystickButton(buttonBox, 4);
-    runIntakeBtn.whileHeld(new RunIntake(intake, 1));
+    runIntakeBtn.whileHeld(new RunIntake(intake, 0.7));
 
     //Intake and Indexer
     runIntakeIndexerBtn = new JoystickButton(buttonBox, 7);
-    runIntakeIndexerBtn.whileHeld(new Index(indexer, 1));
-    runIntakeIndexerBtn.whileHeld(new RunIntake(intake, 1));
+    runIntakeIndexerBtn.whileHeld(new RunIntake(intake, 0.3));
+    runIntakeIndexerBtn.whileHeld(new Index(indexer, 0.4));
+    
 
     shootBtn = new JoystickButton(buttonBox, 9);
     shootBtn.whileHeld(new Shoot(0.5, shooter, ballSensor));
-    shootBtn.whileHeld(new Index(indexer, 0.5));  //Indexer will run slower if shooting at the same time
+    //shootBtn.whileHeld(new Index(indexer, 0.5));  //Indexer will run slower if shooting at the same time
      
     positionControlBtn = new JoystickButton(buttonBox, 5);
     positionControlBtn.whileHeld(new PositionsControl(controlPanel, colorSensor));
