@@ -12,6 +12,7 @@ package frc.robot.subsystems;
 
 import frc.robot.commands.*;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
@@ -27,8 +28,8 @@ public class Intake implements Subsystem {
 
 private WPI_TalonSRX intakeMotor;
 
-     private final static double SPEED_P_CONSTANT = 0.1;
-	private final static double SPEED_I_CONSTANT = 0.00001;
+     private final static double SPEED_P_CONSTANT = 0.05;
+	private final static double SPEED_I_CONSTANT = 0.0003;
 	private final static double SPEED_D_CONSTANT = 0.0;
 	private final static double SPEED_F_CONSTANT = 0.0;
     
@@ -37,13 +38,13 @@ private WPI_TalonSRX intakeMotor;
 	public double speedD = SPEED_D_CONSTANT;
     public double speedF = SPEED_F_CONSTANT;
     
-    public final static int PID_SLOT_SPEED_MODE = 1;
+    public final static int PID_SLOT_SPEED_MODE = 0;
     
     public double SHOOTER_INWARD_MULTIPLIER = 1;
     public double SHOOTER_OUTWARD_MULTIPLIER = 1;
 
     private final int TIMEOUT_MS = 10;
-    private static final int MAX_TICKS_PER_SEC = 9000;
+    private static final int MAX_TICKS_PER_SEC = 31000;
 
 
     public Intake() {
@@ -56,8 +57,7 @@ intakeMotor = new WPI_TalonSRX(9);
 
     @Override
     public void periodic() {
-        // Put code here to be run every loop
-        
+      
 
     }
 
@@ -85,8 +85,10 @@ intakeMotor = new WPI_TalonSRX(9);
 	}
 
     public void setPercentSpeedPID(double setSpeed) {
-        //intakeMotor.set(ControlMode.Velocity, MAX_TICKS_PER_SEC * setSpeed);
-        intakeMotor.set(ControlMode.PercentOutput, setSpeed);
+        SmartDashboard.putNumber("SetSpeed", setSpeed);
+        SmartDashboard.putNumber("CurrentSpeed", intakeMotor.getSelectedSensorPosition());
+        intakeMotor.set(ControlMode.Velocity, MAX_TICKS_PER_SEC * setSpeed);
+        //intakeMotor.set(ControlMode.PercentOutput, 1);
     }
 
 	public void setPercentVBus() {
@@ -105,6 +107,8 @@ intakeMotor = new WPI_TalonSRX(9);
 	public void initializeMotor()
     {
         intakeMotor.setInverted(true);
+        intakeMotor.setSensorPhase(true);
+
     }
   
 }

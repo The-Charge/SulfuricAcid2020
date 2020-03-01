@@ -58,7 +58,6 @@ private SendableChooser chooser;
     chooser.addOption("PortTR", new SequentialCommandGroup(m_robotContainer.getAutonomousPortTR(), m_robotContainer.getAutonomousPortTR2()));
 
     SmartDashboard.putData("AutoSelect", chooser);
-  
   }
 
   /**

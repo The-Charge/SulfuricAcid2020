@@ -13,7 +13,6 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-//import frc.robot.OI;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Intake;
@@ -49,7 +48,8 @@ public class RunIntake extends CommandBase {
 
     // Called just before this Command runs the first time
     @Override
-    public void initialize() {
+    public void initialize() {     
+        m_intake.initializeMotor();
         m_intake.initSpeedMode();
     }
     
@@ -57,9 +57,9 @@ public class RunIntake extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
-        double xAxisVal = RobotContainer.buttonBox.getRawAxis(0);
+        
         m_intake.setPercentSpeedPID(m_speed);
-        SmartDashboard.putNumber("X-Axis Value:" , xAxisVal);
+   
     }
 
     // Make this return true when this Command no longer needs to run execute()

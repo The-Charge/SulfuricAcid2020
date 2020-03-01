@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.*;
@@ -69,8 +70,8 @@ public class RobotContainer {
   public Shifters shifters = new Shifters();
   public Climber climber = new Climber();
   public Indexer indexer = new Indexer();
-  public BallSensor ballSensor = new BallSensor();
-  public Shooter shooter = new Shooter(ballSensor);
+  public Stopper stopper = new Stopper();
+  public Shooter shooter = new Shooter();
 
   //JOYSTICKS
   public static Joystick leftJoystick;
@@ -113,7 +114,7 @@ public class RobotContainer {
     SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
     SmartDashboard.putData("ShiftHigh", new ShiftHigh(shifters));
     SmartDashboard.putData("ShiftLow", new ShiftLow(shifters));
-    SmartDashboard.putData("Shoot: default", new Shoot(0.4, shooter, ballSensor));
+    SmartDashboard.putData("Shoot: default", new Shoot(shooter,0.4));
     //SmartDashboard.putData("TurretCommand", new TurretCommand());
     SmartDashboard.putData("RunIntake: default", new RunIntake(intake, 0.4));
     SmartDashboard.putData("DriveXFeetMM: default", new DriveXFeetMM(0, 0, 30, drivetrain));
@@ -129,8 +130,8 @@ public class RobotContainer {
     //SmartDashboard.putData("ManualTurretElevationDegrees: default", new ManualTurretElevationDegrees(0));
     //SmartDashboard.putData("RunTurretVision", new RunTurretVision());
     //SmartDashboard.putData("RunTurretManual", new RunTurretManual());
-    SmartDashboard.putData("ClimberSpeedMode: up", new ClimberSpeedMode(climber, 0.5));
-    SmartDashboard.putData("ClimberSpeedMode: down", new ClimberSpeedMode(climber, -0.5));
+    SmartDashboard.putData("ClimberRun: up", new ClimberRun(climber, 0.5));
+    SmartDashboard.putData("ClimberRun: down", new ClimberRun(climber, -0.5));
     SmartDashboard.putData("RotationControl", new RotationControl(controlPanel, colorSensor));
     SmartDashboard.putData("PositionsControl", new PositionsControl(controlPanel, colorSensor));
     SmartDashboard.putNumber("Degrees:", 0);
@@ -152,25 +153,31 @@ private void configureButtonBindings() {
       
     //climb up/climb down
     climbDown = new JoystickButton(buttonBox, 6);
-    climbDown.whileHeld(new ClimberSpeedMode(climber, -0.5));
+    climbDown.whileHeld(new ClimberRun(climber, -15));
     climbDown.whenReleased(new SequentialCommandGroup(new WaitCommand(1), new ClimberBrake(climber), new WaitCommand(1)));
     climbUp = new JoystickButton(buttonBox, 5);
-    climbUp.whileHeld(new ClimberSpeedMode(climber, 0.5));
+    climbUp.whileHeld(new ClimberRun(climber, 15));
       
     //manualElevation = new JoystickButton(buttonBox, 2);
     //manualElevation.whileHeld(new ManualTurretElevation(0));
 
     //runIntake
     runIntakeBtn = new JoystickButton(buttonBox, 4);
-    runIntakeBtn.whileHeld(new RunIntake(intake, 1));
+    runIntakeBtn.whileHeld(new RunIntake(intake, 0.7));
 
     //Intake and Indexer
     runIntakeIndexerBtn = new JoystickButton(buttonBox, 7);
-    runIntakeIndexerBtn.whileHeld(new Index(indexer, 1));
-    runIntakeIndexerBtn.whileHeld(new RunIntake(intake, 1));
+    runIntakeIndexerBtn.whileHeld(new RunIntake(intake, 0.3));
+    runIntakeIndexerBtn.whileHeld(new Index(indexer, 0.4));
+    
 
     shootBtn = new JoystickButton(buttonBox, 9);
-    shootBtn.whileHeld(new Shoot(0.5, shooter, ballSensor));
+    //shootBtn.whileHeld(new ParallelCommandGroup(new OpenStopper(stopper))); indexer, slow speed
+    shootBtn.whileHeld(new ParallelCommandGroup(new OpenStopper(stopper), new Index(indexer, 0.2)));
+    shootBtn.whenReleased(new ParallelCommandGroup (new CloseStopper(stopper, indexer)));
+
+    
+    //shootBtn.whileHeld(new Index(indexer, 0.5));  //Indexer will run slower if shooting at the same time
      
     positionControlBtn = new JoystickButton(buttonBox, 5);
     positionControlBtn.whileHeld(new PositionsControl(controlPanel, colorSensor));
@@ -212,10 +219,10 @@ private void configureButtonBindings() {
       
     //climb up/climb down
     climbDown = new JoystickButton(buttonBox, 6);
-    climbDown.whileHeld(new ClimberSpeedMode(climber, -0.5));
+    climbDown.whileHeld(new ClimberRun(climber, -0.5));
     climbDown.whenReleased(new SequentialCommandGroup(new WaitCommand(1), new ClimberBrake(climber), new WaitCommand(1)));
     climbUp = new JoystickButton(buttonBox, 5);
-    climbUp.whileHeld(new ClimberSpeedMode(climber, 0.5));
+    climbUp.whileHeld(new ClimberRun(climber, 0.5));
 
     manualElevation = new JoystickButton(buttonBox, 2);
     //manualElevation.whileHeld(new ManualTurretElevation(0));
@@ -230,7 +237,7 @@ private void configureButtonBindings() {
     runIntakeIndexerBtn.whenPressed(new RunIntake(intake, 1));
 
     shootBtn = new JoystickButton(buttonBox, 1);
-    shootBtn.whileHeld(new Shoot(0, shooter, ballSensor));
+    shootBtn.whileHeld(new Shoot(shooter, 0.4));
      
     positionControlBtn = new JoystickButton(buttonBox, 5);
     positionControlBtn.whileHeld(new PositionsControl(controlPanel, colorSensor));
