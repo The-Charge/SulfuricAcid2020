@@ -31,7 +31,9 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 public class Turret implements Subsystem {
     private static final int H_MIN_ENCODER_TICKS = -482070;  // used to stop turret from rotating past ends
     private static final int H_MAX_ENCODER_TICKS = 484191;
-    private static final double H_TOLERANCE = 5;
+    // private static final int H_MIN_ENCODER_TICKS = -484191;  // used to stop turret from rotating past ends
+    // private static final int H_MAX_ENCODER_TICKS = 482070;
+    private static final double H_TOLERANCE = 0.5;
 
     //Constants aquired from CAD team used for trig calculations (millimeters):
     public static final double TURRET_SIDE_A = 244.475;
@@ -109,13 +111,19 @@ public class Turret implements Subsystem {
         }
     }
 
+    public boolean atLimitSwitch() {
+        return (turretMotor.getSensorCollection().isRevLimitSwitchClosed()
+                || turretMotor.getSensorCollection().isFwdLimitSwitchClosed());
+    }
+
     public void gotoHorizontalAngle(double setpoint) {
         if (Math.abs(setpoint) > H_TOLERANCE) {
-            double percent = 0.1;
-            if (setpoint < 0) {
-                percent = -percent;
-            }
+            double percent = Math.abs(setpoint) / 40;
+            percent = Math.max(0.06, Math.min(0.19, percent));
+            if (setpoint < 0) { percent = -percent; }
             turretMotor.set(ControlMode.PercentOutput, percent);
+        } else {
+            turretMotor.set(ControlMode.PercentOutput, 0);
         }
     }
 
@@ -144,40 +152,31 @@ public class Turret implements Subsystem {
         turretMotor.set(ControlMode.PercentOutput, 0);
     }
 
-    public void runHorizontalManual(double target) {
+    public boolean runHorizontalManual(double target) {
         double ticks = turretMotor.getSelectedSensorPosition();
+        SmartDashboard.putNumber("Position", ticks);
         if (ticks < 0) {
-            ticks /= H_MIN_ENCODER_TICKS;
+            ticks /= Math.abs(H_MIN_ENCODER_TICKS);
         } else {
-            ticks /= H_MAX_ENCODER_TICKS;
+            ticks /= Math.abs(H_MAX_ENCODER_TICKS);
         }
+        // SmartDashboard
 
         double error = target - ticks;
-        double speed = 0.15;
-        if (Math.abs(error) > 0.01) {
+        double speed = 0.2;
+        SmartDashboard.putNumber("Normal", ticks);
+        SmartDashboard.putNumber("Target", target);
+        if (Math.abs(error) > 0.03) {
             if (error < 0) { speed = -speed; }
-            // speed = error / 2;
             turretMotor.set(ControlMode.PercentOutput, speed);
+            return false;
+        } else {
+            stopHorizontal();
+            return true;
         }
     }
-    
-    // public void runHorizontalManual(double position) {
-    //     SmartDashboard.putNumber("Slider", position);
-    //     position = position * 482070;
-    //     double ticks = turretMotor.getSelectedSensorPosition();       
-    //     double error = position - ticks;
-    //     SmartDashboard.putNumber("Current", ticks);
-    //     SmartDashboard.putNumber("Target", position);
-    //     SmartDashboard.putNumber("Error", error);
-    //     if (Math.abs(error) > 400) {
-    //         if (error > 0)
-    //             turretMotor.set(ControlMode.PercentOutput, 0.15);
-    //         else{
-    //             turretMotor.set(ControlMode.PercentOutput, -0.15);
-    //         }
-    //     } else{
-    //         stopHorizontal();
-    //     }
-    // }
-}
 
+    public void setRawHorizontalPercent(double setpoint) {
+        turretMotor.set(ControlMode.PercentOutput, setpoint);
+    }
+}

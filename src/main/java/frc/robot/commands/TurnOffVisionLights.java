@@ -10,51 +10,47 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import java.security.PublicKey;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
-import frc.robot.RobotContainer;
+import frc.robot.subsystems.Shifters;
 import frc.robot.subsystems.Turret;
+import frc.robot.Robot;
 
 /**
  *
  */
-public class RunTurretManual extends CommandBase {
-    private double turretHorizontal, turretVertical;
-    private final Turret m_turret;
+public class TurnOffVisionLights extends CommandBase {
+
     
-    public RunTurretManual(Turret turret) {
+    private final Turret m_turret;
+
+    public TurnOffVisionLights(Turret turret) {
         m_turret = turret;
+        // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(m_turret);
-    }
+      }
 
     // Called just before this Command runs the first time
     @Override
     public void initialize() {
-        
+        m_turret.disableVision();
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
-        turretHorizontal = -RobotContainer.buttonBox.getY();
-        m_turret.runHorizontalManual(-turretHorizontal);
-
-        turretVertical = RobotContainer.buttonBox.getX();
-        turretVertical = (1 + turretVertical) / 2;
-        turretVertical = .4 * turretVertical + .4;
-        m_turret.setRawVertical(turretVertical);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true
     @Override
     public void end(boolean interrupted) {
-        m_turret.stopHorizontal();
     }
+
 }

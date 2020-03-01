@@ -109,6 +109,11 @@ public class RobotContainer {
 
   private void smartDashboardButtons() {
     // SmartDashboard Buttons
+    SmartDashboard.putData("Run Vision", new RunTurretVision(turret));
+    SmartDashboard.putData("Turn On Lights", new TurnOnVisionLights(turret));
+    SmartDashboard.putData("Reset Encoder", new ResetTurretEncoder(turret));
+    SmartDashboard.putData("Zero Turret", new TurretToZero(turret));
+    SmartDashboard.putData("Turn Off Lights", new TurnOffVisionLights(turret));
     SmartDashboard.putData("TankDrive", new TankDrive(drivetrain));
     SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
     SmartDashboard.putData("ShiftHigh", new ShiftHigh(shifters));

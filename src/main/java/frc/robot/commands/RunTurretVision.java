@@ -58,11 +58,12 @@ public class RunTurretVision extends CommandBase {
         } else {
             distance = visionResults[2];
             horizontalAngle = visionResults[3];
+            SmartDashboard.putNumber("Horizontal Angle", horizontalAngle);
             verticalAngle = visionResults[4];
             alignmentAngle = visionResults[5];
 
             m_turret.gotoHorizontalAngle(horizontalAngle);
-            m_turret.setVerticalAngle(verticalAngle);
+            // m_turret.setVerticalAngle(verticalAngle);
 
             if (Math.abs(horizontalAngle) < H_TOLERANCE && m_turret.atVerticalAngle(verticalAngle)) {
                 SmartDashboard.putString("Vision/valid_shot", "locked");
