@@ -11,36 +11,38 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
+import frc.robot.subsystems.Stopper;
 import frc.robot.subsystems.Shooter;
 
 /**
  *
  */
-public class DefaultStopper extends CommandBase {
-    private final Shooter m_shooter;
+public class OpenStopper extends CommandBase {
+    private final Stopper m_stopper;
+    
+    public OpenStopper(Stopper stopper) {
 
-    public DefaultStopper(Shooter shooter) {
-
-    m_shooter = shooter;
-    addRequirements(m_shooter);
+    m_stopper = stopper;
+        addRequirements(m_stopper);
     }
 
     // Called just before this Command runs the first time
     @Override
     public void initialize() {
-      
+        m_stopper.openStopper();
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
-        m_shooter.activateStopper();
+
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true
