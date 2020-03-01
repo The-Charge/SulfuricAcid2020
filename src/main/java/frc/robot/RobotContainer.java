@@ -638,6 +638,10 @@ private void configureButtonBindings() {
     return ramseteCommand.andThen(() -> drivetrain.tankDriveVolts(0, 0));
   }
 
+  public Command shoot() {
+    return new Shoot(shooter,0.4);
+  }
+
   public Joystick getRightJoystick() {
     return rightJoystick;
   }

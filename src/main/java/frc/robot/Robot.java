@@ -50,9 +50,9 @@ private SendableChooser chooser;
     
     m_robotContainer = new RobotContainer(); 
     chooser = new SendableChooser<Command>();
-    m_robotContainer.drivetrain.initializeMotors();
+    //m_robotContainer.drivetrain.invertMotors();
     chooser.setDefaultOption("Drive Forward", new SequentialCommandGroup(m_robotContainer.getAutonomousForward()));
-    chooser.addOption("Shoot Drive Backward", new SequentialCommandGroup(m_robotContainer.getAutonomousForward()));
+    //chooser.addOption("Shoot Drive Forward", new SequentialCommandGroup(m_robotContainer.shoot(), m_robotContainer.getAutonomousForward()));
     chooser.addOption("Drive Backward", new SequentialCommandGroup(m_robotContainer.getAutonomousBackward()));
     chooser.addOption("Corner", new SequentialCommandGroup(m_robotContainer.getAutonomousCorner(), m_robotContainer.getAutonomousCorner2()));
     chooser.addOption("PortTR", new SequentialCommandGroup(m_robotContainer.getAutonomousPortTR(), m_robotContainer.getAutonomousPortTR2()));
