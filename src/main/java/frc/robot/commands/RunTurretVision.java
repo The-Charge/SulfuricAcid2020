@@ -19,8 +19,7 @@ import frc.robot.subsystems.Turret;
  *
  */
 public class RunTurretVision extends CommandBase {
-    private static final double ALIGNMENT_RANGE_INNER = 3;
-    private static final double ALIGNMENT_RANGE_OUTER = 10;
+    private static final double H_TOLERANCE = 1;
 
     private double[] visionResults;
     private double horizontalAngle;
@@ -37,6 +36,7 @@ public class RunTurretVision extends CommandBase {
     // Called just before this Command runs the first time
     @Override
     public void initialize() {
+        m_turret.enableVision();
         visionResults = new double[] {0, 0};
     }
 
@@ -54,32 +54,22 @@ public class RunTurretVision extends CommandBase {
         //  7. instantaneous FPS
         visionResults = SmartDashboard.getNumberArray("Vision/result", new double[] {0, 0});
         if (visionResults[1] == 0) {
-            m_turret.status = "none";
-            SmartDashboard.putString("Vision/valid_shot", m_turret.status);
-            return;
-        }
-
-        distance = visionResults[2];
-        horizontalAngle = visionResults[3];
-        verticalAngle = visionResults[4];
-        alignmentAngle = visionResults[5];
-
-        m_turret.setHorizontalAngleRelative(horizontalAngle);
-        m_turret.setVerticalAngle(verticalAngle);
-
-        if (m_turret.atHorizontalAngle(horizontalAngle) && m_turret.atVerticalAngle(verticalAngle)) {
-            // if (alignmentAngle < ALIGNMENT_RANGE_INNER) {
-            //     SmartDashboard.putString("Vision/valid_shot", "inner");
-            // } else if (alignmentAngle < ALIGNMENT_RANGE_OUTER) {
-            //     SmartDashboard.putString("Vision/valid_shot", "outer");
-            // } else {
-            //     SmartDashboard.putString("Vision/valid_shot", "locked but none");
-            // }
-            m_turret.status = "locked";
-            SmartDashboard.putString("Vision/valid_shot", m_turret.status);
+            SmartDashboard.putString("Vision/valid_shot", "none");
         } else {
-            m_turret.status = "homing";
-            SmartDashboard.putString("Vision/valid_shot", m_turret.status);
+            distance = visionResults[2];
+            horizontalAngle = visionResults[3];
+            SmartDashboard.putNumber("Horizontal Angle", horizontalAngle);
+            verticalAngle = visionResults[4];
+            alignmentAngle = visionResults[5];
+
+            m_turret.gotoHorizontalAngle(horizontalAngle);
+            // m_turret.setVerticalAngle(verticalAngle);
+
+            if (Math.abs(horizontalAngle) < H_TOLERANCE && m_turret.atVerticalAngle(verticalAngle)) {
+                SmartDashboard.putString("Vision/valid_shot", "locked");
+            } else {
+                SmartDashboard.putString("Vision/valid_shot", "homing");
+            }
         }
     }
 
@@ -92,7 +82,6 @@ public class RunTurretVision extends CommandBase {
     // Called once after isFinished returns true
     @Override
     public void end(boolean interrupted) {
-        m_turret.setHorizontalAngleAbsolute(0);
-        SmartDashboard.putBoolean("Vision/error", false);
+        m_turret.disableVision();
     }
 }
