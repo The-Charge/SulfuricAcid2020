@@ -77,7 +77,7 @@ private WPI_TalonFX motorShooter;
 
     @Override
     public void periodic() {
-
+        SmartDashboard.putNumber("ShooterSpeed", motorShooter.getSelectedSensorPosition());
     }
 
     public void stop(){

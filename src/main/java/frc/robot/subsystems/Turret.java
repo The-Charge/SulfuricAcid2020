@@ -73,7 +73,7 @@ public class Turret implements Subsystem {
 
     @Override
     public void periodic() {
-        // SmartDashboard.putNumber("Servo", elevationServo.get());
+        SmartDashboard.putNumber("Servo", elevationServo.get());
         checkHorizontalLimitSwitches();
     }
 
