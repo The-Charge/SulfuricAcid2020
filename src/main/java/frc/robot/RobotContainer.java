@@ -98,6 +98,7 @@ public class RobotContainer {
   public JoystickButton runIntakeIndexerBtn;
   public JoystickButton sensorColorBtn;
   public JoystickButton climbDown;
+  public JoystickButton visionTargetBtn;
 
   public boolean realButtonBox = true;
 
@@ -153,8 +154,8 @@ private void configureButtonBindings() {
 
     //reverse intake
     runIntakeInverseBtn = new JoystickButton(buttonBox, 1);
-    runIntakeInverseBtn.whileHeld(new RunIntake(intake, -1));
-    runIntakeInverseBtn.whileHeld(new Index(indexer, -1));
+    runIntakeInverseBtn.whileHeld(new RunIntake(intake, -0.2));
+    runIntakeInverseBtn.whileHeld(new Index(indexer, -0.2));
       
     //climb up/climb down
     climbDown = new JoystickButton(buttonBox, 6);
@@ -168,12 +169,12 @@ private void configureButtonBindings() {
 
     //runIntake
     runIntakeBtn = new JoystickButton(buttonBox, 4);
-    runIntakeBtn.whileHeld(new RunIntake(intake, 0.7));
+    runIntakeBtn.whileHeld(new RunIntake(intake, 0.3));
 
     //Intake and Indexer
     runIntakeIndexerBtn = new JoystickButton(buttonBox, 7);
-    runIntakeIndexerBtn.whileHeld(new RunIntake(intake, 0.3));
-    runIntakeIndexerBtn.whileHeld(new Index(indexer, 0.4));
+    runIntakeIndexerBtn.whileHeld(new RunIntake(intake, 0.4));
+    runIntakeIndexerBtn.whileHeld(new Index(indexer, 0.3));
     
 
     shootBtn = new JoystickButton(buttonBox, 9);
@@ -181,8 +182,8 @@ private void configureButtonBindings() {
     shootBtn.whileHeld(new ParallelCommandGroup(new OpenStopper(stopper), new Index(indexer, 0.2)));
     shootBtn.whenReleased(new ParallelCommandGroup (new CloseStopper(stopper, indexer)));
 
-    
-    //shootBtn.whileHeld(new Index(indexer, 0.5));  //Indexer will run slower if shooting at the same time
+    visionTargetBtn = new JoystickButton(buttonBox, 8);
+    visionTargetBtn.whileHeld(new RunTurretVision(turret));
      
     positionControlBtn = new JoystickButton(buttonBox, 5);
     positionControlBtn.whileHeld(new PositionsControl(controlPanel, colorSensor));
