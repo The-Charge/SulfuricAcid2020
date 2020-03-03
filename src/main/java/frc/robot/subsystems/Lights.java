@@ -17,6 +17,8 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.Relay;
+
 import com.ctre.phoenix.CANifier;
 
 
@@ -29,12 +31,16 @@ public class Lights implements Subsystem {
    
 
     public static CANifier canifier = new CANifier(0);
+    public static Relay relay1 = new Relay(1);
+
     public final static CANifier.PWMChannel kMotorControllerCh = CANifier.PWMChannel.PWMChannel2;
    
  
 
     public Lights() {   
         setDefaultCommand(new ChangeLights(this));
+      
+
     }
 
     
@@ -42,6 +48,8 @@ public class Lights implements Subsystem {
     
     public void onStart(){
         canifier.enablePWMOutput(kMotorControllerCh.value, true);
+        relay1.set(Relay.Value.kOn);
+
     }
 
     public void onStop(){
