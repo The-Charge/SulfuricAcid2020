@@ -69,8 +69,8 @@ public class RobotContainer {
   public Shifters shifters = new Shifters();
   public Climber climber = new Climber();
   public Intake intake = new Intake();
-  public Indexer indexer = new Indexer();
   public Stopper stopper = new Stopper();
+  public Indexer indexer = new Indexer(stopper);
   public Shooter shooter = new Shooter();
 
   //JOYSTICKS
@@ -155,7 +155,7 @@ private void configureButtonBindings() {
     //reverse intake
     runIntakeInverseBtn = new JoystickButton(buttonBox, 1);
     runIntakeInverseBtn.whileHeld(new RunIntake(intake, -0.2));
-    runIntakeInverseBtn.whileHeld(new Index(indexer, -0.1));
+    runIntakeInverseBtn.whileHeld(new Index(indexer, -0.7));
       
     //climb up/climb down
     climbDown = new JoystickButton(buttonBox, 6);
@@ -174,12 +174,12 @@ private void configureButtonBindings() {
     //Intake and Indexer
     runIntakeIndexerBtn = new JoystickButton(buttonBox, 7);
     runIntakeIndexerBtn.whileHeld(new RunIntake(intake, 0.4));
-    runIntakeIndexerBtn.whileHeld(new Index(indexer, 0));
+    runIntakeIndexerBtn.whileHeld(new Index(indexer, 1));
     
 
     shootBtn = new JoystickButton(buttonBox, 9);
     //shootBtn.whileHeld(new ParallelCommandGroup(new OpenStopper(stopper))); indexer, slow speed
-    shootBtn.whileHeld(new ParallelCommandGroup(new OpenStopper(stopper), new Index(indexer, 0.1)));
+    shootBtn.whileHeld(new ParallelCommandGroup(new OpenStopper(stopper), new Index(indexer, 0.5)));
     shootBtn.whenReleased(new ParallelCommandGroup (new CloseStopper(stopper, indexer)));
 
     visionTargetBtn = new JoystickButton(buttonBox, 8);

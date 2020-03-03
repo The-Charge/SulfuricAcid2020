@@ -32,7 +32,7 @@ public class Robot extends TimedRobot {
 
 private Command m_autonomousCommand;
 public RobotContainer m_robotContainer;
-
+public boolean outBall;
 
 
 
@@ -120,6 +120,7 @@ public RobotContainer m_robotContainer;
    */
   @Override
   public void teleopPeriodic() {
+    
   }
 
   @Override
