@@ -50,7 +50,7 @@ private Solenoid stopperSolenoid;
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
-    public boolean ballSensed(){
+    public boolean ballSensedOut(){
         return ballSensor.get();
     }
 

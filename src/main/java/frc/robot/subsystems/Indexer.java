@@ -104,11 +104,11 @@ m_stopper = stopper;
     }
 
     public void setPercentSpeedPID(double setSpeed) {
-        if (m_stopper.ballSensed())
+        if (m_stopper.ballSensedOut())
         {
             setSpeed = 0.1*setSpeed;
         }
-        else if (ballSensed())
+        else if (ballSensedIn())
         {
             setSpeed = 0.4*setSpeed;
         }
@@ -141,7 +141,7 @@ m_stopper = stopper;
         indexerMotorRF.setNeutralMode(NeutralMode.Brake);
         indexerMotorLF.setNeutralMode(NeutralMode.Brake);
     }
-    public boolean ballSensed(){
+    public boolean ballSensedIn(){
         return ballIn.get();
     }
 }

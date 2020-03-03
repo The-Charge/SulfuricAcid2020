@@ -64,6 +64,7 @@ public class RobotContainer {
   //SUBSYSTEMS
   public ControlPanel controlPanel = new ControlPanel();
   public ColorSensor colorSensor = new ColorSensor();
+  public Lights lights = new Lights();
   public Drivetrain drivetrain = new Drivetrain();
   public Turret turret = new Turret();
   public Shifters shifters = new Shifters();
@@ -72,6 +73,7 @@ public class RobotContainer {
   public Stopper stopper = new Stopper();
   public Indexer indexer = new Indexer(stopper);
   public Shooter shooter = new Shooter();
+  public BallSensor ballSensor = new BallSensor(indexer, stopper);
 
   //JOYSTICKS
   public static Joystick leftJoystick;
@@ -95,21 +97,24 @@ public class RobotContainer {
   public JoystickButton rotationControlBtn;
   public JoystickButton runIntakeBtn;
   public JoystickButton runIntakeInverseBtn;
-  public JoystickButton runIntakeIndexerBtn;
   public JoystickButton sensorColorBtn;
+  public JoystickButton zeroBalls;
   public JoystickButton climbDown;
   public JoystickButton visionTargetBtn;
+  public JoystickButton runIntakeIndexerBtn;
 
   public boolean realButtonBox = true;
 
    
     public RobotContainer() {
+    SmartDashboard.putData("TurnOffLights", new TurnOffLights(lights));
       if (realButtonBox) configureButtonBindings();
       else alternateButtonBindings();
       smartDashboardButtons();   
   }
 
   private void smartDashboardButtons() {
+ 
     // SmartDashboard Buttons
     SmartDashboard.putData("Run Vision", new RunTurretVision(turret));
     SmartDashboard.putData("Turn On Lights", new TurnOnVisionLights(turret));
@@ -144,6 +149,7 @@ public class RobotContainer {
     SmartDashboard.putNumber("TurnPID P:", 0.05);
     SmartDashboard.putNumber("TurnPID I:", 0.00004);
     SmartDashboard.putNumber("TurnPID D:", 0.0025);
+    SmartDashboard.putData("Set Balls 0", new BallDetector(ballSensor));
 
     //SmartDashboard.putData("Reinitialize PIDController:", new ReinitializePIDController());
   }
