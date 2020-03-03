@@ -64,7 +64,7 @@ private final SpeedControllerGroup m_rightMotors =
 private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
 
   // The gyro sensor
-  private final AHRS m_gyro = new AHRS(Port.kMXP);
+  private final AHRS m_gyro = new AHRS(Port.kUSB);
 
   // Odometry class for tracking robot pose
       public final DifferentialDriveOdometry m_odometry;
@@ -105,7 +105,7 @@ private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_
 
     public PIDController pidController;
 
-    private static final AHRS ahrs = new AHRS(Port.kUSB);
+    //private static final AHRS ahrs = new AHRS(Port.kMXP);
     
     private static boolean isReversed = false;
 
@@ -176,15 +176,15 @@ private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_
 	 public ControlMode getControlMode() {
         return leftFrontMotor.getControlMode();
     }
-    public static AHRS getGyro() {
-	return ahrs;
+    public AHRS getGyro() {
+	    return m_gyro;
 	}
 		 public double getGyroYaw() {
-	        return ahrs.getYaw();   
+	        return m_gyro.getYaw();   
 	 }
 
-	 public static double getGyroPID(){
-		return ahrs.pidGet();
+	 public double getGyroPID(){
+		return m_gyro.pidGet();
 		}
 	 
 	 public void setPercentSpeedPID (double setSpeedL, double setSpeedR)
