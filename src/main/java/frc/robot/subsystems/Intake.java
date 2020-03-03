@@ -49,7 +49,8 @@ private WPI_TalonSRX intakeMotor;
 
     public Intake() {
 
-intakeMotor = new WPI_TalonSRX(9);
+    intakeMotor = new WPI_TalonSRX(9);
+ 
 
     }
 
@@ -58,7 +59,8 @@ intakeMotor = new WPI_TalonSRX(9);
     @Override
     public void periodic() {
       
-
+        SmartDashboard.putBoolean("OnBall", onBall());
+        
     }
 
     // Put methods for controlling this subsystem
@@ -66,6 +68,10 @@ intakeMotor = new WPI_TalonSRX(9);
 
     public void run (double setPower) {
         intakeMotor.set(setPower);
+        if (onBall())
+        {
+            new Index(m_indexer, 0.3);
+        }
 	}
 
     public void initSpeedMode() {    
@@ -87,8 +93,10 @@ intakeMotor = new WPI_TalonSRX(9);
     public void setPercentSpeedPID(double setSpeed) {
         SmartDashboard.putNumber("SetSpeed", setSpeed);
         SmartDashboard.putNumber("CurrentSpeed", intakeMotor.getSelectedSensorPosition());
+        SmartDashboard.putNumber("CurrentIntake", intakeMotor.getStatorCurrent());
         intakeMotor.set(ControlMode.Velocity, MAX_TICKS_PER_SEC * setSpeed);
-        //intakeMotor.set(ControlMode.PercentOutput, 1);
+        new Index(m_indexer, 0.3);
+    
     }
 
 	public void setPercentVBus() {
@@ -109,6 +117,15 @@ intakeMotor = new WPI_TalonSRX(9);
         intakeMotor.setInverted(true);
         intakeMotor.setSensorPhase(true);
 
+    }
+    public boolean onBall()
+    { 
+        //return (intakeMotor.getStatorCurrent() > 15);
+        return true;
+    }
+    public double intakeCurret()
+    {
+        return intakeMotor.getStatorCurrent();
     }
   
 }
