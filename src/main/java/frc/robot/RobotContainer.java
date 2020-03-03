@@ -69,7 +69,7 @@ public class RobotContainer {
   public Shifters shifters = new Shifters();
   public Climber climber = new Climber();
   public Intake intake = new Intake();
-  public Indexer indexer = new Indexer(intake);
+  public Indexer indexer = new Indexer();
   public Stopper stopper = new Stopper();
   public Shooter shooter = new Shooter();
 
@@ -210,7 +210,8 @@ private void configureButtonBindings() {
     shiftLowBtn = new JoystickButton(rightJoystick, 5);
     shiftLowBtn.whenPressed(new ShiftLow(shifters));
     shiftHighWHBtn = new JoystickButton(rightJoystick, 1);
-    shiftHighWHBtn.whileHeld(new ShiftHigh(shifters));
+    shiftHighWHBtn.whenPressed(new ShiftHigh(shifters));
+    shiftHighWHBtn.whenReleased(new ShiftLow(shifters));
 
   }
 
@@ -267,7 +268,8 @@ private void configureButtonBindings() {
     shiftLowBtn = new JoystickButton(rightJoystick, 2);
     shiftLowBtn.whenPressed(new ShiftLow(shifters));
     shiftHighWHBtn = new JoystickButton(rightJoystick, 1);
-    shiftHighWHBtn.whileHeld(new ShiftHigh(shifters));
+    shiftHighWHBtn.whenPressed(new ShiftHigh(shifters));
+    shiftHighWHBtn.whenReleased(new ShiftLow(shifters));
 
   }
 

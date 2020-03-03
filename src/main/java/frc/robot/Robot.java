@@ -112,6 +112,7 @@ public RobotContainer m_robotContainer;
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    m_robotContainer.stopper.closeStopper();
   }
 
   /**

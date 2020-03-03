@@ -121,8 +121,8 @@ private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_
         double rightSpeed = r;
 
         if(isReversed){
-            m_rightMotors.set(-1*rightSpeed);
-            m_leftMotors.set(-1*leftSpeed);
+          leftSpeed = -1*leftSpeed;
+          rightSpeed = -1*rightSpeed;
         }
         m_rightMotors.set(rightSpeed);
         m_leftMotors.set(leftSpeed);
@@ -417,6 +417,14 @@ private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_
     rightMidMotor.follow(rightFrontMotor);
     leftBackMotor.follow(leftFrontMotor);
     leftMidMotor.follow(leftFrontMotor);
+
+    rightBackMotor.configOpenloopRamp(0.5);
+    rightFrontMotor.configOpenloopRamp(0.5);
+    rightMidMotor.configOpenloopRamp(0.5);
+    leftBackMotor.configOpenloopRamp(0.5);
+    leftFrontMotor.configOpenloopRamp(0.5);
+    leftMidMotor.configOpenloopRamp(0.5);
+
       }
 }
     
