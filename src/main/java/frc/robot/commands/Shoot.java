@@ -42,7 +42,7 @@ public class Shoot extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
-        m_speed = RobotContainer.buttonBox.getRawAxis(2);
+        //m_speed = RobotContainer.buttonBox.getRawAxis(2);
         m_speed = (m_speed + 1)/2;
         m_shooter.setPercentSpeedPID(m_speed);
 

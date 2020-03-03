@@ -551,7 +551,7 @@ private void configureButtonBindings() {
           //new Translation2d(5, -1)
         ),
         // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(1, 0, new Rotation2d(0)),
+        new Pose2d(3, 0, new Rotation2d(0)),
         // Pass config
         config
     );
@@ -638,8 +638,21 @@ private void configureButtonBindings() {
     return ramseteCommand.andThen(() -> drivetrain.tankDriveVolts(0, 0));
   }
 
-  public Command shoot() {
+  public Command rShoot() {
     return new Shoot(shooter,0.4);
+  }
+
+  public Command rIndex() {
+    return new Index(indexer,0.4);
+  }
+
+  public Command rIntake() {
+    return new RunIntake(intake,0.4);
+  }
+
+  public Command rOpen()
+  {
+    return new OpenStopper(stopper);
   }
 
   public Joystick getRightJoystick() {
