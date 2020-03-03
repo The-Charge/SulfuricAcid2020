@@ -31,8 +31,9 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 public class Turret implements Subsystem {
     private static final int H_MIN_ENCODER_TICKS = -482070;  // used to stop turret from rotating past ends
     private static final int H_MAX_ENCODER_TICKS = 484191;
-    // private static final int H_MIN_ENCODER_TICKS = -484191;  // used to stop turret from rotating past ends
-    // private static final int H_MAX_ENCODER_TICKS = 482070;
+    private static final double H_DEGREES_PER_TICK = 0;
+    private static final double H_MIN_DEGREES = H_MIN_ENCODER_TICKS * H_DEGREES_PER_TICK;
+    private static final double H_MAX_DEGREES = H_MAX_ENCODER_TICKS * H_DEGREES_PER_TICK;
     private static final double H_TOLERANCE = 0.5;
 
     //Constants aquired from CAD team used for trig calculations (millimeters):
@@ -117,6 +118,12 @@ public class Turret implements Subsystem {
     }
 
     public void gotoHorizontalAngle(double setpoint) {
+        SmartDashboard.putNumber("Angle Offset", setpoint);
+        SmartDashboard.putBoolean("Valid Turret Rotation",
+            getCurrentHorizontalAngle() + setpoint < H_MIN_ENCODER_TICKS
+            || getCurrentHorizontalAngle() + setpoint > H_MAX_ENCODER_TICKS
+        );
+
         if (Math.abs(setpoint) > H_TOLERANCE) {
             double percent = Math.abs(setpoint) / 40;
             percent = Math.max(0.06, Math.min(0.19, percent));
@@ -178,5 +185,9 @@ public class Turret implements Subsystem {
 
     public void setRawHorizontalPercent(double setpoint) {
         turretMotor.set(ControlMode.PercentOutput, setpoint);
+    }
+
+    private double getCurrentHorizontalAngle() {
+        return turretMotor.getSelectedSensorPosition() * H_DEGREES_PER_TICK;
     }
 }
