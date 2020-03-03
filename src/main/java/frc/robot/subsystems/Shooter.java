@@ -72,7 +72,7 @@ private WPI_TalonFX motorShooter;
     public Shooter() {
 
     motorShooter = new WPI_TalonFX(0);
-    setDefaultCommand(new Shoot(this, 0));
+    //setDefaultCommand(new Shoot(this, 0));
     }
 
     @Override

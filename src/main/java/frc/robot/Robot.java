@@ -10,10 +10,12 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -32,6 +34,7 @@ public class Robot extends TimedRobot {
 
 private Command m_autonomousCommand;
 public RobotContainer m_robotContainer;
+private SendableChooser chooser;
 public boolean outBall;
 
 
@@ -45,7 +48,17 @@ public boolean outBall;
 
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
+    
     m_robotContainer = new RobotContainer(); 
+    chooser = new SendableChooser<Command>();
+    //m_robotContainer.drivetrain.invertMotors();
+    chooser.setDefaultOption("Drive Forward", new SequentialCommandGroup(m_robotContainer.getAutonomousForward()));
+    //chooser.addOption("Shoot Drive Forward", new SequentialCommandGroup(m_robotContainer.shoot(), m_robotContainer.getAutonomousForward()));
+    chooser.addOption("Drive Backward", new SequentialCommandGroup(m_robotContainer.getAutonomousBackward()));
+    chooser.addOption("Corner", new SequentialCommandGroup(m_robotContainer.getAutonomousCorner(), m_robotContainer.getAutonomousCorner2()));
+    chooser.addOption("PortTR", new SequentialCommandGroup(m_robotContainer.getAutonomousPortTR(), m_robotContainer.getAutonomousPortTR2()));
+
+    SmartDashboard.putData("AutoSelect", chooser);
   }
 
   /**
@@ -82,7 +95,7 @@ public boolean outBall;
   public void autonomousInit() {
     m_robotContainer.drivetrain.resetEncoders();
     m_robotContainer.drivetrain.resetOdometry(new Pose2d(0, 0, new Rotation2d(0)));
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_autonomousCommand =  new ParallelCommandGroup(m_robotContainer.rShoot(), new SequentialCommandGroup(new WaitCommand(4), new ParallelCommandGroup(m_robotContainer.rOpen(), m_robotContainer.rIntake(), m_robotContainer.rIndex(), new SequentialCommandGroup(new WaitCommand(2), m_robotContainer.getAutonomousForward()))));//(Command) chooser.getSelected();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {

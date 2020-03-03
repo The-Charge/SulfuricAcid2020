@@ -279,11 +279,11 @@ private void configureButtonBindings() {
 
   }
 
-  public Command getAutonomousCommand() {
+  public Command getAutonomousCorner() {
 
     // Create a voltage constraint to ensure we don't accelerate too fast
     var autoVoltageConstraint =
-    new DifferentialDriveVoltageConstraint(
+        new DifferentialDriveVoltageConstraint(
             new SimpleMotorFeedforward(DriveConstants.ksVolts,
                                        DriveConstants.kvVoltSecondsPerMeter,
                                        DriveConstants.kaVoltSecondsSquaredPerMeter),
@@ -292,21 +292,25 @@ private void configureButtonBindings() {
 
     // Create config for trajectory
     TrajectoryConfig config =
-        new TrajectoryConfig(AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+        new TrajectoryConfig(AutoConstants.kMaxSpeedMetersPerSecond,
+                             AutoConstants.kMaxAccelerationMetersPerSecondSquared)
             // Add kinematics to ensure max speed is actually obeyed
             .setKinematics(DriveConstants.kDriveKinematics)
             // Apply the voltage constraint
             .addConstraint(autoVoltageConstraint);
 
     //  config.setReversed(true);
+
+    // An example trajectory to follow.  All units in meters.
+
   
     try{
       
-      String trajectoryJSON = "paths/Backwards.wpilib.json";
+      String trajectoryJSON = "paths/Corner.wpilib.json";
     Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
     Trajectory exampleTrajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
     System.out.println(exampleTrajectory);
-    exampleTrajectory = exampleTrajectory.transformBy(new Transform2d(new Pose2d(0, 0, new Rotation2d(0)), new Pose2d(-3, 5, new Rotation2d(0))));
+    exampleTrajectory = exampleTrajectory.transformBy(new Transform2d(new Pose2d(0, 0, new Rotation2d(0)), new Pose2d(-4, 6, new Rotation2d(0))));
     System.out.println(exampleTrajectory);
     RamseteCommand ramseteCommand = new RamseteCommand(
         exampleTrajectory,
@@ -332,14 +336,199 @@ private void configureButtonBindings() {
       DriverStation.reportError("Unable to open trajectory", ex.getStackTrace());
       System.out.println("Inside Catch");
     }
-    
-
-
-
     return null;
   }
 
-  public Command getAutonomousCommand2() {
+  public Command getAutonomousCorner2() {
+
+    // Create a voltage constraint to ensure we don't accelerate too fast
+    var autoVoltageConstraint =
+        new DifferentialDriveVoltageConstraint(
+            new SimpleMotorFeedforward(DriveConstants.ksVolts,
+                                       DriveConstants.kvVoltSecondsPerMeter,
+                                       DriveConstants.kaVoltSecondsSquaredPerMeter),
+            DriveConstants.kDriveKinematics,
+            10);
+
+    // Create config for trajectory
+    TrajectoryConfig config =
+        new TrajectoryConfig(AutoConstants.kMaxSpeedMetersPerSecond,
+                             AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+            // Add kinematics to ensure max speed is actually obeyed
+            .setKinematics(DriveConstants.kDriveKinematics)
+            // Apply the voltage constraint
+            .addConstraint(autoVoltageConstraint);
+
+    //config.setReversed(true);
+
+    // An example trajectory to follow.  All units in meters.
+
+    config.setReversed(true);
+    
+    
+    Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
+        // Start at the origin facing the +X direction
+        new Pose2d(2.723867910106207, -2.124089374707513+6, new Rotation2d(.9)),
+        // Pass through these two interior waypoints, making an 's' curve path
+        List.of(
+          //new Translation2d(0.414797278616654,-5.3165544523351125 + 6),
+          //new Translation2d(0.965825497494843,-4.555610721503329+6),
+          //new Translation2d(1.560586114696696,-3.7072021940242132 + 6),
+          //new Translation2d(2.225318569216417,-2.788821829227232 + 6)
+          //new Translation2d(5, -1)
+        ),
+        // End 3 meters straight ahead of where we started, facing forward
+        new Pose2d(1.561, -3.707+6, new Rotation2d(.9)),
+        // Pass config
+        config
+    );
+
+
+    RamseteCommand ramseteCommand = new RamseteCommand(
+        exampleTrajectory,
+        drivetrain::getPose,
+        new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
+        new SimpleMotorFeedforward(DriveConstants.ksVolts,
+                                   DriveConstants.kvVoltSecondsPerMeter,
+                                   DriveConstants.kaVoltSecondsSquaredPerMeter),
+        DriveConstants.kDriveKinematics,
+        drivetrain::getWheelSpeeds,
+        new PIDController(DriveConstants.kPDriveVel, 0, 0),
+        new PIDController(DriveConstants.kPDriveVel, 0, 0),
+        // RamseteCommand passes volts to the callback
+        drivetrain::tankDriveVolts,
+        drivetrain
+    );
+
+    // Run path following command, then stop at the end.
+    return ramseteCommand.andThen(() -> drivetrain.tankDriveVolts(0, 0));
+  }
+
+  public Command getAutonomousPortTR() {
+
+    // Create a voltage constraint to ensure we don't accelerate too fast
+    var autoVoltageConstraint =
+        new DifferentialDriveVoltageConstraint(
+            new SimpleMotorFeedforward(DriveConstants.ksVolts,
+                                       DriveConstants.kvVoltSecondsPerMeter,
+                                       DriveConstants.kaVoltSecondsSquaredPerMeter),
+            DriveConstants.kDriveKinematics,
+            10);
+
+    // Create config for trajectory
+    TrajectoryConfig config =
+        new TrajectoryConfig(AutoConstants.kMaxSpeedMetersPerSecond,
+                             AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+            // Add kinematics to ensure max speed is actually obeyed
+            .setKinematics(DriveConstants.kDriveKinematics)
+            // Apply the voltage constraint
+            .addConstraint(autoVoltageConstraint);
+
+    //  config.setReversed(true);
+
+    // An example trajectory to follow.  All units in meters.
+    
+  
+    try{
+      
+      String trajectoryJSON = "paths/PortTR.wpilib.json";
+    Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
+    Trajectory exampleTrajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+    System.out.println(exampleTrajectory);
+    exampleTrajectory = exampleTrajectory.transformBy(new Transform2d(new Pose2d(0, 0, new Rotation2d(0)), new Pose2d(-4, 6, new Rotation2d(0))));
+    System.out.println(exampleTrajectory);
+    RamseteCommand ramseteCommand = new RamseteCommand(
+        exampleTrajectory,
+        drivetrain::getPose,
+        new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
+        new SimpleMotorFeedforward(DriveConstants.ksVolts,
+                                   DriveConstants.kvVoltSecondsPerMeter,
+                                   DriveConstants.kaVoltSecondsSquaredPerMeter),
+        DriveConstants.kDriveKinematics,
+        drivetrain::getWheelSpeeds,
+        new PIDController(DriveConstants.kPDriveVel, 0, 0),
+        new PIDController(DriveConstants.kPDriveVel, 0, 0),
+        // RamseteCommand passes volts to the callback
+        drivetrain::tankDriveVolts,
+        drivetrain
+    );
+
+    // Run path following command, then stop at the end.
+    return ramseteCommand.andThen(() -> drivetrain.tankDriveVolts(0, 0));
+    }
+    catch (IOException ex)
+    {
+      DriverStation.reportError("Unable to open trajectory", ex.getStackTrace());
+      System.out.println("Inside Catch");
+    }
+    return null;
+  }
+
+  public Command getAutonomousPortTR2() {
+
+    // Create a voltage constraint to ensure we don't accelerate too fast
+    var autoVoltageConstraint =
+        new DifferentialDriveVoltageConstraint(
+            new SimpleMotorFeedforward(DriveConstants.ksVolts,
+                                       DriveConstants.kvVoltSecondsPerMeter,
+                                       DriveConstants.kaVoltSecondsSquaredPerMeter),
+            DriveConstants.kDriveKinematics,
+            10);
+
+    // Create config for trajectory
+    TrajectoryConfig config =
+        new TrajectoryConfig(AutoConstants.kMaxSpeedMetersPerSecond,
+                             AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+            // Add kinematics to ensure max speed is actually obeyed
+            .setKinematics(DriveConstants.kDriveKinematics)
+            // Apply the voltage constraint
+            .addConstraint(autoVoltageConstraint);
+
+    //config.setReversed(true);
+
+    // An example trajectory to follow.  All units in meters.
+
+    config.setReversed(true);
+    
+    
+    Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
+        // Start at the origin facing the +X direction
+        new Pose2d(2.482-4, -.515+6, new Rotation2d(Math.PI/2)),
+        // Pass through these two interior waypoints, making an 's' curve path
+        List.of(
+          //new Translation2d(0.414797278616654,-5.3165544523351125 + 6),
+          //new Translation2d(0.965825497494843,-4.555610721503329+6),
+          //new Translation2d(1.560586114696696,-3.7072021940242132 + 6),
+          //new Translation2d(2.225318569216417,-2.788821829227232 + 6)
+          //new Translation2d(5, -1)
+        ),
+        // End 3 meters straight ahead of where we started, facing forward
+        new Pose2d(2.501-4, -2.336+6, new Rotation2d(Math.PI/2)),
+        // Pass config
+        config
+    );
+
+
+    RamseteCommand ramseteCommand = new RamseteCommand(
+        exampleTrajectory,
+        drivetrain::getPose,
+        new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
+        new SimpleMotorFeedforward(DriveConstants.ksVolts,
+                                   DriveConstants.kvVoltSecondsPerMeter,
+                                   DriveConstants.kaVoltSecondsSquaredPerMeter),
+        DriveConstants.kDriveKinematics,
+        drivetrain::getWheelSpeeds,
+        new PIDController(DriveConstants.kPDriveVel, 0, 0),
+        new PIDController(DriveConstants.kPDriveVel, 0, 0),
+        // RamseteCommand passes volts to the callback
+        drivetrain::tankDriveVolts,
+        drivetrain
+    );
+
+    // Run path following command, then stop at the end.
+    return ramseteCommand.andThen(() -> drivetrain.tankDriveVolts(0, 0));
+  }
+  public Command getAutonomousForward() {
 
     // Create a voltage constraint to ensure we don't accelerate too fast
     var autoVoltageConstraint =
@@ -368,7 +557,7 @@ private void configureButtonBindings() {
     
     Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
         // Start at the origin facing the +X direction
-        new Pose2d(1.4, 2, new Rotation2d(Math.PI/3.25)),
+        new Pose2d(0 , 0, new Rotation2d(0)),
         // Pass through these two interior waypoints, making an 's' curve path
         List.of(
           //new Translation2d(3, 0)
@@ -399,6 +588,85 @@ private void configureButtonBindings() {
 
     // Run path following command, then stop at the end.
     return ramseteCommand.andThen(() -> drivetrain.tankDriveVolts(0, 0));
+  }
+
+  public Command getAutonomousBackward() {
+
+    // Create a voltage constraint to ensure we don't accelerate too fast
+    var autoVoltageConstraint =
+        new DifferentialDriveVoltageConstraint(
+            new SimpleMotorFeedforward(DriveConstants.ksVolts,
+                                       DriveConstants.kvVoltSecondsPerMeter,
+                                       DriveConstants.kaVoltSecondsSquaredPerMeter),
+            DriveConstants.kDriveKinematics,
+            10);
+
+    // Create config for trajectory
+    TrajectoryConfig config =
+        new TrajectoryConfig(AutoConstants.kMaxSpeedMetersPerSecond,
+                             AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+            // Add kinematics to ensure max speed is actually obeyed
+            .setKinematics(DriveConstants.kDriveKinematics)
+            // Apply the voltage constraint
+            .addConstraint(autoVoltageConstraint);
+
+    //config.setReversed(true);
+
+    // An example trajectory to follow.  All units in meters.
+
+    config.setReversed(true);
+    
+    
+    Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
+        // Start at the origin facing the +X direction
+        new Pose2d(0 , 0, new Rotation2d(0)),
+        // Pass through these two interior waypoints, making an 's' curve path
+        List.of(
+          //new Translation2d(3, 0)
+          //new Translation2d(5, -1),
+          //new Translation2d(5, -1)
+        ),
+        // End 3 meters straight ahead of where we started, facing forward
+        new Pose2d(-1, 0, new Rotation2d(0)),
+        // Pass config
+        config
+    );
+
+    RamseteCommand ramseteCommand = new RamseteCommand(
+        exampleTrajectory,
+        drivetrain::getPose,
+        new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
+        new SimpleMotorFeedforward(DriveConstants.ksVolts,
+                                   DriveConstants.kvVoltSecondsPerMeter,
+                                   DriveConstants.kaVoltSecondsSquaredPerMeter),
+        DriveConstants.kDriveKinematics,
+        drivetrain::getWheelSpeeds,
+        new PIDController(DriveConstants.kPDriveVel, 0, 0),
+        new PIDController(DriveConstants.kPDriveVel, 0, 0),
+        // RamseteCommand passes volts to the callback
+        drivetrain::tankDriveVolts,
+        drivetrain
+    );
+
+    // Run path following command, then stop at the end.
+    return ramseteCommand.andThen(() -> drivetrain.tankDriveVolts(0, 0));
+  }
+
+  public Command rShoot() {
+    return new Shoot(shooter,0.4);
+  }
+
+  public Command rIndex() {
+    return new Index(indexer,0.4);
+  }
+
+  public Command rIntake() {
+    return new RunIntake(intake,0.4);
+  }
+
+  public Command rOpen()
+  {
+    return new OpenStopper(stopper);
   }
 
   public Joystick getRightJoystick() {
