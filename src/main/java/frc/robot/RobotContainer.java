@@ -66,6 +66,7 @@ public class RobotContainer {
   public Drivetrain drivetrain = new Drivetrain();
   public Intake intake = new Intake(); 
   public Indexer indexer = new Indexer();
+  public Shooter shooter = new Shooter();
   
 
   //JOYSTICKS
@@ -372,4 +373,8 @@ private void configureButtonBindings() {
     return new Index(indexer, 0.4);
   }
 
+  public Command rShoot()
+  {
+    return new Shoot(shooter, 0.4);
+  }
 }
