@@ -43,7 +43,7 @@ public class Shoot extends CommandBase {
     @Override
     public void execute() {
         //m_speed = RobotContainer.buttonBox.getRawAxis(2);
-        m_speed = (m_speed + 1)/2;
+        //m_speed = (m_speed + 1)/2;
         m_shooter.setPercentSpeedPID(m_speed);
 
         SmartDashboard.putNumber("ShooterSpeed", m_speed);
@@ -53,8 +53,8 @@ public class Shoot extends CommandBase {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     public boolean isFinished() {
-        //return  (Math.abs(m_shooter.getCurrentSpeed() - m_speed) < 0.1);
-        return false;
+        return  (Math.abs(m_shooter.getCurrentSpeed() - m_speed) < 0.1);
+        //return false;
     }
 
     // Called once after isFinished returns true
