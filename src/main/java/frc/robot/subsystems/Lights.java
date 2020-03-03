@@ -8,12 +8,11 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-
 package frc.robot.subsystems;
-
 
 import frc.robot.commands.*;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 
 import edu.wpi.first.wpilibj.PIDOutput;
@@ -80,6 +79,7 @@ public class Lights implements Subsystem {
                 canifier.setLEDOutput(139, CANifier.LEDChannel.LEDChannelA);
                 canifier.setLEDOutput(242, CANifier.LEDChannel.LEDChannelB);
                 canifier.setLEDOutput(61, CANifier.LEDChannel.LEDChannelC);
+                
             }
             else if (BallSensor.getOutput() == 4)
             {
