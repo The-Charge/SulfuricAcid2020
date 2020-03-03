@@ -41,7 +41,7 @@ private Solenoid shifterSolenoid;
     @Override
     public void periodic() {
         // Put code here to be run every loop
-        writeDashboardDebugValues();
+		SmartDashboard.putBoolean("High Gear", !isLow());
     }
 
     // Put methods for controlling this subsystem
@@ -58,9 +58,5 @@ private Solenoid shifterSolenoid;
         if (shifterSolenoid.get() == false) return true;
         else return false;
     }
-	
-	public void writeDashboardDebugValues() {
-		SmartDashboard.putBoolean("High", !isLow());
-	}
 }
 

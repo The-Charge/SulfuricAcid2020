@@ -52,9 +52,9 @@ public class RunTurretVision extends CommandBase {
         //  5. alignment angle
         //  6. inner port (0/1)
         //  7. instantaneous FPS
-        visionResults = SmartDashboard.getNumberArray("Vision/result", new double[] {0, 0});
+        visionResults = SmartDashboard.getNumberArray("Vision Status", new double[] {0, 0});
         if (visionResults[1] == 0) {
-            SmartDashboard.putString("Vision/valid_shot", "none");
+            SmartDashboard.putString("Vision Status", "none");
         } else {
             distance = visionResults[2];
             horizontalAngle = visionResults[3];
@@ -66,9 +66,9 @@ public class RunTurretVision extends CommandBase {
             // m_turret.setVerticalAngle(verticalAngle);
 
             if (Math.abs(horizontalAngle) < H_TOLERANCE && m_turret.atVerticalAngle(verticalAngle)) {
-                SmartDashboard.putString("Vision/valid_shot", "locked");
+                SmartDashboard.putString("Vision Status", "locked");
             } else {
-                SmartDashboard.putString("Vision/valid_shot", "homing");
+                SmartDashboard.putString("Vision Status", "homing");
             }
         }
     }
@@ -83,5 +83,6 @@ public class RunTurretVision extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         m_turret.disableVision();
+        SmartDashboard.putString("Vision Status", "disabled");
     }
 }
