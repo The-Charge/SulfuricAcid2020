@@ -68,10 +68,6 @@ private WPI_TalonSRX intakeMotor;
 
     public void run (double setPower) {
         intakeMotor.set(setPower);
-        if (onBall())
-        {
-            new Index(m_indexer, 0.3);
-        }
 	}
 
     public void initSpeedMode() {    
@@ -95,7 +91,6 @@ private WPI_TalonSRX intakeMotor;
         SmartDashboard.putNumber("CurrentSpeed", intakeMotor.getSelectedSensorPosition());
         SmartDashboard.putNumber("CurrentIntake", intakeMotor.getStatorCurrent());
         intakeMotor.set(ControlMode.Velocity, MAX_TICKS_PER_SEC * setSpeed);
-        new Index(m_indexer, 0.3);
     
     }
 
