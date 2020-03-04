@@ -122,7 +122,7 @@ private WPI_TalonFX motorShooter;
     }
     public boolean isAtSpeed(double speed)
     {
-        return (Math.abs(getCurrentSpeed() - speed*MAX_TICKS_PER_SEC) > 0.1);
+        return (Math.abs(getCurrentSpeed()/MAX_TICKS_PER_SEC - speed) < .1);
     }
 
    

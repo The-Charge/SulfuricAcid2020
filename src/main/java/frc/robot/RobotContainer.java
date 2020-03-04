@@ -716,7 +716,7 @@ private void configureButtonBindings() {
   }
 
   public Command rShoot() {
-    return new Shoot(shooter,0.4);
+    return new Shoot(shooter,AutoConstants.initShootSpeed);
   }
 
   public Command rIndex() {
@@ -725,6 +725,10 @@ private void configureButtonBindings() {
 
   public Command rIntake() {
     return new RunIntake(intake,0.4);
+  }
+
+  public Command rClose() {
+    return new CloseStopper(stopper, indexer);
   }
 
   public Command rOpen()
