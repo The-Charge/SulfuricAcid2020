@@ -150,6 +150,9 @@ public class RobotContainer {
     SmartDashboard.putNumber("TurnPID I:", 0.00004);
     SmartDashboard.putNumber("TurnPID D:", 0.0025);
     SmartDashboard.putData("Set Balls 0", new BallDetector(ballSensor));
+    SmartDashboard.putData("TurnNDegrees 0:", new TurnNDegreesAbsolute(0, drivetrain, shifters));
+    SmartDashboard.putData("TurnNDegrees 90:", new TurnNDegreesAbsolute(90, drivetrain, shifters));
+    SmartDashboard.putData("TurnNDegrees -90:", new TurnNDegreesAbsolute(-90, drivetrain, shifters));
 
     //SmartDashboard.putData("Reinitialize PIDController:", new ReinitializePIDController());
   }
