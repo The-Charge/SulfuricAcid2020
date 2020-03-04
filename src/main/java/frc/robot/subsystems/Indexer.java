@@ -103,8 +103,12 @@ m_stopper = stopper;
         
     }
 
-    public void setPercentSpeedPID(double setSpeed) {
-        if (m_stopper.ballSensedOut())
+    public void setPercentSpeedPID(double setSpeed, boolean shooterOpen) {
+        if (shooterOpen || setSpeed < 0)
+        {
+
+        }
+        else if (m_stopper.ballSensedOut())
         {
             setSpeed = 0.1*setSpeed;
         }
@@ -113,6 +117,7 @@ m_stopper = stopper;
             setSpeed = 0.4*setSpeed;
         }
         else setSpeed = 0*setSpeed;
+       
         SmartDashboard.putNumber("PID Val", setSpeed);
         indexerMotorLF.set(ControlMode.Velocity, MAX_TICKS_PER_SEC * setSpeed);
         indexerMotorRF.set(ControlMode.Velocity, MAX_TICKS_PER_SEC * setSpeed);

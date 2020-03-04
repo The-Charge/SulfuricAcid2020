@@ -185,7 +185,7 @@ private void configureButtonBindings() {
 
     shootBtn = new JoystickButton(buttonBox, 9);
     //shootBtn.whileHeld(new ParallelCommandGroup(new OpenStopper(stopper))); indexer, slow speed
-    shootBtn.whileHeld(new ParallelCommandGroup(new OpenStopper(stopper), new Index(indexer, 0.5)));
+    shootBtn.whileHeld(new ParallelCommandGroup(new OpenStopper(stopper), new Index(indexer, 0.5, true)));
     shootBtn.whenReleased(new ParallelCommandGroup (new CloseStopper(stopper, indexer)));
 
     visionTargetBtn = new JoystickButton(buttonBox, 8);

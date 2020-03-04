@@ -120,6 +120,7 @@ private WPI_TalonFX motorShooter;
     public double getCurrentSpeed(){
         return motorShooter.getSelectedSensorVelocity();
     }
+    
 
    
 }
