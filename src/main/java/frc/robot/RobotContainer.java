@@ -12,6 +12,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -79,6 +80,7 @@ public class RobotContainer {
   public static Joystick leftJoystick;
   public static Joystick rightJoystick;
   public static Joystick buttonBox;
+  public static XboxController Xbox;
 
   //JOYSTICK BUTTONS
   public JoystickButton shiftHighWPBtn;
@@ -100,8 +102,12 @@ public class RobotContainer {
   public JoystickButton sensorColorBtn;
   public JoystickButton zeroBalls;
   public JoystickButton climbDown;
-  public JoystickButton visionTargetBtn;
+  public JoystickButton visionOverrideBtn;
   public JoystickButton runIntakeIndexerBtn;
+  public JoystickButton aButton;
+  public JoystickButton bButton;
+  public JoystickButton xButton;
+  public JoystickButton yButton;
 
   public boolean realButtonBox = true;
 
@@ -157,6 +163,7 @@ private void configureButtonBindings() {
     rightJoystick = new Joystick(0);
     leftJoystick = new Joystick(1);
     buttonBox = new Joystick(2);
+    Xbox = new XboxController(3);
 
     //reverse intake
     runIntakeInverseBtn = new JoystickButton(buttonBox, 1);
@@ -188,8 +195,8 @@ private void configureButtonBindings() {
     shootBtn.whileHeld(new ParallelCommandGroup(new OpenStopper(stopper), new Index(indexer, 0.5)));
     shootBtn.whenReleased(new ParallelCommandGroup (new CloseStopper(stopper, indexer)));
 
-    visionTargetBtn = new JoystickButton(buttonBox, 8);
-    visionTargetBtn.whileHeld(new RunTurretVision(turret));
+    visionOverrideBtn = new JoystickButton(buttonBox, 8);
+    visionOverrideBtn.whenPressed(new RunTurretManual(turret));
      
     positionControlBtn = new JoystickButton(buttonBox, 5);
     positionControlBtn.whileHeld(new PositionsControl(controlPanel, colorSensor));
@@ -219,12 +226,26 @@ private void configureButtonBindings() {
     shiftHighWHBtn.whenPressed(new ShiftHigh(shifters));
     shiftHighWHBtn.whenReleased(new ShiftLow(shifters));
 
+      aButton = new JoystickButton(Xbox, 1);
+      aButton.whenPressed(new Shoot(shooter, .48));
+      aButton.whenPressed(new ChangeElevation(turret, 0.4));
+      bButton = new JoystickButton(Xbox, 2);
+      bButton.whenPressed(new Shoot(shooter, .72));
+      aButton.whenPressed(new ChangeElevation(turret, 0.8));
+      xButton = new JoystickButton(Xbox, 3);
+      xButton.whenPressed(new Shoot(shooter, .62));
+      aButton.whenPressed(new ChangeElevation(turret, 0.8));
+      yButton = new JoystickButton(Xbox, 4);
+      yButton.whenPressed(new Shoot(shooter, .90));
+      aButton.whenPressed(new ChangeElevation(turret, 0.8));
+
   }
 
   private void alternateButtonBindings() {
     rightJoystick = new Joystick(0);
     leftJoystick = new Joystick(1);
     buttonBox = new Joystick(2);
+    Xbox = new XboxController(3);
 
     //reverse intake
     runIntakeInverseBtn = new JoystickButton(buttonBox, 8);

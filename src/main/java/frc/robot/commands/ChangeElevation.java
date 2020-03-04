@@ -19,19 +19,12 @@ import frc.robot.subsystems.Turret;
 /**
  *
  */
-public class RunTurretManual extends CommandBase {
-    private double m_turretHorizontal, m_turretVertical;
+public class ChangeElevation extends CommandBase {
+    private double turretHorizontal, m_turretVertical;
     private final Turret m_turret;
-    private boolean manualActivated = false;
     
-    public RunTurretManual(Turret turret) {
+    public ChangeElevation(Turret turret, double turretVertical) {
         m_turret = turret;
-        addRequirements(m_turret);
-    }
-
-    public RunTurretManual(Turret turret, double turretHorizontal, Double turretVertical) {
-        m_turret = turret;
-        m_turretHorizontal = turretHorizontal;
         m_turretVertical = turretVertical;
         addRequirements(m_turret);
     }
@@ -39,17 +32,13 @@ public class RunTurretManual extends CommandBase {
     // Called just before this Command runs the first time
     @Override
     public void initialize() {
-        manualActivated = !manualActivated;
+
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
-        if (manualActivated){
-         m_turretHorizontal = -RobotContainer.buttonBox.getY();
-         m_turret.runHorizontalManual(-m_turretHorizontal); 
-        }
-      
+        m_turret.setRawVertical(m_turretVertical);
     }
 
     // Make this return true when this Command no longer needs to run execute()

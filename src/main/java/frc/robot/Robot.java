@@ -8,8 +8,10 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
@@ -20,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.commands.*;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -32,7 +35,7 @@ public class Robot extends TimedRobot {
 
 private Command m_autonomousCommand;
 public RobotContainer m_robotContainer;
-public boolean outBall;
+boolean visionOverride = false;
 
 
 
@@ -46,6 +49,7 @@ public boolean outBall;
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer(); 
+    
   }
 
   /**
@@ -62,6 +66,9 @@ public boolean outBall;
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    
+    
+
   }
 
   /**
@@ -120,7 +127,26 @@ public boolean outBall;
    */
   @Override
   public void teleopPeriodic() {
+
+    if (m_robotContainer.buttonBox.getRawButton(8)) visionOverride = !visionOverride;
     
+    if (!visionOverride){
+      if (m_robotContainer.Xbox.getBackButtonPressed()){
+        new RunTurretVision(new Turret());
+      }
+      if (m_robotContainer.Xbox.getTriggerAxis(Hand.kLeft) > 0.01){
+        new RunIntake(new Intake(), 0.3);
+      }
+      if (m_robotContainer.Xbox.getTriggerAxis(Hand.kRight) > 0.1){
+        new ParallelCommandGroup(new OpenStopper(new Stopper()), new Index(new Indexer(new Stopper()), 0.5)) ;
+      } else if (m_robotContainer.Xbox.getTriggerAxis(Hand.kRight) <= 0.1){
+        new ParallelCommandGroup (new CloseStopper(new Stopper(), new Indexer(new Stopper())));
+      }
+    
+    }else {
+        new RunTurretManual(m_robotContainer.turret);
+      }
+    }
   }
 
   @Override
