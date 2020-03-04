@@ -44,6 +44,7 @@ climberMotor = new WPI_TalonSRX(12);
 climberBrakeDoubleSolenoid = new DoubleSolenoid(0, 3, 4);
         
 goingUp = false;
+//setDefaultCommand(new ClimberBrake(this));
 
     }
 
@@ -53,8 +54,11 @@ goingUp = false;
     }
 
     public void engageBrakes(){
-        if(!goingUp)
-            climberBrakeDoubleSolenoid.set(Value.kForward);
+        climberBrakeDoubleSolenoid.set(Value.kForward);
+    }
+    public void disengageBrake()
+    {
+        climberBrakeDoubleSolenoid.set(Value.kReverse);
     }
 
     public void set(double percentSpeed)
@@ -64,7 +68,7 @@ goingUp = false;
             goingUp = true;
         else
             goingUp = false;
-        climberMotor.set(ControlMode.PercentOutput, 10 * percentSpeed);
+        climberMotor.set(ControlMode.PercentOutput, percentSpeed);
     }
     public void setPercentVBus()
     {

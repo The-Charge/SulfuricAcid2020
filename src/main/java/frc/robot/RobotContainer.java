@@ -160,8 +160,8 @@ public class RobotContainer {
     //SmartDashboard.putData("Reinitialize PIDController:", new ReinitializePIDController());
   }
 private void configureButtonBindings() {
-    rightJoystick = new Joystick(0);
-    leftJoystick = new Joystick(1);
+    leftJoystick = new Joystick(0);
+    rightJoystick = new Joystick(1);
     buttonBox = new Joystick(2);
     Xbox = new XboxController(3);
 
@@ -171,11 +171,11 @@ private void configureButtonBindings() {
     runIntakeInverseBtn.whileHeld(new Index(indexer, -0.7));
       
     //climb up/climb down
-    climbDown = new JoystickButton(buttonBox, 6);
-    climbDown.whileHeld(new ClimberRun(climber, -15));
-    climbDown.whenReleased(new SequentialCommandGroup(new WaitCommand(1), new ClimberBrake(climber), new WaitCommand(1)));
-    climbUp = new JoystickButton(buttonBox, 5);
-    climbUp.whileHeld(new ClimberRun(climber, 15));
+    climbDown = new JoystickButton(buttonBox, 3);
+    climbDown.whileHeld(new ClimberRun(climber, -0.6));
+    climbUp = new JoystickButton(buttonBox, 2);
+    climbUp.whileHeld((new SequentialCommandGroup(new ClimberUnBrake(climber), new WaitCommand(1), new ClimberRun(climber, 0.6))));
+    climbUp.whenReleased(new ClimberBrake(climber));
       
     //manualElevation = new JoystickButton(buttonBox, 2);
     //manualElevation.whileHeld(new ManualTurretElevation(0));
@@ -227,8 +227,8 @@ private void configureButtonBindings() {
     shiftHighWHBtn.whenReleased(new ShiftLow(shifters));
 
       aButton = new JoystickButton(Xbox, 1);
-      aButton.whenPressed(new Shoot(shooter, .48));
-      aButton.whenPressed(new ChangeElevation(turret, 0.4));
+      aButton.whenPressed(new Shoot(shooter, .9)); 
+      aButton.whenPressed(new ChangeElevation(turret, 0.8)); 
       bButton = new JoystickButton(Xbox, 2);
       bButton.whenPressed(new Shoot(shooter, .72));
       aButton.whenPressed(new ChangeElevation(turret, 0.8));
@@ -236,14 +236,14 @@ private void configureButtonBindings() {
       xButton.whenPressed(new Shoot(shooter, .62));
       aButton.whenPressed(new ChangeElevation(turret, 0.8));
       yButton = new JoystickButton(Xbox, 4);
-      yButton.whenPressed(new Shoot(shooter, .90));
-      aButton.whenPressed(new ChangeElevation(turret, 0.8));
+      yButton.whenPressed(new Shoot(shooter, .48));
+      aButton.whenPressed(new ChangeElevation(turret, 0.4));
 
   }
 
   private void alternateButtonBindings() {
-    rightJoystick = new Joystick(0);
-    leftJoystick = new Joystick(1);
+    leftJoystick = new Joystick(0);
+    rightJoystick = new Joystick(1);
     buttonBox = new Joystick(2);
     Xbox = new XboxController(3);
 

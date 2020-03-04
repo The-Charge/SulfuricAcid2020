@@ -1,58 +1,50 @@
 package frc.robot.commands;
- 
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.subsystems.Climber;
- 
+
 /**
  *
  */
-public class ClimberRun extends CommandBase {
- 
-    private double m_power;
+public class ClimberUnBrake extends CommandBase {
+
+    
     private Climber m_climber;
-    public ClimberRun(Climber climber, double power) {
- 
-        m_power = power;
+    public ClimberUnBrake(Climber climber) {
+
+       
         m_climber = climber;
         
         addRequirements(m_climber);
- 
+
     }
- 
+
     // Called just before this Command runs the first time
     @Override
     public void initialize() {
-        m_climber.setPercentVBus();
-        if (m_power < 0)
-            m_climber.engageBrakes();
-        if (m_power > 0)
-            m_climber.disengageBrake();
+        m_climber.disengageBrake();
     }
-    
+
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
-        if (m_power < 0)
-        m_climber.engageBrakes();
-        m_climber.set(m_power);       
-        m_climber.limitCurrent();
+        
     }
- 
+
     // Make this return true when this Command no longer needs to run execute()
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
- 
+
     // Called once after isFinished returns true
     @Override
     public void end(boolean interrupted) {
-        m_climber.stopMotor();
+        
     }
- 
+
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
+    
 }
- 
-
