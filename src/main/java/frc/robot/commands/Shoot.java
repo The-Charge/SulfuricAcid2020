@@ -53,7 +53,7 @@ public class Shoot extends CommandBase {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     public boolean isFinished() {
-        return  (Math.abs(m_shooter.getCurrentSpeed() - m_speed) < 0.1);
+        return  m_shooter.isAtSpeed(m_speed);
         //return false;
     }
 

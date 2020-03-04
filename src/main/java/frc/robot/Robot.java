@@ -95,7 +95,7 @@ public boolean outBall;
   public void autonomousInit() {
     m_robotContainer.drivetrain.resetEncoders();
     m_robotContainer.drivetrain.resetOdometry(new Pose2d(0, 0, new Rotation2d(0)));
-    m_autonomousCommand =  new ParallelCommandGroup(m_robotContainer.rShoot(), new SequentialCommandGroup(new WaitCommand(4), new ParallelCommandGroup(m_robotContainer.rOpen(), m_robotContainer.rIntake(), m_robotContainer.rIndex(), new SequentialCommandGroup(new WaitCommand(2), m_robotContainer.getAutonomousForward()))));//(Command) chooser.getSelected();
+    m_autonomousCommand =  new SequentialCommandGroup(m_robotContainer.rShoot(), new SequentialCommandGroup( new ParallelCommandGroup(m_robotContainer.rOpen(), m_robotContainer.rIntake(), m_robotContainer.rIndex(), new SequentialCommandGroup(new WaitCommand(4), m_robotContainer.getAutonomousForward()))));//(Command) chooser.getSelected();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
