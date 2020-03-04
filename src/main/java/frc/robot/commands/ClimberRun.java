@@ -24,14 +24,14 @@ public class ClimberRun extends CommandBase {
     @Override
     public void initialize() {
         m_climber.setPercentVBus();
-        
+        if (m_power < 0)
+            m_climber.engageBrakes();
     }
  
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
-        m_climber.set(m_power);
- 
+        m_climber.set(m_power);       
         m_climber.limitCurrent();
     }
  
