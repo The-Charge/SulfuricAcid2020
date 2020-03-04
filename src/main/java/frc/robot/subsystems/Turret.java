@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.commands.RunTurretManual;
+import frc.robot.commands.RunTurretVision;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -60,7 +61,8 @@ public class Turret implements Subsystem {
         turretMotor.setSelectedSensorPosition(0);
         turretMotor.setNeutralMode(NeutralMode.Brake);
 
-        setDefaultCommand(new RunTurretManual(this));
+        //setDefaultCommand(new RunTurretManual(this));
+        setDefaultCommand(new RunTurretVision(this));
     }
 
     @Override

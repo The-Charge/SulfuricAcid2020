@@ -10,65 +10,51 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Turret;
 
 /**
  *
  */
-public class Shoot extends CommandBase {
-
-    private double m_speed;
-    private final Shooter m_shooter;
-
-    public Shoot(Shooter shooter, double speed) {
-        m_shooter = shooter;
-        m_speed = speed;
-        addRequirements(m_shooter);
-
+public class TurretPositionPreset extends CommandBase {
+    private double turretHorizontal, turretVertical;
+    private final Turret m_turret;
+    
+    public TurretPositionPreset(Turret turret) {
+        m_turret = turret;
+        addRequirements(m_turret);
     }
 
     // Called just before this Command runs the first time
     @Override
     public void initialize() {
-        m_shooter.initSpeedMode();
-
+        
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
-        //m_speed = RobotContainer.buttonBox.getRawAxis(2);
-        //m_speed = (m_speed + 1)/2;
-        if (RobotContainer.Xbox.getBumper(Hand.kLeft)){
-            m_speed += 0.02;
-        }
-        if (RobotContainer.Xbox.getBumper(Hand.kRight)){
-            m_speed -= 0.02;
-        }
-        m_shooter.setPercentSpeedPID(m_speed);
+       turretHorizontal = -RobotContainer.buttonBox.getY();
+       m_turret.runHorizontalManual(-turretHorizontal);
 
-        SmartDashboard.putNumber("ShooterSpeed", m_speed);
-
+      //  turretVertical = RobotContainer.buttonBox.getX();
+      //  turretVertical = (1 + turretVertical) / 2;
+      //  turretVertical = .4 * turretVertical + .4;
+        m_turret.setRawVertical(turretVertical);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     public boolean isFinished() {
-        return  m_shooter.isAtSpeed(m_speed);
-        //return false;
+        return false;
     }
 
     // Called once after isFinished returns true
     @Override
     public void end(boolean interrupted) {
-        //m_shooter.stop();
+        m_turret.stopHorizontal();
     }
-
-    
 }
