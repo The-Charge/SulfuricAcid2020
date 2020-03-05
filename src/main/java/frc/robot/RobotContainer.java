@@ -241,7 +241,8 @@ private void configureButtonBindings() {
 
   }
 
-  
+  //FIXME: Would recommend moving the Auton Command generating methods to a separate AutonomousCommandContainer
+  // Could also argue having each one be in it's own class to make it easier to find one when it breaks.
   public Command getAutonomousCorner() {
 
     // Create a voltage constraint to ensure we don't accelerate too fast
