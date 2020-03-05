@@ -10,51 +10,46 @@
 
 package frc.robot.commands;
 
-import java.security.PublicKey;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shifters;
-import frc.robot.subsystems.Turret;
 import frc.robot.Robot;
+import frc.robot.RobotContainer;
+import frc.robot.subsystems.Turret;
 
 /**
  *
  */
-public class ResetTurretEncoder extends CommandBase {
-
-    
+public class ChangeElevation extends CommandBase {
+    private double turretHorizontal, m_turretVertical;
     private final Turret m_turret;
-
-    public ResetTurretEncoder(Turret turret) {
+    
+    public ChangeElevation(Turret turret, double turretVertical) {
         m_turret = turret;
-        // Use addRequirements() here to declare subsystem dependencies.
+        m_turretVertical = turretVertical;
         addRequirements(m_turret);
-      }
+    }
 
     // Called just before this Command runs the first time
     @Override
     public void initialize() {
-        m_turret.setRawHorizontalPercent(0.2);
+
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
+        m_turret.setRawVertical(m_turretVertical);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     public boolean isFinished() {
-        if (m_turret.atLimitSwitch()){
-                m_turret.checkHorizontalLimitSwitches();
-                return true;
-        }
-        else return false;
+        return true;
     }
 
     // Called once after isFinished returns true
     @Override
     public void end(boolean interrupted) {
-        m_turret.stopHorizontal();
+      
     }
 }
