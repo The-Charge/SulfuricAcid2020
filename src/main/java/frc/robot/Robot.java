@@ -142,23 +142,13 @@ boolean visionOverride = false;
   public void teleopPeriodic() {
 
     
-    if (RobotContainer.buttonBox.getRawButton(8)) visionOverride = !visionOverride;
+    if (RobotContainer.buttonBox.getRawButtonPressed(8)) visionOverride = !visionOverride;
     
     if (!visionOverride){
-      if (RobotContainer.Xbox.getBackButtonPressed()){
+      if (RobotContainer.Xbox.getRawButtonPressed(9)){
         new RunTurretVision(m_robotContainer.turret);
       }
-      if (RobotContainer.Xbox.getTriggerAxis(Hand.kLeft) > 0.5){
-        new RunIntake(m_robotContainer.intake, 0.4);
-        new Index(m_robotContainer.indexer, 1);
-      }
-      if (RobotContainer.Xbox.getTriggerAxis(Hand.kRight) > 0.5){
-        new ParallelCommandGroup(new OpenStopper(m_robotContainer.stopper), new Index(m_robotContainer.indexer, 0.5, true)) ;
-      } else if (RobotContainer.Xbox.getTriggerAxis(Hand.kRight) <= 0.1){
-        new ParallelCommandGroup ((new CloseStopper(m_robotContainer.stopper, m_robotContainer.indexer)));
-      }
-    
-    }else {
+    } else {
         new RunTurretManual(m_robotContainer.turret);
       }
     

@@ -432,14 +432,14 @@ private final SpeedControllerGroup m_rightMotors =
     leftBackMotor.follow(leftFrontMotor);
     leftMidMotor.follow(leftFrontMotor);
 
-    /*
+    
     rightBackMotor.configOpenloopRamp(0.5);
     rightFrontMotor.configOpenloopRamp(0.5);
     rightMidMotor.configOpenloopRamp(0.5);
     leftBackMotor.configOpenloopRamp(0.5);
     leftFrontMotor.configOpenloopRamp(0.5);
     leftMidMotor.configOpenloopRamp(0.5);
-    */
+    
 
       }
 }

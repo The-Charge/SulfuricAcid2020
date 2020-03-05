@@ -52,7 +52,7 @@ public class RunTurretVision extends CommandBase {
         //  5. alignment angle
         //  6. inner port (0/1)
         //  7. instantaneous FPS
-        visionResults = SmartDashboard.getNumberArray("Vision Status", new double[] {0, 0});
+        visionResults = SmartDashboard.getNumberArray("Vision/result", new double[] {0, 0});
         if (visionResults[1] == 0) {
             SmartDashboard.putString("Vision Status", "none");
         } else {

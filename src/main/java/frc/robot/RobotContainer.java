@@ -115,7 +115,6 @@ public class RobotContainer {
     public RobotContainer() {
     SmartDashboard.putData("TurnOffLights", new TurnOffLights(lights));
       if (realButtonBox) configureButtonBindings();
-      else alternateButtonBindings();
       smartDashboardButtons();   
   }
 
@@ -185,15 +184,15 @@ private void configureButtonBindings() {
     runIntakeBtn.whileHeld(new RunIntake(intake, 0.3));
 
     //Intake and Indexer
-    runIntakeIndexerBtn = new JoystickButton(buttonBox, 7);
+    runIntakeIndexerBtn = new JoystickButton(Xbox, 5);
     runIntakeIndexerBtn.whileHeld(new RunIntake(intake, 0.4));
     runIntakeIndexerBtn.whileHeld(new Index(indexer, 1));
     
 
-    shootBtn = new JoystickButton(buttonBox, 9);
+    shootBtn = new JoystickButton(Xbox, 6);
     //shootBtn.whileHeld(new ParallelCommandGroup(new OpenStopper(stopper))); indexer, slow speed
     shootBtn.whileHeld(new ParallelCommandGroup(new OpenStopper(stopper), new Index(indexer, 0.5, true)));
-    shootBtn.whenReleased(new ParallelCommandGroup (new CloseStopper(stopper, indexer)));
+    shootBtn.whenReleased(new ParallelCommandGroup (new CloseStopper(stopper, indexer), new Shoot(shooter, 0)));
 
     visionOverrideBtn = new JoystickButton(buttonBox, 8);
     visionOverrideBtn.whenPressed(new RunTurretManual(turret));
@@ -241,66 +240,7 @@ private void configureButtonBindings() {
 
   }
 
-  private void alternateButtonBindings() {
-    leftJoystick = new Joystick(0);
-    rightJoystick = new Joystick(1);
-    buttonBox = new Joystick(2);
-    Xbox = new XboxController(3);
-
-    //reverse intake
-    runIntakeInverseBtn = new JoystickButton(buttonBox, 8);
-    runIntakeInverseBtn.whileHeld(new RunIntake(intake, -1));
-      
-    //climb up/climb down
-    climbDown = new JoystickButton(buttonBox, 6);
-    climbDown.whileHeld(new ClimberRun(climber, -0.5));
-    climbDown.whenReleased(new SequentialCommandGroup(new WaitCommand(1), new ClimberBrake(climber), new WaitCommand(1)));
-    climbUp = new JoystickButton(buttonBox, 5);
-    climbUp.whileHeld(new ClimberRun(climber, 0.5));
-    climbUp.whenReleased(new SequentialCommandGroup(new WaitCommand(1), new ClimberBrake(climber), new WaitCommand(1)));
-
-    manualElevation = new JoystickButton(buttonBox, 2);
-    //manualElevation.whileHeld(new ManualTurretElevation(0));
-
-    //runIntake
-    runIntakeBtn = new JoystickButton(buttonBox, 4);
-    runIntakeBtn.whenPressed(new RunIntake(intake, 1));
-
-    //Intake and Indexer
-    runIntakeIndexerBtn = new JoystickButton(buttonBox, 7);
-    runIntakeIndexerBtn.whenPressed(new Index(indexer, 0.1));
-    runIntakeIndexerBtn.whenPressed(new RunIntake(intake, 0.1));
-
-    shootBtn = new JoystickButton(buttonBox, 1);
-    shootBtn.whileHeld(new Shoot(shooter, 0.4));
-     
-    positionControlBtn = new JoystickButton(buttonBox, 5);
-    positionControlBtn.whileHeld(new PositionsControl(controlPanel, colorSensor));
-    rotationControlBtn = new JoystickButton(buttonBox, 6);
-    rotationControlBtn.whileHeld(new RotationControl(controlPanel, colorSensor));
-
-    //Drive Train buttons
-    
-    //left joystick
-    toggleLockStraightBtn = new JoystickButton(leftJoystick, 4 );
-    toggleLockStraightBtn.whenPressed(new ToggleLockStraight(drivetrain));
-
-    //right joystick
-    invertDriveBtn = new JoystickButton(rightJoystick, 2);
-    invertDriveBtn.whenPressed(new InvertDrive(drivetrain));
-    shiftHighWPBtn = new JoystickButton(rightJoystick, 3);
-    shiftHighWPBtn.whenPressed(new ShiftHigh(shifters));
-    quarterSpeedBtn = new JoystickButton(rightJoystick, 4);
-    quarterSpeedBtn.whenPressed(new QuarterSpeed(drivetrain));
-    
-    shiftLowBtn = new JoystickButton(rightJoystick, 2);
-    shiftLowBtn.whenPressed(new ShiftLow(shifters));
-    shiftHighWHBtn = new JoystickButton(rightJoystick, 1);
-    shiftHighWHBtn.whenPressed(new ShiftHigh(shifters));
-    shiftHighWHBtn.whenReleased(new ShiftLow(shifters));
-
-  }
-
+  
   public Command getAutonomousCorner() {
 
     // Create a voltage constraint to ensure we don't accelerate too fast

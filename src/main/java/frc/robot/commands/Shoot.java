@@ -45,10 +45,10 @@ public class Shoot extends CommandBase {
     public void execute() {
         //m_speed = RobotContainer.buttonBox.getRawAxis(2);
         //m_speed = (m_speed + 1)/2;
-        if (RobotContainer.Xbox.getBumper(Hand.kLeft)){
+        if (RobotContainer.Xbox.getBackButtonPressed()){
             m_speed += 0.02;
         }
-        if (RobotContainer.Xbox.getBumper(Hand.kRight)){
+        if (RobotContainer.Xbox.getStartButtonPressed()){
             m_speed -= 0.02;
         }
         m_shooter.setPercentSpeedPID(m_speed);
