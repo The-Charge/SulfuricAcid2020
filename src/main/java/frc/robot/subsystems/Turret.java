@@ -36,6 +36,7 @@ public class Turret implements Subsystem {
     private static final double H_MIN_DEGREES = H_MIN_ENCODER_TICKS * H_DEGREES_PER_TICK;
     private static final double H_MAX_DEGREES = H_MAX_ENCODER_TICKS * H_DEGREES_PER_TICK;
     private static final double H_TOLERANCE = 0.5;
+    private static final double H_TOLERANCE_VISION = 1;
 
     //Constants aquired from CAD team used for trig calculations (millimeters):
     public static final double TURRET_SIDE_A = 244.475;
@@ -43,6 +44,7 @@ public class Turret implements Subsystem {
     private final double V_MIN_ANGLE = 20.0; //34.4;
     private final double V_MAX_ANGLE = 57.4;
     private final double V_TOLERANCE = 0.01;
+    private double horizontalSetpoint = 0;
 
     private static final int TIMEOUT_MS = 10;
 
@@ -107,6 +109,7 @@ public class Turret implements Subsystem {
     }
 
     public void gotoHorizontalAngle(double setpoint) {
+        horizontalSetpoint = setpoint;
         SmartDashboard.putNumber("Angle Offset", setpoint);
         SmartDashboard.putBoolean("Valid Turret Rotation",
             getCurrentHorizontalAngle() + setpoint < H_MIN_DEGREES
@@ -161,5 +164,11 @@ public class Turret implements Subsystem {
 
 	public void setRawVertical(double verticalAngle) {
         elevationServo.set(verticalAngle);
+	}
+
+	public String getVisionString() {
+        if (Math.abs(horizontalSetpoint) < H_TOLERANCE_VISION)
+        return "locked";
+        else return "homing";
 	}
 }

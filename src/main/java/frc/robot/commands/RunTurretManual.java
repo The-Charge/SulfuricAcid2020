@@ -22,7 +22,7 @@ import frc.robot.subsystems.Turret;
 public class RunTurretManual extends CommandBase {
     private double m_turretHorizontal, m_turretVertical;
     private final Turret m_turret;
-    private boolean manualActivated = false;
+    //private boolean manualActivated = false;
     
     public RunTurretManual(Turret turret) {
         m_turret = turret;
@@ -39,16 +39,16 @@ public class RunTurretManual extends CommandBase {
     // Called just before this Command runs the first time
     @Override
     public void initialize() {
-        manualActivated = !manualActivated;
+        //manualActivated = !manualActivated;
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
-        if (manualActivated){
+     
          m_turretHorizontal = -RobotContainer.buttonBox.getY();
          m_turret.runHorizontalManual(-m_turretHorizontal); 
-        }
+        
       
     }
 

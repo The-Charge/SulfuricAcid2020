@@ -65,9 +65,9 @@ public class RobotContainer {
   //SUBSYSTEMS
   public ControlPanel controlPanel = new ControlPanel();
   public ColorSensor colorSensor = new ColorSensor();
-  public Lights lights = new Lights();
   public Drivetrain drivetrain = new Drivetrain();
   public Turret turret = new Turret();
+  public Lights lights = new Lights(turret);
   public Shifters shifters = new Shifters();
   public Climber climber = new Climber();
   public Intake intake = new Intake();
@@ -182,11 +182,11 @@ private void configureButtonBindings() {
 
     //runIntake
     runIntakeBtn = new JoystickButton(buttonBox, 4);
-    runIntakeBtn.whileHeld(new RunIntake(intake, 0.3));
+    runIntakeBtn.whileHeld(new RunIntake(intake, 1));
 
     //Intake and Indexer
     runIntakeIndexerBtn = new JoystickButton(Xbox, 5);
-    runIntakeIndexerBtn.whileHeld(new RunIntake(intake, 0.4));
+    runIntakeIndexerBtn.whileHeld(new RunIntake(intake, 1));
     runIntakeIndexerBtn.whileHeld(new Index(indexer, 1));
     
 

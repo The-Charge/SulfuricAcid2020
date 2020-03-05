@@ -32,14 +32,14 @@ public class Lights implements Subsystem {
 
     public static CANifier canifier = new CANifier(0);
     public static Relay relay1 = new Relay(1);
-
+    public String vision;
     public final static CANifier.PWMChannel kMotorControllerCh = CANifier.PWMChannel.PWMChannel2;
-   
+    public Turret m_turret;
  
 
-    public Lights() {   
+    public Lights(Turret turret) {   
         setDefaultCommand(new ChangeLights(this));
-      
+        m_turret = turret;
 
     }
 
@@ -58,12 +58,12 @@ public class Lights implements Subsystem {
     public void onLoop(){}
 
     public boolean isDone(){return false;}
-    public String vision = "Locked";
    
     public void changeLight()
     {
+        vision = m_turret.getVisionString();
 
-        if (vision.equals("Locked"))
+        if (vision.equals("locked"))
         {
             canifier.setLEDOutput(242, CANifier.LEDChannel.LEDChannelA);
             canifier.setLEDOutput(170 ,CANifier.LEDChannel.LEDChannelB);
