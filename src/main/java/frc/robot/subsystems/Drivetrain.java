@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.TankDrive;
@@ -135,6 +136,8 @@ private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_
           leftSpeed = -1*leftSpeed;
           rightSpeed = -1*rightSpeed;
         }
+        SmartDashboard.putNumber("leftSpeedSet", leftSpeed);
+        SmartDashboard.putNumber("rightSpeedSet", rightSpeed);
         m_rightMotors.set(rightSpeed);
         m_leftMotors.set(leftSpeed);
     }
@@ -429,12 +432,14 @@ private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_
     leftBackMotor.follow(leftFrontMotor);
     leftMidMotor.follow(leftFrontMotor);
 
+    /*
     rightBackMotor.configOpenloopRamp(0.5);
     rightFrontMotor.configOpenloopRamp(0.5);
     rightMidMotor.configOpenloopRamp(0.5);
     leftBackMotor.configOpenloopRamp(0.5);
     leftFrontMotor.configOpenloopRamp(0.5);
     leftMidMotor.configOpenloopRamp(0.5);
+    */
 
       }
 }

@@ -8,10 +8,11 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-
 package frc.robot.commands;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Drivetrain;
 
 /**
@@ -32,11 +33,16 @@ public class HalfSpeed extends CommandBase {
     // Called just before this Command runs the first time
     @Override
     public void initialize() {
+        m_subsystem.setPercentVBus();
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
+        double leftSpeed, rightSpeed;
+        rightSpeed = -RobotContainer.rightJoystick.getY() * 0.5;
+        leftSpeed = -RobotContainer.leftJoystick.getY() * 0.5;
+        m_subsystem.run(leftSpeed, rightSpeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()

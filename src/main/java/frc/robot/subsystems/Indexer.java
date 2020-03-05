@@ -91,7 +91,7 @@ m_stopper = stopper;
     	indexerMotorLF.config_kF(PID_SLOT_SPEED_MODE, speedF, TIMEOUT_MS);
 
         indexerMotorLF.selectProfileSlot(PID_SLOT_SPEED_MODE, 0);
-        
+        /*
         indexerMotorRF.set(ControlMode.Velocity, 0);
         
         indexerMotorRF.config_kP(PID_SLOT_SPEED_MODE, speedP, TIMEOUT_MS);
@@ -100,7 +100,7 @@ m_stopper = stopper;
     	indexerMotorRF.config_kF(PID_SLOT_SPEED_MODE, speedF, TIMEOUT_MS);
 
         indexerMotorRF.selectProfileSlot(PID_SLOT_SPEED_MODE, 0);
-        
+        */
     }
 
     public void setPercentSpeedPID(double setSpeed, boolean shooterOpen) {
@@ -120,7 +120,7 @@ m_stopper = stopper;
        
         SmartDashboard.putNumber("PID Val", setSpeed);
         indexerMotorLF.set(ControlMode.Velocity, MAX_TICKS_PER_SEC * setSpeed);
-        indexerMotorRF.set(ControlMode.Velocity, MAX_TICKS_PER_SEC * setSpeed);
+        //indexerMotorRF.set(ControlMode.Velocity, MAX_TICKS_PER_SEC * setSpeed);
     }
 
     
