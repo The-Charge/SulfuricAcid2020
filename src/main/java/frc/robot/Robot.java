@@ -140,8 +140,6 @@ boolean visionOverride = false;
    */
   @Override
   public void teleopPeriodic() {
-
-    
     if (RobotContainer.buttonBox.getRawButtonPressed(8)) visionOverride = !visionOverride;
     
     if (!visionOverride){

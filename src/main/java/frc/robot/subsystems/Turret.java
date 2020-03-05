@@ -49,12 +49,10 @@ public class Turret implements Subsystem {
     private double actuatorDistance;
 
     private final WPI_TalonSRX turretMotor;
-    private final Servo elevationServo;
     private final Relay visionLights;
 
     public Turret() {    
         turretMotor = new WPI_TalonSRX(7);
-        elevationServo = new Servo(0);
         visionLights = new Relay(0);
 
         turretMotor.set(ControlMode.PercentOutput, 0);
@@ -67,7 +65,6 @@ public class Turret implements Subsystem {
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Turret Elevation", elevationServo.get());
         SmartDashboard.putNumber("Turret Rotation", getCurrentHorizontalAngle());
         checkHorizontalLimitSwitches();
     }
@@ -119,28 +116,6 @@ public class Turret implements Subsystem {
         } else {
             turretMotor.set(ControlMode.PercentOutput, 0);
         }
-    }
-
-    public void setVerticalAngle(double setpoint) {
-        if(setpoint > V_MAX_ANGLE) {
-            setpoint = V_MAX_ANGLE;
-        } else if(setpoint < V_MIN_ANGLE) {
-            setpoint = V_MIN_ANGLE;
-        }
-        
-        actuatorDistance = calcActuatorDistance(setpoint);
-        elevationServo.set(actuatorDistance);
-    }
-
-    public void setRawVertical(double setpoint) {
-        // Use these to adjust 0-1 to actuall 0-1 on the servo
-        //setpoint *= 0.6;
-        //setpoint += 0.2;
-        elevationServo.set(setpoint);
-    }
-
-    public boolean atVerticalAngle(final double angle) {
-        return (Math.abs(elevationServo.get() - calcActuatorDistance(angle)) <= V_TOLERANCE);
     }
 
     public void stopHorizontal() {

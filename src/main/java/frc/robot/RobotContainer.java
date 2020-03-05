@@ -75,6 +75,7 @@ public class RobotContainer {
   public Indexer indexer = new Indexer(stopper);
   public Shooter shooter = new Shooter();
   public BallSensor ballSensor = new BallSensor(indexer, stopper);
+  public TurretElevation turretElevation = new TurretElevation();
 
   //JOYSTICKS
   public static Joystick leftJoystick;
@@ -227,16 +228,16 @@ private void configureButtonBindings() {
 
       aButton = new JoystickButton(Xbox, 1);
       aButton.whenPressed(new Shoot(shooter, .9)); 
-      aButton.whenPressed(new ChangeElevation(turret, 0.8)); 
+      aButton.whenPressed(new ChangeElevation(turretElevation, 0.8)); 
       bButton = new JoystickButton(Xbox, 2);
       bButton.whenPressed(new Shoot(shooter, .72));
-      aButton.whenPressed(new ChangeElevation(turret, 0.8));
+      aButton.whenPressed(new ChangeElevation(turretElevation, 0.8));
       xButton = new JoystickButton(Xbox, 3);
       xButton.whenPressed(new Shoot(shooter, .62));
-      aButton.whenPressed(new ChangeElevation(turret, 0.8));
+      aButton.whenPressed(new ChangeElevation(turretElevation, 0.8));
       yButton = new JoystickButton(Xbox, 4);
       yButton.whenPressed(new Shoot(shooter, .48));
-      aButton.whenPressed(new ChangeElevation(turret, 0.4));
+      aButton.whenPressed(new ChangeElevation(turretElevation, 0.4));
 
   }
 
