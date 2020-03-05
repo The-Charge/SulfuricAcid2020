@@ -133,7 +133,7 @@ timer = 0;
             timer = 0;
         }
         timer++;
-        if (timer < 100) return true;
+        if (timer < 500) return true;
         else return false;
     }
 

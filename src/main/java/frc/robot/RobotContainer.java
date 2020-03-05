@@ -108,6 +108,7 @@ public class RobotContainer {
   public JoystickButton bButton;
   public JoystickButton xButton;
   public JoystickButton yButton;
+  public JoystickButton openStopperBtn;
 
   public boolean realButtonBox = true;
 
@@ -229,7 +230,7 @@ private void configureButtonBindings() {
       aButton.whenPressed(new Shoot(shooter, .9)); 
       aButton.whenPressed(new RunTurretVision(turret, 0.8)); 
       bButton = new JoystickButton(Xbox, 2);
-      bButton.whenPressed(new Shoot(shooter, .72));
+      bButton.whenPressed(new Shoot(shooter, .69));
       bButton.whenPressed(new RunTurretVision(turret, 0.8));
       xButton = new JoystickButton(Xbox, 3);
       xButton.whenPressed(new Shoot(shooter, .62));
@@ -237,6 +238,10 @@ private void configureButtonBindings() {
       yButton = new JoystickButton(Xbox, 4);
       yButton.whenPressed(new Shoot(shooter, .48));
       yButton.whenPressed(new RunTurretVision(turret, 0.4));
+      openStopperBtn = new JoystickButton(Xbox, 10);
+      openStopperBtn.whenPressed(new OpenStopper(stopper));
+
+
 
   }
 
