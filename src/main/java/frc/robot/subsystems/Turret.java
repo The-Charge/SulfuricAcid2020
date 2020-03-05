@@ -30,8 +30,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
  *
  */
 public class Turret implements Subsystem {
-    private static final int H_MIN_ENCODER_TICKS = -482070;  // used to stop turret from rotating past ends
-    private static final int H_MAX_ENCODER_TICKS = 484191;
+    private static final double H_MIN_ENCODER_TICKS = -482070.0;  // used to stop turret from rotating past ends
+    private static final double H_MAX_ENCODER_TICKS = 484191.0;
     private static final double H_DEGREES_PER_TICK = 0;
     private static final double H_MIN_DEGREES = H_MIN_ENCODER_TICKS * H_DEGREES_PER_TICK;
     private static final double H_MAX_DEGREES = H_MAX_ENCODER_TICKS * H_DEGREES_PER_TICK;
@@ -93,9 +93,9 @@ public class Turret implements Subsystem {
 
     public void checkHorizontalLimitSwitches() {
         if (turretMotor.getSensorCollection().isRevLimitSwitchClosed()) {
-            turretMotor.setSelectedSensorPosition(H_MIN_ENCODER_TICKS, 0, TIMEOUT_MS);
+            turretMotor.setSelectedSensorPosition((int)H_MIN_ENCODER_TICKS, 0, TIMEOUT_MS);
         } else if (turretMotor.getSensorCollection().isFwdLimitSwitchClosed()) {
-            turretMotor.setSelectedSensorPosition(H_MAX_ENCODER_TICKS, 0, TIMEOUT_MS);
+            turretMotor.setSelectedSensorPosition((int)H_MAX_ENCODER_TICKS, 0, TIMEOUT_MS);
         }
     }
 
