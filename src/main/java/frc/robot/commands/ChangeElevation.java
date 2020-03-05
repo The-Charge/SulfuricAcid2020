@@ -29,6 +29,7 @@ public class ChangeElevation extends CommandBase {
         addRequirements(m_turret);
     }
 
+    //FIXME: If it's an empty method, remove it.
     // Called just before this Command runs the first time
     @Override
     public void initialize() {
@@ -47,6 +48,7 @@ public class ChangeElevation extends CommandBase {
         return false;
     }
 
+    //FIXME: If it's an empty method, remove it.
     // Called once after isFinished returns true
     @Override
     public void end(boolean interrupted) {

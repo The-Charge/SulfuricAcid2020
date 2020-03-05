@@ -18,6 +18,7 @@ public class TurnOffLights extends CommandBase {
 
     }
 
+    //FIXME: If it's an empty method, remove it
     // Called just before this Command runs the first time
     @Override
     public void initialize() {
@@ -36,12 +37,14 @@ public class TurnOffLights extends CommandBase {
         return false;
     }
 
+    //FIXME: If it's an empty method, remove it
     // Called once after isFinished returns true
     @Override
     public void end(boolean interrupted) {
         
     }
 
+    //FIXME: Remove excess comments
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     

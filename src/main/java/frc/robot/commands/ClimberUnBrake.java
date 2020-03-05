@@ -7,6 +7,7 @@ import frc.robot.subsystems.Climber;
 /**
  *
  */
+//FIXME: This should be an InstantCommand
 public class ClimberUnBrake extends CommandBase {
 
     
@@ -26,6 +27,7 @@ public class ClimberUnBrake extends CommandBase {
         m_climber.disengageBrake();
     }
 
+    //FIXME: If it's an empty method, remove it.
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
@@ -38,12 +40,14 @@ public class ClimberUnBrake extends CommandBase {
         return true;
     }
 
+    //FIXME: If it's an empty method, remove it.
     // Called once after isFinished returns true
     @Override
     public void end(boolean interrupted) {
         
     }
 
+    //FIXME: Clean up excess/unnecessary comments
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     

@@ -29,6 +29,7 @@ public class RunTurretManual extends CommandBase {
         addRequirements(m_turret);
     }
 
+    //FIXME: You're not using this constructor, remove it
     public RunTurretManual(Turret turret, double turretHorizontal, Double turretVertical) {
         m_turret = turret;
         m_turretHorizontal = turretHorizontal;

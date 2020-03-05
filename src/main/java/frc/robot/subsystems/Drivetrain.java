@@ -136,6 +136,13 @@ private final SpeedControllerGroup m_rightMotors =
           leftSpeed = -1*leftSpeed;
           rightSpeed = -1*rightSpeed;
         }
+
+        //FIXME: Use better names for smartdashboard keys
+        // Would strongly recommend starting with class name. IE: DriveTrain left speed set
+        // Prevents key collision and helps speed up debugging
+
+        // FIXME: Move the below lines to a runRaw() method. 
+        // This way, you can bypass reverse/halfspeed/quarterspeed for autons
         SmartDashboard.putNumber("leftSpeedSet", leftSpeed);
         SmartDashboard.putNumber("rightSpeedSet", rightSpeed);
         m_rightMotors.set(rightSpeed);
@@ -179,17 +186,23 @@ private final SpeedControllerGroup m_rightMotors =
 	 public ControlMode getControlMode() {
         return leftFrontMotor.getControlMode();
     }
+    //FIXME: Nothing should be using the raw sensor (also appears to be unused). Remove this
     public AHRS getGyro() {
 	    return m_gyro;
-	}
+  }
+  //FIXME: Document the following:
+  // a) Which way is positive? (clockwise/counter)
+  // b) What are the units? (radians/degrees)
+  // c) What is the range? ([0,360]/[-180/180])
 		 public double getGyroYaw() {
 	        return m_gyro.getYaw();   
 	 }
 
+   //FIXME: Nothing's using this. Remove.
 	 public double getGyroPID(){
 		return m_gyro.pidGet();
 		}
-	 
+   
 	 public void setPercentSpeedPID (double setSpeedL, double setSpeedR)
     {
         setSpeedR = MathUtil.clamp(setSpeedR, -1, 1);
@@ -286,6 +299,7 @@ private final SpeedControllerGroup m_rightMotors =
     	rightFrontMotor.setSelectedSensorPosition(0, 0, TIMEOUT_MS);
     }
 
+    //FIXME: Git keeps old code for you. If you aren't anticipating uncommenting this anytime soon, remove it.
 /*
     public void MotionMagicInit(double distance, int backVelocity, int backAcceleration) {
     	MotionMagicDistance = distance;
@@ -343,6 +357,7 @@ private final SpeedControllerGroup m_rightMotors =
         m_odometry.resetPosition(pose, Rotation2d.fromDegrees(getHeading()));
       }
     
+      //FIXME: Not used, remove
       /**
        * Drives the robot using arcade controls.
        *
@@ -388,6 +403,8 @@ private final SpeedControllerGroup m_rightMotors =
         return ((leftFrontMotor.getSelectedSensorPosition(0)*DriveConstants.kEncoderDistancePerPulse - rightFrontMotor.getSelectedSensorPosition(0)*DriveConstants.kEncoderDistancePerPulse) / 2.0);
       }
     
+
+      //FIXME: Does nothing, remove
       /**
        * Sets the max output of the drive.  Useful for scaling the drive to drive more slowly.
        *
@@ -404,6 +421,8 @@ private final SpeedControllerGroup m_rightMotors =
         m_gyro.reset();
       }
     
+      //FIXME: You have multiple methods for getting angle (getHeading, getGyroYaw).
+      // Pick one, remove the others
       /**
        * Returns the heading of the robot.
        *
@@ -418,9 +437,12 @@ private final SpeedControllerGroup m_rightMotors =
        *
        * @return The turn rate of the robot, in degrees per second
        */
+      //FIXME: This isn't used. Remove
       public double getTurnRate() {
         return m_gyro.getRate() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
       }
+
+      //FIXME: This takes care of initial motor set up. Call this in the constructor.
       public void initializeMotors()
       {
     rightBackMotor.setInverted(true);

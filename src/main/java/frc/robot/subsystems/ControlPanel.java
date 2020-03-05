@@ -57,6 +57,9 @@ public void stop(){
 }
 
 public void rotateX(ColorSensor m_colorSensor) {
+  //FIXME: Use better names for smartdashboard keys
+  // Would strongly recommend starting with class name. IE: DriveTrain left speed set
+  // Prevents key collision and helps speed up debugging
   SmartDashboard.putNumber("Counter", ctr);
   currentColor = m_colorSensor.getColorString();
   confidences = m_colorSensor.getConfidence();
@@ -67,6 +70,7 @@ public void rotateX(ColorSensor m_colorSensor) {
       controlPanelMotor.set(0.5);
     }
 
+    //FIXME: Remove these. I should not be seeing STDOUT anywhere in the code
     //System.out.println("TEMP:" + temp + temp + temp + temp + temp);
     //System.out.println("CURRENT:" + currentColor + currentColor + currentColor + currentColor + currentColor);
     //System.out.println("Check:" + ctr);
@@ -101,6 +105,7 @@ public void setBrakeMode(){
   controlPanelMotor.setNeutralMode(NeutralMode.Coast);
   }
 
+  //FIXME: Remove excess comments
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 

@@ -19,6 +19,8 @@ public class InvertDrive extends InstantCommand {
     private final Drivetrain m_subsystem;
     public InvertDrive(Drivetrain subsystem) {
         m_subsystem = subsystem;
+        //FIXME: As this is instantaneous and only toggles a boolean (not "controlling" the subsystem), don't have it require the drivetrain.
+        // Otherwise, this will take over the drivetrain and TankDrive.end() will be called for 1 "frame", causing a stutter.
         addRequirements(subsystem);
 
     }
@@ -26,6 +28,10 @@ public class InvertDrive extends InstantCommand {
     // Called once when this command runs
     @Override
     public void initialize() {
+        //FIXME: getReversed() returns a boolean. You don't need an if-statement...
+        // Just do (pseudocode):
+        // isReversed = getReversed()
+        // setReversed(!isReversed)
         if(m_subsystem.getReversed()==false)
         {
             m_subsystem.setReversed(true);

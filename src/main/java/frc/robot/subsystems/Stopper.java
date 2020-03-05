@@ -43,6 +43,9 @@ private Solenoid stopperSolenoid;
     @Override
     public void periodic() {
         // Put code here to be run every loop
+        //FIXME: Use better names for smartdashboard keys
+        // Would strongly recommend starting with class name. IE: DriveTrain left speed set
+        // Prevents key collision and helps speed up debugging
         SmartDashboard.putBoolean("Ball Sensed:", ballSensor.get());
     }
 

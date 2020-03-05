@@ -82,7 +82,11 @@ output = GainedBalls - LostBalls;
 if(output < 0){
     output= 0;
 }
+//FIXME: DO NOT USE STDOUT!
 System.out.println(output);
+    //FIXME: Use better names for smartdashboard keys
+    // Would strongly recommend starting with class name. IE: DriveTrain left speed set
+    // Prevents key collision and helps speed up debugging
     SmartDashboard.putNumber("Balls: ",output);
 
 }

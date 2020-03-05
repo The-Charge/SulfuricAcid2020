@@ -20,6 +20,7 @@ import frc.robot.Robot;
 /**
  *
  */
+//FIXME: This should be an instant command
 public class TurnOffVisionLights extends CommandBase {
 
     

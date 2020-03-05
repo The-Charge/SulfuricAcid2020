@@ -36,6 +36,7 @@ public class ShiftLow extends CommandBase {
         m_subsystem.shiftLow();
     }
 
+    //FIXME: If it's an empty method, remove it.
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
@@ -47,6 +48,7 @@ public class ShiftLow extends CommandBase {
         return false;
     }
 
+    //FIXME: If it's an empty method, remove it.
     // Called once after isFinished returns true
     @Override
     public void end(boolean interrupted) {

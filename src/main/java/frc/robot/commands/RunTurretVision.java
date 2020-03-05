@@ -52,6 +52,8 @@ public class RunTurretVision extends CommandBase {
         //  5. alignment angle
         //  6. inner port (0/1)
         //  7. instantaneous FPS
+        //FIXME: May want to consider moving the vision processing to it's own subsystem (in periodic())
+        // That way, you can see/test values without having to take control of the turret
         visionResults = SmartDashboard.getNumberArray("Vision/result", new double[] {0, 0});
         if (visionResults[1] == 0) {
             SmartDashboard.putString("Vision Status", "none");

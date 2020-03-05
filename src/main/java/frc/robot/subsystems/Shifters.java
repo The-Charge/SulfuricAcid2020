@@ -41,6 +41,9 @@ private Solenoid shifterSolenoid;
     @Override
     public void periodic() {
         // Put code here to be run every loop
+        //FIXME: Use better names for smartdashboard keys
+        // Would strongly recommend starting with class name. IE: DriveTrain left speed set
+        // Prevents key collision and helps speed up debugging
 		SmartDashboard.putBoolean("High Gear", !isLow());
     }
 
@@ -55,6 +58,7 @@ private Solenoid shifterSolenoid;
     }
     
     public boolean isLow(){
+      //FIXME: Just return !shifterSolenoid.get()...
         if (shifterSolenoid.get() == false) return true;
         else return false;
     }

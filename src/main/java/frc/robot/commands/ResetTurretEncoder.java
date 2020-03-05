@@ -37,6 +37,7 @@ public class ResetTurretEncoder extends CommandBase {
         m_turret.setRawHorizontalPercent(0.2);
     }
 
+    //FIXME: If it's an empty method, remove it.
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {

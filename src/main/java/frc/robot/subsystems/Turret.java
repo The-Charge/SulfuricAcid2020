@@ -102,6 +102,9 @@ public class Turret implements Subsystem {
     }
 
     public void gotoHorizontalAngle(double setpoint) {
+        //FIXME: Use better names for smartdashboard keys
+        // Would strongly recommend starting with class name. IE: DriveTrain left speed set
+        // Prevents key collision and helps speed up debugging
         SmartDashboard.putNumber("Angle Offset", setpoint);
         SmartDashboard.putBoolean("Valid Turret Rotation",
             getCurrentHorizontalAngle() + setpoint < H_MIN_DEGREES
@@ -124,6 +127,7 @@ public class Turret implements Subsystem {
 
     public boolean runHorizontalManual(double target) {
         double ticks = turretMotor.getSelectedSensorPosition();
+        //FIXME: Move the smartdashboard putNumber to periodic()
         SmartDashboard.putNumber("Position", ticks);
         if (ticks < 0) {
             ticks /= Math.abs(H_MIN_ENCODER_TICKS);
@@ -134,6 +138,10 @@ public class Turret implements Subsystem {
 
         double error = target - ticks;
         double speed = 0.2;
+
+        //FIXME: Use better names for smartdashboard keys
+        // Would strongly recommend starting with class name. IE: DriveTrain left speed set
+        // Prevents key collision and helps speed up debugging
         SmartDashboard.putNumber("Normal", ticks);
         SmartDashboard.putNumber("Target", target);
         if (Math.abs(error) > 0.03) {

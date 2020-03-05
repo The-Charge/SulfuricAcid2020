@@ -115,6 +115,7 @@ boolean visionOverride = false;
    */
   @Override
   public void autonomousPeriodic() {
+    //FIXME: Move these to the subsystem periodic()
     SmartDashboard.putNumber("Left Encoder", m_robotContainer.drivetrain.leftFrontMotor.getSelectedSensorPosition(0));
     SmartDashboard.putNumber("Right Encoder", m_robotContainer.drivetrain.rightFrontMotor.getSelectedSensorPosition(0));
     SmartDashboard.putNumber("Gyro Reading", m_robotContainer.drivetrain.getHeading());

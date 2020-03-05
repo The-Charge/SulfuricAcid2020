@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  *
  */
+//FIXME: This resets the ball count. Give it a better name. 
 public class BallDetector extends CommandBase {
 
     private final BallSensor m_BallSensor;
@@ -38,7 +39,7 @@ m_BallSensor= ballSensor;
     }
 
 
-
+    //FIXME: If it's an empty method, remove it.
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
@@ -50,13 +51,14 @@ m_BallSensor= ballSensor;
         return true;
     }
 
+    //FIXME: If it's an empty method, remove it.
     // Called once after isFinished returns true
-    
     public void end() { 
 
     
        }
 
+    //FIXME: Clean up excess comments
     // Called when another command which requires one or more of the same
 
 }

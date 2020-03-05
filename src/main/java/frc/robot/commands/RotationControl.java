@@ -53,6 +53,7 @@ public class RotationControl extends CommandBase {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     public boolean isFinished() {
+        //FIXME: The part in the if-statement (foo>bar) is a boolean. Just return that
         if (m_controlPanel.getCounter()>26) return true;
         return false;
     }
@@ -63,6 +64,7 @@ public class RotationControl extends CommandBase {
         m_controlPanel.stop();
     }
 
+    //FIXME: Remove excess comments
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     

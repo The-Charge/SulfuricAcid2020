@@ -39,6 +39,10 @@ public class HalfSpeed extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
+        //FIXME: DRY (don't repeat yourself)
+        // This does the same thing as TankDrive, but it's worse as it's missing the extra stuff (deadband, delin, etc)
+        // Either a) Move this to a boolean in the drivetrain subsystem, similar to invertDrive
+        // Or b) have this extend TankDrive (you'll have to move some stuff around to separate methods, like getLeftValue() getRightValue, and override those)
         double leftSpeed, rightSpeed;
         rightSpeed = -RobotContainer.rightJoystick.getY() * 0.5;
         leftSpeed = -RobotContainer.leftJoystick.getY() * 0.5;
@@ -51,6 +55,7 @@ public class HalfSpeed extends CommandBase {
         return false;
     }
 
+    //FIXME: If it's an empty method, remove it.
     // Called once after isFinished returns true
     @Override
     public void end(boolean interrupted) {

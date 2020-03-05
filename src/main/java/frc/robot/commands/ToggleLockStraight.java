@@ -43,6 +43,9 @@ public class ToggleLockStraight extends CommandBase {
         rightSpeed = -RobotContainer.rightJoystick.getY();
         leftSpeed = -RobotContainer.leftJoystick.getY();
         avgSpeed = (rightSpeed + leftSpeed) / 2;
+        //FIXME: Use better names for smartdashboard keys
+        // Would strongly recommend starting with class name. IE: DriveTrain left speed set
+        // Prevents key collision and helps speed up debugging
         SmartDashboard.putNumber("RightSpeed: ", rightSpeed);
         SmartDashboard.putNumber("LeftSpeed: ", leftSpeed);
         SmartDashboard.putNumber("AvgSpeed: ", avgSpeed);

@@ -16,6 +16,7 @@ import frc.robot.Robot;
 /**
  *
  */
+//FIXME: You're not using this. Can get rid of it.
 public class AutonomousCommand extends CommandBase {
 
     public AutonomousCommand() {

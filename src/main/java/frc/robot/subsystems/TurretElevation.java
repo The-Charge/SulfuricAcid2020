@@ -50,8 +50,12 @@ public class TurretElevation implements Subsystem {
     
     private double calcActuatorDistance(final double angle) {
         // Running law of cosines on the turret
+        //FIXME: Would recommend breaking up into terms. ie: double a_term = (part A); double b_term = (part B)
+        // Makes it a bit easier to tell it's the law of cosines.
         double d = Math.sqrt(Math.pow(Turret.TURRET_SIDE_A, 2) + Math.pow(Turret.TURRET_SIDE_B, 2) - 2 * Turret.TURRET_SIDE_A * Turret.TURRET_SIDE_B * Math.cos(Math.toRadians(94.4 - angle)));
     
+        //FIXME: Whoever put the comments, great job.
+        // Go the next step though, and move them to class level constants as they're not changing.
         // This line subtracts the length of the actuator while not extended
         d -= 218;  // 218 is what the actuator blueprints says is the "Closed Length (hole to hole)"
         // This line changes the normalization from 0-140 to 0-1

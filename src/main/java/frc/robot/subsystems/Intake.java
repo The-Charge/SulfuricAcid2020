@@ -59,6 +59,9 @@ private WPI_TalonSRX intakeMotor;
     @Override
     public void periodic() {
       
+        //FIXME: Use better names for smartdashboard keys
+        // Would strongly recommend starting with class name. IE: DriveTrain left speed set
+        // Prevents key collision and helps speed up debugging
         SmartDashboard.putBoolean("OnBall", onBall());
         
     }
@@ -87,7 +90,11 @@ private WPI_TalonSRX intakeMotor;
 	}
 
     public void setPercentSpeedPID(double setSpeed) {
+        //FIXME: Use better names for smartdashboard keys
+        // Would strongly recommend starting with class name. IE: DriveTrain left speed set
+        // Prevents key collision and helps speed up debugging
         SmartDashboard.putNumber("SetSpeed", setSpeed);
+        //FIXME: Move these to periodic()
         SmartDashboard.putNumber("CurrentSpeed", intakeMotor.getSelectedSensorPosition());
         SmartDashboard.putNumber("CurrentIntake", intakeMotor.getStatorCurrent());
         intakeMotor.set(ControlMode.Velocity, MAX_TICKS_PER_SEC * setSpeed);

@@ -64,6 +64,7 @@ public class Shoot extends CommandBase {
         //return false;
     }
 
+    //FIXME: If it's an empty method, remove it.
     // Called once after isFinished returns true
     @Override
     public void end(boolean interrupted) {

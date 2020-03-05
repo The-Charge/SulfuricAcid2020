@@ -34,6 +34,7 @@ public class Indexer implements Subsystem {
 
 private WPI_TalonSRX indexerMotorLF;
 private WPI_TalonSRX indexerMotorRF;
+//FIXME: This is unused. Remove.
 private Intake m_intake;
 private DigitalInput ballIn;
 
@@ -56,6 +57,7 @@ private DigitalInput ballIn;
     private final int TIMEOUT_MS = 10;
     private static final int MAX_TICKS_PER_SEC = 130000;
 
+    //FIXME: This is unused, remove
     private final SpeedControllerGroup indexerMotors 
 = new SpeedControllerGroup(indexerMotorRF,indexerMotorLF);
 
@@ -91,6 +93,7 @@ m_stopper = stopper;
     	indexerMotorLF.config_kF(PID_SLOT_SPEED_MODE, speedF, TIMEOUT_MS);
 
         indexerMotorLF.selectProfileSlot(PID_SLOT_SPEED_MODE, 0);
+        //FIXME: Unless you intend on uncommenting this soon, remove it
         /*
         indexerMotorRF.set(ControlMode.Velocity, 0);
         
@@ -116,8 +119,12 @@ m_stopper = stopper;
         {
             setSpeed = 0.4*setSpeed;
         }
+        //FIXME: Consistency. If you're using curly braces for one-line ifs, keep using them
         else setSpeed = 0*setSpeed;
        
+        //FIXME: Use better names for smartdashboard keys
+        // Would strongly recommend starting with class name. IE: DriveTrain left speed set
+        // Prevents key collision and helps speed up debugging
         SmartDashboard.putNumber("PID Val", setSpeed);
         indexerMotorLF.set(ControlMode.Velocity, MAX_TICKS_PER_SEC * setSpeed);
         //indexerMotorRF.set(ControlMode.Velocity, MAX_TICKS_PER_SEC * setSpeed);

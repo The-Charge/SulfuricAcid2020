@@ -20,6 +20,7 @@ import frc.robot.Robot;
 /**
  *
  */
+//FIXME: This should be an instant command
 public class TurnOnVisionLights extends CommandBase {
 
     
@@ -37,6 +38,7 @@ public class TurnOnVisionLights extends CommandBase {
         m_turret.enableVision();
     }
 
+    //FIXME: If it's an empty method, remove it
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
@@ -48,6 +50,7 @@ public class TurnOnVisionLights extends CommandBase {
         return true;
     }
 
+    //FIXME: If it's an empty method, remove it
     // Called once after isFinished returns true
     @Override
     public void end(boolean interrupted) {

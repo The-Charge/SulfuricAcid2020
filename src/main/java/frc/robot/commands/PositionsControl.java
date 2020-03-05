@@ -81,6 +81,7 @@ public class PositionsControl extends CommandBase {
         
     }
 
+    //FIXME: Remove excess comments
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     

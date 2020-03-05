@@ -33,6 +33,8 @@ public class TankDrive extends CommandBase {
     // Called just before this Command runs the first time
     @Override
     public void initialize() {
+        // FIXME: initializeMotors takes care of setting up invert/follow/etc. 
+        // Remove it from here.
         m_subsystem.initializeMotors();
         m_subsystem.setPercentVBus();
     }
@@ -47,6 +49,9 @@ public class TankDrive extends CommandBase {
         rightSpeed = MathUtil.adjSpeed(rightSpeed);
         leftSpeed = MathUtil.adjSpeed(leftSpeed);
 
+        //FIXME: Use better names for smartdashboard keys
+        // Would strongly recommend starting with class name. IE: DriveTrain left speed set
+        // Prevents key collision and helps speed up debugging
         SmartDashboard.putNumber("leftSpeed", leftSpeed);
         SmartDashboard.putNumber("rightSpeed", rightSpeed);
 
