@@ -107,6 +107,7 @@ public class ColorSensor implements Subsystem {
       } else {
         colorString = "Change"; 
       }
+      //FIXME: Get rid of System.out.println
       System.out.print(colorString);
     }
 

@@ -54,6 +54,8 @@ public class RotationControl extends CommandBase {
     @Override
     public boolean isFinished() {
         //FIXME: The part in the if-statement (foo>bar) is a boolean. Just return that
+        //FIXME: Move the magic number (26) to a constant. Document it
+        // Since the same number is used in the subsystem, would use that one.
         if (m_controlPanel.getCounter()>26) return true;
         return false;
     }

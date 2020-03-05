@@ -113,6 +113,7 @@ m_stopper = stopper;
         }
         else if (m_stopper.ballSensedOut())
         {
+            //FIXME: Move the magic numbers (0.1, 0.4) to constants. Document them
             setSpeed = 0.1*setSpeed;
         }
         else if (ballSensedIn())

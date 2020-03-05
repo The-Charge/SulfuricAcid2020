@@ -42,6 +42,8 @@ public class RunIntake extends CommandBase {
     // Called just before this Command runs the first time
     @Override
     public void initialize() {     
+        //FIXME: initializeMotor, which sets the motor direction, should be called in the constructor of the subsystem
+        // Commands should assume the subsystem has been initialized, and should only change switchable things (ie: speed mode)
         m_intake.initializeMotor();
         m_intake.initSpeedMode();
     }

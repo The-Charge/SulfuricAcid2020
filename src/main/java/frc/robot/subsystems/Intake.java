@@ -114,6 +114,7 @@ private WPI_TalonSRX intakeMotor;
 	public void setCoastMode(){
         intakeMotor.setNeutralMode(NeutralMode.Coast);
     }
+    //FIXME: Call this in the constructor
 	public void initializeMotor()
     {
         intakeMotor.setInverted(true);

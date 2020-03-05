@@ -34,6 +34,7 @@ public class ResetTurretEncoder extends CommandBase {
     // Called just before this Command runs the first time
     @Override
     public void initialize() {
+        //FIXME: Move the magic number (0.2) to a constant. Document it. May be best if it were in the subsystem (ie: "DEFAULT_HORIZONTAL_ENCODER_PERCENT")
         m_turret.setRawHorizontalPercent(0.2);
     }
 

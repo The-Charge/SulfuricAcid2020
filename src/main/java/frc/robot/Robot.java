@@ -36,6 +36,7 @@ public class Robot extends TimedRobot {
 
 private Command m_autonomousCommand;
 public RobotContainer m_robotContainer;
+//FIXME: Need type on declaration for generic (should be SendableChooser<Command>)
 private SendableChooser chooser;
 boolean visionOverride = false;
 
@@ -99,6 +100,7 @@ boolean visionOverride = false;
   public void autonomousInit() {
     m_robotContainer.drivetrain.resetEncoders();
     m_robotContainer.drivetrain.resetOdometry(new Pose2d(0, 0, new Rotation2d(0)));
+    //FIXME: Use your sendable chooser
     m_autonomousCommand =  new SequentialCommandGroup(m_robotContainer.rShoot(), 
                             new SequentialCommandGroup( 
                               new ParallelCommandGroup(m_robotContainer.rOpen(), m_robotContainer.rIntake(), m_robotContainer.rIndex(), 
@@ -141,13 +143,18 @@ boolean visionOverride = false;
    */
   @Override
   public void teleopPeriodic() {
+    //FIXME: Should refactor this to be commands rather than in periodic. 
     if (RobotContainer.buttonBox.getRawButtonPressed(8)) visionOverride = !visionOverride;
     
     if (!visionOverride){
       if (RobotContainer.Xbox.getRawButtonPressed(9)){
+        // FIXME: This doesn't do anything. Makes an object, but it's never used
+        // FIXME: Do not make new objects in a periodic method! (floods garbage collector)
         new RunTurretVision(m_robotContainer.turret);
       }
     } else {
+      // FIXME: This doesn't do anything. Makes an object, but it's never used
+      // FIXME: Do not make new objects in a periodic method! (floods garbage collector)
         new RunTurretManual(m_robotContainer.turret);
       }
     

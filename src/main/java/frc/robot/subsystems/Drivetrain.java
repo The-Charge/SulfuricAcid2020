@@ -393,6 +393,7 @@ private final SpeedControllerGroup m_rightMotors =
         rightFrontMotor.setSelectedSensorPosition(right);
       }
     
+      //FIXME: This isn't used. Remove
       /**
        * Gets the average distance of the two encoders.
        *

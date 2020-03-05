@@ -66,6 +66,7 @@ public void rotateX(ColorSensor m_colorSensor) {
   //System.out.println(confidences);
   
   //while (ctr<16){
+    //FIXME: Move the magic numbers (26, 0.5) to a constants. Document.
     if (ctr<26){
       controlPanelMotor.set(0.5);
     }
@@ -77,6 +78,7 @@ public void rotateX(ColorSensor m_colorSensor) {
     //System.out.println("Confidence " + confidences);
 
     //everytime the color changes counter goes up
+    //FIXME: Move the magic number (.935) to a constant. Document it
     if (currentColor!= temp && confidences>.935) {
       ctr++;
       temp = currentColor;
@@ -87,6 +89,7 @@ public void rotateX(ColorSensor m_colorSensor) {
 public void rotateColor(Color desiredColor, ColorSensor colorSensor){
   Color currentColor = colorSensor.getColor();
   confidences = colorSensor.getConfidence();
+  //FIXME: Move the magic numbers (.8, 0.5) to constants. Document them
   if(!desiredColor.equals(currentColor) && confidences>.8){ 
     controlPanelMotor.set(.5);
   }

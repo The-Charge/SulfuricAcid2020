@@ -40,12 +40,14 @@ public class Turret implements Subsystem {
     //Constants aquired from CAD team used for trig calculations (millimeters):
     public static final double TURRET_SIDE_A = 244.475;
     public static final double TURRET_SIDE_B = 369.4176;
+    //FIXME: These aren't used. Can remove them:
     private final double V_MIN_ANGLE = 20.0; //34.4;
     private final double V_MAX_ANGLE = 57.4;
     private final double V_TOLERANCE = 0.01;
 
     private static final int TIMEOUT_MS = 10;
 
+    //FIXME: This isn't used, can remove
     private double actuatorDistance;
 
     private final WPI_TalonSRX turretMotor;
@@ -112,6 +114,7 @@ public class Turret implements Subsystem {
         );
 
         if (Math.abs(setpoint) > H_TOLERANCE) {
+            //FIXME: Move the magic numbers to constants. Document them.
             double percent = Math.abs(setpoint) / 40;
             percent = Math.max(0.06, Math.min(0.19, percent));
             if (setpoint < 0) { percent = -percent; }
@@ -144,6 +147,7 @@ public class Turret implements Subsystem {
         // Prevents key collision and helps speed up debugging
         SmartDashboard.putNumber("Normal", ticks);
         SmartDashboard.putNumber("Target", target);
+        //FIXME: Move the magic number (0.03) to a constant. Document it.
         if (Math.abs(error) > 0.03) {
             if (error < 0) { speed = -speed; }
             turretMotor.set(ControlMode.PercentOutput, speed);

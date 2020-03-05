@@ -45,6 +45,7 @@ public class Shoot extends CommandBase {
     public void execute() {
         //m_speed = RobotContainer.buttonBox.getRawAxis(2);
         //m_speed = (m_speed + 1)/2;
+        //FIXME: Move the magic number (.02) to a constant. Document it
         if (RobotContainer.Xbox.getBackButtonPressed()){
             m_speed += 0.02;
         }

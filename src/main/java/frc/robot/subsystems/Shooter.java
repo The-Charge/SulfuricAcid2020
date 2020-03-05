@@ -120,8 +120,12 @@ private WPI_TalonFX motorShooter;
     public double getCurrentSpeed(){
         return motorShooter.getSelectedSensorVelocity();
     }
+
+    // FIXME: Should rename this as "speed" is actually a %, not the actual speed (in ticks per second)
     public boolean isAtSpeed(double speed)
     {
+        //FIXME: Move the magic number (0.1) to constants. Document them.
+        //FIXME: Should split this line into a couple, one to calculate the current % speed, one to calculate the error, one to return
         return (Math.abs(getCurrentSpeed()/MAX_TICKS_PER_SEC - speed) < .1);
     }
 

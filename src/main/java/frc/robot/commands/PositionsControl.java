@@ -49,6 +49,7 @@ public class PositionsControl extends CommandBase {
     public void initialize() {
         String gameData = DriverStation.getInstance().getGameSpecificMessage();
          
+        //FIXME: Move the makeColors to constants. 
         Color desiredColor = ColorMatch.makeColor(0.143, 0.427, 0.429);
         if (gameData.equals("B")) desiredColor = ColorMatch.makeColor(0.143, 0.427, 0.429);
         if (gameData.equals("G")) desiredColor = ColorMatch.makeColor(0.197, 0.561, 0.240);
