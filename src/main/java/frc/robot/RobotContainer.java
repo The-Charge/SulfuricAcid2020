@@ -174,7 +174,7 @@ private void configureButtonBindings() {
     climbDown = new JoystickButton(buttonBox, 3);
     climbDown.whileHeld(new ClimberRun(climber, -0.6));
     climbUp = new JoystickButton(buttonBox, 2);
-    climbUp.whileHeld((new SequentialCommandGroup(new ClimberUnBrake(climber), new WaitCommand(1), new ClimberRun(climber, 0.6))));
+    climbUp.whileHeld((new SequentialCommandGroup(new ClimberUnBrake(climber), new WaitCommand(1), new ClimberRun(climber, 0.7))));
     climbUp.whenReleased(new ClimberBrake(climber));
       
     //manualElevation = new JoystickButton(buttonBox, 2);

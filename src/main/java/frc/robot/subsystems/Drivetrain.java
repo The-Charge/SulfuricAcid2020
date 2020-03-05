@@ -138,8 +138,15 @@ private final SpeedControllerGroup m_rightMotors =
         }
         SmartDashboard.putNumber("leftSpeedSet", leftSpeed);
         SmartDashboard.putNumber("rightSpeedSet", rightSpeed);
-        m_rightMotors.set(rightSpeed);
-        m_leftMotors.set(leftSpeed);
+        if (isReversed)
+        {
+          m_rightMotors.set(leftSpeed);
+          m_leftMotors.set(rightSpeed);
+        }
+        else{
+          m_rightMotors.set(rightSpeed);
+          m_leftMotors.set(leftSpeed);
+        }
     }
 
     public void stop()
