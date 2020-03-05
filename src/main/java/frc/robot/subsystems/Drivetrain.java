@@ -61,7 +61,7 @@ private final SpeedControllerGroup m_rightMotors =
 
 
 // The robot's drive
-private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
+//private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
 
   // The gyro sensor
   private final AHRS m_gyro = new AHRS(Port.kUSB);
@@ -347,7 +347,7 @@ private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_
        * @param rot the commanded rotation
        */
       public void arcadeDrive(double fwd, double rot) {
-        m_drive.arcadeDrive(fwd, rot);
+        //m_drive.arcadeDrive(fwd, rot);
       }
     
       /**
@@ -359,7 +359,7 @@ private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_
       public void tankDriveVolts(double leftVolts, double rightVolts) {
         m_leftMotors.setVoltage(leftVolts);
         m_rightMotors.setVoltage(-rightVolts);
-        m_drive.feed();
+        //m_drive.feed();
       }
     
       /**
@@ -391,7 +391,7 @@ private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_
        * @param maxOutput the maximum output to which the drive will be constrained
        */
       public void setMaxOutput(double maxOutput) {
-        m_drive.setMaxOutput(maxOutput);
+        //m_drive.setMaxOutput(maxOutput);
       }
     
       /**
