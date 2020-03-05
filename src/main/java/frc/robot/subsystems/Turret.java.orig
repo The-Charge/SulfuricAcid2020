@@ -49,12 +49,10 @@ public class Turret implements Subsystem {
     private double actuatorDistance;
 
     private final WPI_TalonSRX turretMotor;
-    private final Servo elevationServo;
     private final Relay visionLights;
 
     public Turret() {    
         turretMotor = new WPI_TalonSRX(7);
-        elevationServo = new Servo(0);
         visionLights = new Relay(0);
 
         turretMotor.set(ControlMode.PercentOutput, 0);
@@ -62,10 +60,11 @@ public class Turret implements Subsystem {
         turretMotor.setNeutralMode(NeutralMode.Brake);
 
         //setDefaultCommand(new RunTurretManual(this));
-
+<<<<<<< HEAD
         setDefaultCommand(new RunTurretVision(this, 0.8));
-
+=======
         //setDefaultCommand(new RunTurretVision(this));
+>>>>>>> master
     }
 
     @Override
@@ -158,8 +157,4 @@ public class Turret implements Subsystem {
     private double getCurrentHorizontalAngle() {
         return turretMotor.getSelectedSensorPosition() * H_DEGREES_PER_TICK;
     }
-
-	public void setRawVertical(double verticalAngle) {
-        elevationServo.set(verticalAngle);
-	}
 }

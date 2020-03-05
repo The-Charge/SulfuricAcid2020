@@ -36,7 +36,6 @@ private Solenoid stopperSolenoid;
     ballSensor = new DigitalInput(1);
     stopperSolenoid = new Solenoid(0,2);
     
-    //setDefaultCommand(new CloseStopper(this));
     stopperSolenoid.set(true);
         
     }
