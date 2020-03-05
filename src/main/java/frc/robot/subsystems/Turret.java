@@ -91,7 +91,7 @@ public class Turret implements Subsystem {
         return d;
     }
 
-    private void checkHorizontalLimitSwitches() {
+    public void checkHorizontalLimitSwitches() {
         if (turretMotor.getSensorCollection().isRevLimitSwitchClosed()) {
             turretMotor.setSelectedSensorPosition(H_MIN_ENCODER_TICKS, 0, TIMEOUT_MS);
         } else if (turretMotor.getSensorCollection().isFwdLimitSwitchClosed()) {
@@ -175,7 +175,7 @@ public class Turret implements Subsystem {
         turretMotor.set(ControlMode.PercentOutput, setpoint);
     }
 
-    private double getCurrentHorizontalAngle() {
-        return turretMotor.getSelectedSensorPosition() * H_DEGREES_PER_TICK;
+    public double getCurrentHorizontalAngle() {
+        return turretMotor.getSelectedSensorPosition();
     }
 }

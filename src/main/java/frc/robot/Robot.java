@@ -97,12 +97,19 @@ boolean visionOverride = false;
    */
   @Override
   public void autonomousInit() {
+    
     m_robotContainer.drivetrain.resetEncoders();
+    m_robotContainer.stopper.closeStopper();
     m_robotContainer.drivetrain.resetOdometry(new Pose2d(0, 0, new Rotation2d(0)));
-    m_autonomousCommand =  new SequentialCommandGroup(m_robotContainer.rShoot(), 
-                            new SequentialCommandGroup( 
-                              new ParallelCommandGroup(m_robotContainer.rOpen(), m_robotContainer.rIntake(), m_robotContainer.rIndex(), 
-                                new SequentialCommandGroup(new WaitCommand(4), m_robotContainer.rClose(), m_robotContainer.rIndex(), m_robotContainer.getAutonomousNew()))));//(Command) chooser.getSelected();
+    ParallelCommandGroup m_parallel = new ParallelCommandGroup(m_robotContainer.rShoot(), m_robotContainer.rElevation());
+    SequentialCommandGroup m_sequential = new SequentialCommandGroup(m_parallel, new ParallelCommandGroup(m_robotContainer.rOpen(), m_robotContainer.rIntake(), m_robotContainer.rIndex(), 
+                                            new SequentialCommandGroup(new WaitCommand(5), m_robotContainer.rResetTurret(),m_robotContainer.rZeroTurret())));
+                                            //m_robotContainer.rZeroTurret()
+    m_autonomousCommand = m_sequential;
+    //m_autonomousCommand =  new SequentialCommandGroup(m_robotContainer.rShoot(), 
+    //                        new SequentialCommandGroup( 
+    //                          new ParallelCommandGroup(m_robotContainer.rOpen(), m_robotContainer.rIntake(), m_robotContainer.rIndex(), 
+    //                            new SequentialCommandGroup(new WaitCommand(4), m_robotContainer.rClose(), m_robotContainer.rIndex(), m_robotContainer.getAutonomousNew()))));//(Command) chooser.getSelected();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
@@ -119,6 +126,8 @@ boolean visionOverride = false;
     SmartDashboard.putNumber("Right Encoder", m_robotContainer.drivetrain.rightFrontMotor.getSelectedSensorPosition(0));
     SmartDashboard.putNumber("Gyro Reading", m_robotContainer.drivetrain.getHeading());
     SmartDashboard.putString("Pose", m_robotContainer.drivetrain.m_odometry.getPoseMeters().getTranslation().toString());
+    SmartDashboard.putNumber("Shooter", m_robotContainer.shooter.motorShooter.getSelectedSensorVelocity()/20000.0);
+    SmartDashboard.putNumber("Turrett", m_robotContainer.turret.getCurrentHorizontalAngle());
     //SmartDashboard.putData("", m_robotContainer.m_robotDrive.getPose());
     //SmartDashboard.putNumber("Left Encoder", System.currentTimeMillis());
   }

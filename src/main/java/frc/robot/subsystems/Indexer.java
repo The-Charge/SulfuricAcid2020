@@ -56,8 +56,7 @@ private DigitalInput ballIn;
     private final int TIMEOUT_MS = 10;
     private static final int MAX_TICKS_PER_SEC = 130000;
 
-    private final SpeedControllerGroup indexerMotors 
-= new SpeedControllerGroup(indexerMotorRF,indexerMotorLF);
+    //private final SpeedControllerGroup indexerMotors = new SpeedControllerGroup(indexerMotorRF,indexerMotorLF);
 
     public Indexer(Stopper stopper) {
 
@@ -92,14 +91,14 @@ m_stopper = stopper;
 
         indexerMotorLF.selectProfileSlot(PID_SLOT_SPEED_MODE, 0);
         
-        indexerMotorRF.set(ControlMode.Velocity, 0);
+      //  indexerMotorRF.set(ControlMode.Velocity, 0);
         
-        indexerMotorRF.config_kP(PID_SLOT_SPEED_MODE, speedP, TIMEOUT_MS);
-    	indexerMotorRF.config_kI(PID_SLOT_SPEED_MODE, speedI, TIMEOUT_MS);
-    	indexerMotorRF.config_kD(PID_SLOT_SPEED_MODE, speedD, TIMEOUT_MS);
-    	indexerMotorRF.config_kF(PID_SLOT_SPEED_MODE, speedF, TIMEOUT_MS);
+      //  indexerMotorRF.config_kP(PID_SLOT_SPEED_MODE, speedP, TIMEOUT_MS);
+    //	indexerMotorRF.config_kI(PID_SLOT_SPEED_MODE, speedI, TIMEOUT_MS);
+    	//indexerMotorRF.config_kD(PID_SLOT_SPEED_MODE, speedD, TIMEOUT_MS);
+    	//indexerMotorRF.config_kF(PID_SLOT_SPEED_MODE, speedF, TIMEOUT_MS);
 
-        indexerMotorRF.selectProfileSlot(PID_SLOT_SPEED_MODE, 0);
+        //indexerMotorRF.selectProfileSlot(PID_SLOT_SPEED_MODE, 0);
         
     }
 
@@ -120,7 +119,7 @@ m_stopper = stopper;
        
         SmartDashboard.putNumber("PID Val", setSpeed);
         indexerMotorLF.set(ControlMode.Velocity, MAX_TICKS_PER_SEC * setSpeed);
-        indexerMotorRF.set(ControlMode.Velocity, MAX_TICKS_PER_SEC * setSpeed);
+        //indexerMotorRF.set(ControlMode.Velocity, MAX_TICKS_PER_SEC * setSpeed);
     }
 
     

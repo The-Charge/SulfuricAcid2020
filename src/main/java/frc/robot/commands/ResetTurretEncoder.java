@@ -45,7 +45,11 @@ public class ResetTurretEncoder extends CommandBase {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     public boolean isFinished() {
-        return m_turret.atLimitSwitch();
+        if (m_turret.atLimitSwitch()){
+                m_turret.checkHorizontalLimitSwitches();
+                return true;
+        }
+        else return false;
     }
 
     // Called once after isFinished returns true
