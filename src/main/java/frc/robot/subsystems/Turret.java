@@ -62,7 +62,7 @@ public class Turret implements Subsystem {
         turretMotor.setNeutralMode(NeutralMode.Brake);
 
         //setDefaultCommand(new RunTurretManual(this));
-        setDefaultCommand(new RunTurretVision(this));
+        setDefaultCommand(new RunTurretVision(this, 0.8));
     }
 
     @Override

@@ -146,7 +146,7 @@ boolean visionOverride = false;
     
     if (!visionOverride){
       if (RobotContainer.Xbox.getRawButtonPressed(9)){
-        new RunTurretVision(m_robotContainer.turret);
+        new RunTurretVision(m_robotContainer.turret, 0.8);
       }
     } else {
         new RunTurretManual(m_robotContainer.turret);

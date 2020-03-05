@@ -121,7 +121,7 @@ public class RobotContainer {
   private void smartDashboardButtons() {
  
     // SmartDashboard Buttons
-    SmartDashboard.putData("Run Vision", new RunTurretVision(turret));
+    SmartDashboard.putData("Run Vision", new RunTurretVision(turret, 0.4));
     SmartDashboard.putData("Turn On Lights", new TurnOnVisionLights(turret));
     SmartDashboard.putData("Reset Encoder", new ResetTurretEncoder(turret));
     SmartDashboard.putData("Zero Turret", new TurretToZero(turret));
@@ -227,16 +227,16 @@ private void configureButtonBindings() {
 
       aButton = new JoystickButton(Xbox, 1);
       aButton.whenPressed(new Shoot(shooter, .9)); 
-      aButton.whenPressed(new ChangeElevation(turret, 0.8)); 
+      aButton.whenPressed(new RunTurretVision(turret, 0.8)); 
       bButton = new JoystickButton(Xbox, 2);
       bButton.whenPressed(new Shoot(shooter, .72));
-      aButton.whenPressed(new ChangeElevation(turret, 0.8));
+      bButton.whenPressed(new RunTurretVision(turret, 0.8));
       xButton = new JoystickButton(Xbox, 3);
       xButton.whenPressed(new Shoot(shooter, .62));
-      aButton.whenPressed(new ChangeElevation(turret, 0.8));
+      xButton.whenPressed(new RunTurretVision(turret, 0.8));
       yButton = new JoystickButton(Xbox, 4);
       yButton.whenPressed(new Shoot(shooter, .48));
-      aButton.whenPressed(new ChangeElevation(turret, 0.4));
+      yButton.whenPressed(new RunTurretVision(turret, 0.4));
 
   }
 
