@@ -187,7 +187,7 @@ private void configureButtonBindings() {
 
     //Intake and Indexer
     runIntakeIndexerBtn = new JoystickButton(Xbox, 5);
-    runIntakeIndexerBtn.whileHeld(new RunIntake(intake, 1));
+    runIntakeIndexerBtn.whileHeld(new RunIntake(intake, 0.6));
     runIntakeIndexerBtn.whileHeld(new Index(indexer, 1));
     
 
