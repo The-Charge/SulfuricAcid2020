@@ -124,6 +124,14 @@ public WPI_TalonFX motorShooter;
     {
         return (Math.abs(getCurrentSpeed()/MAX_TICKS_PER_SEC - speed) < .1);
     }
+    public boolean checkTemp()
+    {
+        SmartDashboard.putNumber("Temp", motorShooter.getTemperature());
+        if (motorShooter.getTemperature() > 35)
+            return true;
+        else
+            return false;
+    }
 
    
 }

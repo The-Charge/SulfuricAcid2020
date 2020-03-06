@@ -90,6 +90,7 @@ private final SpeedControllerGroup m_rightMotors =
     public int MotionMagicPIDIndex = 0;
     public int MotionMagicPIDSlot = 0;
     public double MotionMagicDistance;
+    public final double MAX_TEMP = 35;
     //public double correctionR = 1.02;
 
     public int smoothing = 4;
@@ -449,5 +450,12 @@ private final SpeedControllerGroup m_rightMotors =
     
 
       }
+      public boolean checkTemp()
+    {
+        if (rightFrontMotor.getTemperature()> MAX_TEMP || rightMidMotor.getTemperature()> MAX_TEMP || rightBackMotor.getTemperature()> MAX_TEMP || leftFrontMotor.getTemperature()> MAX_TEMP || leftMidMotor.getTemperature()> MAX_TEMP || leftBackMotor.getTemperature()> MAX_TEMP)
+            return true;
+        else
+            return false;
+    }
 }
     

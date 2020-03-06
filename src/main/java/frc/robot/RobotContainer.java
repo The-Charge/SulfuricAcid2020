@@ -75,6 +75,7 @@ public class RobotContainer {
   public Indexer indexer = new Indexer(stopper);
   public Shooter shooter = new Shooter();
   public BallSensor ballSensor = new BallSensor(indexer, stopper);
+  public Cooling cooling = new Cooling(drivetrain, shooter);
 
   //JOYSTICKS
   public static Joystick leftJoystick;

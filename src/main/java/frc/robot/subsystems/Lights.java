@@ -30,8 +30,8 @@ public class Lights implements Subsystem {
 
    
 
-    public static CANifier canifier = new CANifier(0);
-    public static Relay relay1 = new Relay(1);
+    public static CANifier canifier;
+    public static Relay relay1;
     public String vision;
     public final static CANifier.PWMChannel kMotorControllerCh = CANifier.PWMChannel.PWMChannel2;
     public Turret m_turret;
@@ -41,6 +41,9 @@ public class Lights implements Subsystem {
         setDefaultCommand(new ChangeLights(this));
         m_turret = turret;
 
+        canifier = new CANifier(0);
+        relay1 = new Relay(1);
+
     }
 
     
@@ -49,11 +52,15 @@ public class Lights implements Subsystem {
     public void onStart(){
         canifier.enablePWMOutput(kMotorControllerCh.value, true);
         relay1.set(Relay.Value.kOn);
+        canifier.setLEDOutput(40, CANifier.LEDChannel.LEDChannelA);
+        canifier.setLEDOutput(250, CANifier.LEDChannel.LEDChannelB);
+        canifier.setLEDOutput(40, CANifier.LEDChannel.LEDChannelC);
 
     }
 
     public void onStop(){
         canifier.enablePWMOutput(kMotorControllerCh.value, false);
+        relay1.set(Relay.Value.kOff);
     }
     public void onLoop(){}
 
