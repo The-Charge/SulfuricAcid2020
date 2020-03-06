@@ -83,7 +83,7 @@ if(output < 0){
     output= 0;
 }
 System.out.println(output);
-    SmartDashboard.putNumber("Balls: ",output);
+    SmartDashboard.putNumber("Ball Count ",output);
 
 }
 public static int getOutput()

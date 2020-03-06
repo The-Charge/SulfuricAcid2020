@@ -32,7 +32,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 public class Turret implements Subsystem {
     private static final double H_MIN_ENCODER_TICKS = -482070.0;  // used to stop turret from rotating past ends
     private static final double H_MAX_ENCODER_TICKS = 484191.0;
-    private static final double H_DEGREES_PER_TICK = 0;
+    private static final double H_TICKS_PER_DEGREES = 483000 ;
+    private static final double H_DEGREES_PER_TICK = 1 / H_TICKS_PER_DEGREES ;
     private static final double H_MIN_DEGREES = H_MIN_ENCODER_TICKS * H_DEGREES_PER_TICK;
     private static final double H_MAX_DEGREES = H_MAX_ENCODER_TICKS * H_DEGREES_PER_TICK;
     private static final double H_TOLERANCE = 0.5;
@@ -66,14 +67,22 @@ public class Turret implements Subsystem {
         //setDefaultCommand(new RunTurretManual(this));
 
         setDefaultCommand(new RunTurretVision(this, 0.8));
+        SmartDashboard.putString("Vision Status", "disabled");
 
         //setDefaultCommand(new RunTurretVision(this));
     }
 
     @Override
-    public void periodic() {
+    public void periodic() { 
+        double d = elevationServo.get() * 140 + 218;
+        double a = TURRET_SIDE_A;
+        double b = TURRET_SIDE_B;
+        double angle = Math.toDegrees(Math.acos((d*d - a*a - b*b)/(-2*a*b)));
+        SmartDashboard.putNumber("Turret Elevation", angle);
         SmartDashboard.putNumber("Turret Rotation", getCurrentHorizontalAngle());
         checkHorizontalLimitSwitches();
+
+
     }
     
     public void enableVision() {

@@ -51,6 +51,9 @@ public class Index extends CommandBase {
     public void initialize() {
         m_indexer.initalizeMotors();
         m_indexer.initSpeedMode();
+        if (m_speed > 0)
+            SmartDashboard.putBoolean("Indexer", true);
+        else SmartDashboard.putBoolean("Indexer", false);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -69,6 +72,7 @@ public class Index extends CommandBase {
     // Called once after isFinished returns true
     @Override
     public void end(boolean interrupted) {
+        SmartDashboard.putBoolean("Indexer", false);
         m_indexer.stop();
        // Robot.indexer.setPercentVBus();
     }

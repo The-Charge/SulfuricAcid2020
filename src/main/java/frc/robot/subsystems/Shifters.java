@@ -47,11 +47,13 @@ private Solenoid shifterSolenoid;
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
     public void shiftHigh() {
-		shifterSolenoid.set(true);
+    shifterSolenoid.set(true);
+    SmartDashboard.putBoolean("High Gear", true);
 	}
 
 	public void shiftLow() {
-		shifterSolenoid.set(false);
+    shifterSolenoid.set(false);
+    SmartDashboard.putBoolean("Low Gear", false);
     }
     
     public boolean isLow(){
