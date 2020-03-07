@@ -34,6 +34,7 @@ public class TankDrive extends CommandBase {
     @Override
     public void initialize() {
         m_subsystem.initializeMotors();
+        m_subsystem.limitCurrent();
         m_subsystem.setPercentVBus();
     }
 

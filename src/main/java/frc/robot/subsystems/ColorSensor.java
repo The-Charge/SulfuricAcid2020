@@ -103,7 +103,7 @@ public class ColorSensor implements Subsystem {
       } else {
         colorString = "Change"; 
       }
-      System.out.print(colorString);
+      //System.out.print(colorString);
     }
 
     public Color getColor(){ //parameter String colors

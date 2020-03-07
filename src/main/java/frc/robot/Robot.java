@@ -109,10 +109,15 @@ boolean visionOverride = false;
                                                   new ParallelCommandGroup(new SequentialCommandGroup(m_robotContainer.rResetTurret(),m_robotContainer.rZeroTurret()), 
                                                     new SequentialCommandGroup(m_robotContainer.getAutonomousBackwardS()))))
                                             );
-                                            //m_robotContainer.rResetTurret(),m_robotContainer.rZeroTurret() m_robotContainer.getAutonomousBackwardS2()
+                        //BADm_robotContainer.rResetTurret(),m_robotContainer.rZeroTurret() m_robotContainer.getAutonomousBackwardS2()
+    
+    //SequentialCommandGroup m_enginerds = new SequentialCommandGroup(new WaitCommand(3),
+                                          //new ParallelCommandGroup(m_robotContainer.rIndexReverse(), m_robotContainer.rIntakeReverse(),
+                                            //new SequentialCommandGroup(new WaitCommand(4), 
+                                              //new SequentialCommandGroup(m_robotContainer.rResetTurret(),m_robotContainer.rZeroTurret()))));
     m_autonomousCommand = m_sequential;
     //m_autonomousCommand =  new SequentialCommandGroup(m_robotContainer.rShoot(), 
-    //                        new SequentialCommandGroup( 
+    //                        new SequentialCommandGroup( new WaitCommand(3),
     //                          new ParallelCommandGroup(m_robotContainer.rOpen(), m_robotContainer.rIntake(), m_robotContainer.rIndex(), 
     //                            new SequentialCommandGroup(new WaitCommand(4), m_robotContainer.rClose(), m_robotContainer.rIndex(), m_robotContainer.getAutonomousNew()))));//(Command) chooser.getSelected();
 

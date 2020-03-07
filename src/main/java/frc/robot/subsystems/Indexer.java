@@ -107,17 +107,18 @@ timer = 1000;
 
     
     public void setPercentSpeedPID(double setSpeed, boolean shooterOpen) {
+        //boolean wasBall = wasBallSensedIn();
         if (shooterOpen || setSpeed < 0)
         {
 
         }
         else if (m_stopper.ballSensedOut())
         {
-            setSpeed = 0.1*setSpeed;
+            setSpeed = 0.25*setSpeed;
         }
         else if (ballSensedIn() || wasBallSensedIn())
         {
-            setSpeed = 0.4*setSpeed;
+            setSpeed = 0.45*setSpeed;
         }
         else
          setSpeed = 0*setSpeed;

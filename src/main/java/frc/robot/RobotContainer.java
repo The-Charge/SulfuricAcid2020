@@ -228,13 +228,13 @@ private void configureButtonBindings() {
     shiftHighWHBtn.whenReleased(new ShiftLow(shifters));
 
       aButton = new JoystickButton(Xbox, 1);
-      aButton.whenPressed(new Shoot(shooter, .9)); 
+      aButton.whenPressed(new Shoot(shooter, 1)); 
       aButton.whenPressed(new RunTurretVision(turret, 0.8)); 
       bButton = new JoystickButton(Xbox, 2);
-      bButton.whenPressed(new Shoot(shooter, .69));
+      bButton.whenPressed(new Shoot(shooter, .8));
       bButton.whenPressed(new RunTurretVision(turret, 0.8));
       xButton = new JoystickButton(Xbox, 3);
-      xButton.whenPressed(new Shoot(shooter, .62));
+      xButton.whenPressed(new Shoot(shooter, .7));
       xButton.whenPressed(new RunTurretVision(turret, 0.8));
       yButton = new JoystickButton(Xbox, 4);
       yButton.whenPressed(new Shoot(shooter, .48));
@@ -595,7 +595,7 @@ private void configureButtonBindings() {
           //new Translation2d(5, -1)
         ),
         // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(-1, 0, new Rotation2d(0)),
+        new Pose2d(-2, 0, new Rotation2d(0)),
         // Pass config
         config
     );
@@ -718,7 +718,7 @@ private void configureButtonBindings() {
           //new Translation2d(5, -1)
         ),
         // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(-1, 1, new Rotation2d(-Math.PI/4)),
+        new Pose2d(-1, 2, new Rotation2d(-Math.PI/4)),
         // Pass config
         config
     );
@@ -814,8 +814,16 @@ private void configureButtonBindings() {
     return new Index(indexer,0.4, true);
   }
 
+  public Command rIndexReverse() {
+    return new Index(indexer,-0.4, true);
+  }
+
   public Command rIntake() {
     return new RunIntake(intake,0.4);
+  }
+
+  public Command rIntakeReverse() {
+    return new RunIntake(intake,-0.4);
   }
 
   public Command rClose() {
