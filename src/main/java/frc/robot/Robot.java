@@ -102,7 +102,7 @@ boolean visionOverride = false;
     m_robotContainer.stopper.closeStopper();
     m_robotContainer.drivetrain.resetOdometry(new Pose2d(0, 0, new Rotation2d(0)));
     ParallelCommandGroup m_parallel = new ParallelCommandGroup(m_robotContainer.rShoot(), m_robotContainer.rElevation());
-    SequentialCommandGroup m_sequential = new SequentialCommandGroup(m_parallel, 
+    SequentialCommandGroup m_sequential = new SequentialCommandGroup(m_parallel, new WaitCommand(1),
                                             new ParallelCommandGroup(
                                               new ParallelCommandGroup(m_robotContainer.rOpen(), m_robotContainer.rIntake(), m_robotContainer.rIndex()),
                                                 new SequentialCommandGroup(new WaitCommand(4), 

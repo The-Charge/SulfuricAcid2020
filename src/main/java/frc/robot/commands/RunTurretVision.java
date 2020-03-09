@@ -65,7 +65,7 @@ public class RunTurretVision extends CommandBase {
 
             m_turret.gotoHorizontalAngle(horizontalAngle);
             //m_turret.setVerticalAngle(verticalAngle);
-            m_turret.setRawVertical(verticalAngle);
+           
 
             if (Math.abs(horizontalAngle) < H_TOLERANCE) {
                 SmartDashboard.putString("Vision Status", "locked");
@@ -73,6 +73,7 @@ public class RunTurretVision extends CommandBase {
                 SmartDashboard.putString("Vision Status", "homing");
             }
         }
+        m_turret.setRawVertical(verticalAngle);
     }
 
     // Make this return true when this Command no longer needs to run execute()

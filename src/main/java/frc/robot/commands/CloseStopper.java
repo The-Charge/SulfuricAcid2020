@@ -34,6 +34,7 @@ public class CloseStopper extends CommandBase {
     // Called just before this Command runs the first time
     @Override
     public void initialize() {
+      m_indexer.initalizeMotors();
 
     }
 
