@@ -48,44 +48,44 @@ goingUp = false;
 
     }
 
-    public void stopMotor(){
+    public void stopMotor(){    //stops the climber motor by setting the speed to 0
         climberMotor.set(ControlMode.PercentOutput,0);
         
     }
 
-    public void engageBrakes(){
+    public void engageBrakes(){ //engages the double solenoid that acts as a brake for the climber
         climberBrakeDoubleSolenoid.set(Value.kForward);
     }
-    public void disengageBrake()
+    public void disengageBrake()    //disengages the double solenoid brake
     {
         climberBrakeDoubleSolenoid.set(Value.kReverse);
     }
 
-    public void set(double percentSpeed)
+    public void set(double percentSpeed)    //turns double solenoid off. if speed is +, goingup is true, else it is false
     {
         climberBrakeDoubleSolenoid.set(Value.kOff);
         if(percentSpeed > 0)
             goingUp = true;
         else
             goingUp = false;
-        climberMotor.set(ControlMode.PercentOutput, percentSpeed);
+        climberMotor.set(ControlMode.PercentOutput, percentSpeed);  //sets the speed to the parameter speed
     }
-    public void setPercentVBus()
+    public void setPercentVBus()    //sets the motor speed to 0
     {
         climberMotor.set(ControlMode.PercentOutput, 0);
     }
-    public void setBrakeMode(){
+    public void setBrakeMode(){ //sets the motor to neutralmode.brake
 		climberMotor.setNeutralMode(NeutralMode.Brake);
     }
-    public void setCoastMode(){
+    public void setCoastMode(){ //sets the motor to coast
 		climberMotor.setNeutralMode(NeutralMode.Coast);
     }
-	public void initalizeMotor(){
+	public void initalizeMotor(){   //inverts the motor
 	
 	climberMotor.setInverted(true);
 	}
 
-    public double getCurrent()
+    public double getCurrent()  //gets the electrical current from the motor
     {
         return climberMotor.getSupplyCurrent();
     }

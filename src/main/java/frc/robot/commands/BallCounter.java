@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
  *
+ * This class counts the amount of balls in the robot
  */
 public class BallCounter extends CommandBase {
 
@@ -40,6 +41,7 @@ public class BallCounter extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
+        //executes the countballs method from the ball sensor subsystem
         m_BallSensor.countballs();
     }
 

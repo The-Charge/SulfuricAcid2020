@@ -35,6 +35,8 @@ m_BallSensor= ballSensor;
     @Override
     public void initialize() { 
         m_BallSensor.setBallsgained();
+        //sets gained balls to 0 and lost balls to 0
+        //sets gained temp and lost temp to 1
     }
 
 

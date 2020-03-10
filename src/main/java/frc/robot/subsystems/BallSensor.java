@@ -58,32 +58,38 @@ public Stopper m_stopper;
 }
 
 public void setBallsgained(){
+    //sets the balls gained and lost to 0
+    //sets the temp values for gained and lost to 1
     GainedTemp = 1;
     LostTemp = 1;
     GainedBalls = 0;
     LostBalls = 0;
 }
 public void countballs(){
+    //when the indexer senses a ball has gone into it, the balls gained is increased
     if (m_indexer.ballSensedIn()){
         GainedBalls = GainedTemp;
     }
     else if (GainedBalls == GainedTemp &&  m_indexer.ballSensedIn() == false)GainedTemp++;
-
+    //increments gainedtemp when it is equal to the balls gained and ball sensedin is false
+    //this will allow the gainedballs to increment by 1 when a ball is sensedin
    
+    //when the stopper sense a ball has left it, the balls lost is increased
 if (!m_stopper.ballSensedOut()){
         LostBalls = LostTemp;
     }
     else if (LostBalls == LostTemp && m_stopper.ballSensedOut())LostTemp++;
+//increments losttemp when it is equal to the balls lost and ball sensedout is false
+    //this will allow the lostballs to increment by 1 when a ball is sensedout
 
 
 
-
-output = GainedBalls - LostBalls;
-if(output < 0){
+output = GainedBalls - LostBalls;   //this outputs the amount of total balls in the robot
+if(output < 0){ //if lostballs > gainedballs
     output= 0;
 }
 System.out.println(output);
-    SmartDashboard.putNumber("Ball Count ",output);
+    SmartDashboard.putNumber("Ball Count ",output); //puts number of balls on the smartdashboard
 
 }
 public static int getOutput()

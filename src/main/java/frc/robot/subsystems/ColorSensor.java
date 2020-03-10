@@ -87,34 +87,33 @@ public class ColorSensor implements Subsystem {
        */
       
       ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
-       //final int ctr = 0;
-       //System.out.println("AAAAAAAAAAAAAAAAAAAGGGGGGGGGGGGGGGGGGGGG");
-      if (match.color == kBlueTarget) {
-        colorString = "Blue";
-        //System.out.print("Bluekjlkjdflkgj");
-      } else if (match.color == kRedTarget) {
+       
+       
+      if (match.color == kBlueTarget) {//checks if blue
+        colorString = "Blue"; 
+        
+      } else if (match.color == kRedTarget) {//checks if red
         colorString = "Red";
-        //System.out.print("Redfdjkgldkjf");
-      } else if (match.color == kGreenTarget) {
+        
+      } else if (match.color == kGreenTarget) {//checks if green
         colorString = "Green";
-       // System.out.print("Greendfglkdfglk");
-      } else if (match.color == kYellowTarget) {
+       
+      } else if (match.color == kYellowTarget) {//checks if yellow
         colorString = "Yellow";
       } else {
         colorString = "Change"; 
       }
-      //System.out.print(colorString);
     }
 
-    public Color getColor(){ //parameter String colors
+    public Color getColor(){ //parameter String colors. puts the detected color on smartdashboard
       SmartDashboard.putString("Detected Color", colorString);
 
       return m_colorSensor.getColor();
     }
-    public String getColorString(){
+    public String getColorString(){ //returns detected color
       return colorString;
     }
-    public double getConfidence(){
+    public double getConfidence(){  //returns the confidence in the color sensor
     Color detectedColors = m_colorSensor.getColor();
     ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColors);
     return match.confidence;

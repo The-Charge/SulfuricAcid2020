@@ -49,28 +49,25 @@ private WPI_TalonSRX controlPanelMotor;
     public void periodic() {
         // Put code here to be run every loop
   }
-  public void run(double pow) {    	
+  public void run(double pow) {    	//set the control panel motor to the parameter value
     controlPanelMotor.set(pow);
 }
-public void stop(){
+public void stop(){ //sets motor to 0 speed
   controlPanelMotor.set(0);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 }
 
-public void rotateX(ColorSensor m_colorSensor) {
+public void rotateX(ColorSensor m_colorSensor) {  //counts the amount of times the color is changed.
   SmartDashboard.putNumber("Counter", ctr);
   currentColor = m_colorSensor.getColorString();
   confidences = m_colorSensor.getConfidence();
   //System.out.println(confidences);
   
   //while (ctr<16){
-    if (ctr<26){
+    if (ctr<26){  //sets the motor to 0.5 speed while the number of colors detected is less than 26
       controlPanelMotor.set(0.5);
     }
 
-    //System.out.println("TEMP:" + temp + temp + temp + temp + temp);
-    //System.out.println("CURRENT:" + currentColor + currentColor + currentColor + currentColor + currentColor);
-    //System.out.println("Check:" + ctr);
-    //System.out.println("Confidence " + confidences);
+    
 
     //everytime the color changes counter goes up
     if (currentColor!= temp && confidences>.935) {
@@ -80,7 +77,8 @@ public void rotateX(ColorSensor m_colorSensor) {
       
     }
 }
-public void rotateColor(Color desiredColor, ColorSensor colorSensor){
+public void rotateColor(Color desiredColor, ColorSensor colorSensor){ //when we need to land on a certain color
+  //runs motor until on desired color
   Color currentColor = colorSensor.getColor();
   confidences = colorSensor.getConfidence();
   if(!desiredColor.equals(currentColor) && confidences>.8){ 
@@ -88,16 +86,16 @@ public void rotateColor(Color desiredColor, ColorSensor colorSensor){
   }
   
 }
-public int getCounter(){
+public int getCounter(){  //returns counter
   return ctr;
 }
-public void setCounter(int counter){
+public void setCounter(int counter){  //sets couter
   ctr = counter;
 }
-public void setBrakeMode(){
+public void setBrakeMode(){ //motor to brake
   controlPanelMotor.setNeutralMode(NeutralMode.Brake);
   }
-  public void setCoastMode(){
+  public void setCoastMode(){ //motor to coast
   controlPanelMotor.setNeutralMode(NeutralMode.Coast);
   }
 
