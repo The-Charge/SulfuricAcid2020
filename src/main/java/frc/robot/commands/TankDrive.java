@@ -22,7 +22,7 @@ import frc.robot.RobotContainer;
  */
 public class TankDrive extends CommandBase {
 
-    private final Drivetrain m_subsystem;
+    public final Drivetrain m_subsystem;
 
     public TankDrive(Drivetrain subsystem) {
         m_subsystem = subsystem;
