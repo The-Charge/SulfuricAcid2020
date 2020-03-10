@@ -3,10 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.subsystems.Climber;
- 
-/**
- *
- */
+
 public class ClimberRun extends CommandBase {
  
     private double m_power;
@@ -34,11 +31,12 @@ public class ClimberRun extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
-        //FIXME: Properly indent (or ideally use curly braces) so it's clear what's part of the if-statement
         if (m_power < 0)
-        m_climber.engageBrakes();
-        m_climber.set(m_power);       
-        m_climber.limitCurrent();
+        {
+            m_climber.engageBrakes();
+            m_climber.set(m_power);       
+            m_climber.limitCurrent();
+        }
     }
  
     // Make this return true when this Command no longer needs to run execute()
@@ -52,10 +50,6 @@ public class ClimberRun extends CommandBase {
     public void end(boolean interrupted) {
         m_climber.stopMotor();
     }
- 
-    //FIXME: Clean up excess comments
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
 }
  
 

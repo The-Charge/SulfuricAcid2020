@@ -46,7 +46,6 @@ public Stopper m_stopper;
     
 
     public BallSensor(Indexer indexer, Stopper stopper) {
-    setDefaultCommand(new BallCounter(this));
     m_indexer = indexer;
     m_stopper = stopper;
     }
@@ -55,6 +54,7 @@ public Stopper m_stopper;
     @Override
     public void periodic() {
         // Put code here to be run every loop
+        countballs();
 }
 
 public void setBallsgained(){
