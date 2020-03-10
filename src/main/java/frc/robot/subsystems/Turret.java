@@ -64,12 +64,8 @@ public class Turret implements Subsystem {
         turretMotor.setSelectedSensorPosition(0);
         turretMotor.setNeutralMode(NeutralMode.Brake);
 
-        //setDefaultCommand(new RunTurretManual(this));
-
         setDefaultCommand(new RunTurretVision(this, 0.8));
-        SmartDashboard.putString("Vision Status", "disabled");
-
-        //setDefaultCommand(new RunTurretVision(this));
+        SmartDashboard.putString("Vision Status", "disabled");  //Sam: should be "Enabled"
     }
 
     @Override
@@ -81,8 +77,6 @@ public class Turret implements Subsystem {
         SmartDashboard.putNumber("Turret Elevation", angle);
         SmartDashboard.putNumber("Turret Rotation", getCurrentHorizontalAngle());
         checkHorizontalLimitSwitches();
-
-
     }
     
     public void enableVision() {
@@ -127,7 +121,7 @@ public class Turret implements Subsystem {
 
         if (Math.abs(setpoint) > H_TOLERANCE) {
             double percent = Math.abs(setpoint) / 40;
-            percent = Math.max(0.06, Math.min(0.19, percent));
+            percent = Math.max(0.06, Math.min(0.19, percent));   //Sam: can increase 0.19 to make it faster, try doubling 
             if (setpoint < 0) { percent = -percent; }
             turretMotor.set(ControlMode.PercentOutput, percent);
         } else {
@@ -150,7 +144,7 @@ public class Turret implements Subsystem {
         // SmartDashboard
 
         double error = target - ticks;
-        double speed = 0.2;
+        double speed = 0.2;                                        //Sam: suggest to run proportional to move faster
         SmartDashboard.putNumber("Normal", ticks);
         SmartDashboard.putNumber("Target", target);
         if (Math.abs(error) > 0.03) {

@@ -55,7 +55,7 @@ public Stopper m_stopper;
     @Override
     public void periodic() {
         // Put code here to be run every loop
-}
+    }
 
 public void setBallsgained(){
     GainedTemp = 1;
@@ -63,6 +63,7 @@ public void setBallsgained(){
     GainedBalls = 0;
     LostBalls = 0;
 }
+
 public void countballs(){
     if (m_indexer.ballSensedIn()){
         GainedBalls = GainedTemp;
@@ -83,11 +84,10 @@ if(output < 0){
     output= 0;
 }
 System.out.println(output);
-    SmartDashboard.putNumber("Ball Count ",output);
+    SmartDashboard.putNumber("Balls: ",output);
 
 }
-public static int getOutput()
-{
+public static int getOutput(){
     return output;
 }
 }

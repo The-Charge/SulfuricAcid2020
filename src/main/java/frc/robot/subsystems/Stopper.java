@@ -26,18 +26,16 @@ import edu.wpi.first.wpilibj.DigitalInput;
 /**
  *
  */
-public class Stopper implements Subsystem {
+public class Stopper implements Subsystem {     //Sam: ball Sensor data were not used for stopper.  Suggest to break up into two subsystems
+                                                //Sam: add status and method to track whether stopper is closed or open.
 
-private DigitalInput ballSensor;
-private Solenoid stopperSolenoid;
+    private DigitalInput ballSensor;
+    private Solenoid stopperSolenoid;
 
     public Stopper() {
-
-    ballSensor = new DigitalInput(1);
-    stopperSolenoid = new Solenoid(0,2);
-    
-    stopperSolenoid.set(true);
-        
+        ballSensor = new DigitalInput(1);
+        stopperSolenoid = new Solenoid(0,2);
+        stopperSolenoid.set(true);
     }
 
     @Override

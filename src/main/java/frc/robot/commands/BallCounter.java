@@ -35,8 +35,6 @@ public class BallCounter extends CommandBase {
     public void initialize() { 
     }
 
-
-
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
@@ -51,11 +49,7 @@ public class BallCounter extends CommandBase {
 
     // Called once after isFinished returns true
     
-    public void end() { 
+    public void end() {       
 
-    
-       }
-
-    // Called when another command which requires one or more of the same
-
+    }
 }

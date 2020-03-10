@@ -48,17 +48,11 @@ private WPI_TalonSRX intakeMotor;
 
 
     public Intake() {
-
-    intakeMotor = new WPI_TalonSRX(9);
- 
-
+        intakeMotor = new WPI_TalonSRX(9);
     }
-
-
 
     @Override
     public void periodic() {
-      
         SmartDashboard.putBoolean("OnBall", onBall());
         
     }
@@ -107,19 +101,17 @@ private WPI_TalonSRX intakeMotor;
 	public void setCoastMode(){
         intakeMotor.setNeutralMode(NeutralMode.Coast);
     }
-	public void initializeMotor()
-    {
+	public void initializeMotor(){
         intakeMotor.setInverted(true);
         intakeMotor.setSensorPhase(true);
-
     }
-    public boolean onBall()
-    { 
+
+    public boolean onBall(){ 
         //return (intakeMotor.getStatorCurrent() > 15);
         return true;
     }
-    public double intakeCurret()
-    {
+
+    public double intakeCurret(){
         return intakeMotor.getStatorCurrent();
     }
   

@@ -114,8 +114,8 @@ public class RobotContainer {
   public boolean realButtonBox = true;
 
    
-    public RobotContainer() {
-    SmartDashboard.putData("TurnOffLights", new TurnOffLights(lights));
+  public RobotContainer() {
+      SmartDashboard.putData("TurnOffLights", new TurnOffLights(lights));
       if (realButtonBox) configureButtonBindings();
       smartDashboardButtons();   
   }
@@ -595,7 +595,7 @@ private void configureButtonBindings() {
           //new Translation2d(5, -1)
         ),
         // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(-2, 0, new Rotation2d(0)),
+        new Pose2d(-1, 0, new Rotation2d(0)),
         // Pass config
         config
     );
@@ -709,17 +709,11 @@ private void configureButtonBindings() {
     
     
     Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
-        // Start at the origin facing the +X direction
-        new Pose2d(0 , 0, new Rotation2d(0)),
-        // Pass through these two interior waypoints, making an 's' curve path
         List.of(
-          //new Translation2d(3, 0)
-          //new Translation2d(5, -1),
-          //new Translation2d(5, -1)
+          new Pose2d(3, 0, new Rotation2d(0)),
+          new Pose2d(3, 0, new Rotation2d(0)),
+          new Pose2d(3, 0, new Rotation2d(0))
         ),
-        // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(-1, 2, new Rotation2d(-Math.PI/4)),
-        // Pass config
         config
     );
 
@@ -820,9 +814,10 @@ private void configureButtonBindings() {
 
   public Command rIntake() {
     return new RunIntake(intake,0.4);
+
   }
 
-  public Command rIntakeReverse() {
+public Command rIntakeReverse() {
     return new RunIntake(intake,-0.4);
   }
 

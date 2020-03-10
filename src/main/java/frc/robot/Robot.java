@@ -76,9 +76,6 @@ boolean visionOverride = false;
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    
-    
-
   }
 
   /**
@@ -101,7 +98,7 @@ boolean visionOverride = false;
     m_robotContainer.drivetrain.resetEncoders();
     m_robotContainer.stopper.closeStopper();
     m_robotContainer.drivetrain.resetOdometry(new Pose2d(0, 0, new Rotation2d(0)));
-    ParallelCommandGroup m_parallel = new ParallelCommandGroup(m_robotContainer.rShoot(), m_robotContainer.rElevation());
+    ParallelCommandGroup m_parallel = new ParallelCommandGroup(m_robotContainer.rShoot(), m_robotContainer.rElevation(), new WaitCommand(1));
     SequentialCommandGroup m_sequential = new SequentialCommandGroup(m_parallel, 
                                             new ParallelCommandGroup(
                                               new ParallelCommandGroup(m_robotContainer.rOpen(), m_robotContainer.rIntake(), m_robotContainer.rIndex()),
@@ -109,15 +106,10 @@ boolean visionOverride = false;
                                                   new ParallelCommandGroup(new SequentialCommandGroup(m_robotContainer.rResetTurret(),m_robotContainer.rZeroTurret()), 
                                                     new SequentialCommandGroup(m_robotContainer.getAutonomousBackwardS()))))
                                             );
-                        //BADm_robotContainer.rResetTurret(),m_robotContainer.rZeroTurret() m_robotContainer.getAutonomousBackwardS2()
-    
-    //SequentialCommandGroup m_enginerds = new SequentialCommandGroup(new WaitCommand(3),
-                                          //new ParallelCommandGroup(m_robotContainer.rIndexReverse(), m_robotContainer.rIntakeReverse(),
-                                            //new SequentialCommandGroup(new WaitCommand(4), 
-                                              //new SequentialCommandGroup(m_robotContainer.rResetTurret(),m_robotContainer.rZeroTurret()))));
+                                            //m_robotContainer.rResetTurret(),m_robotContainer.rZeroTurret() m_robotContainer.getAutonomousBackwardS2()
     m_autonomousCommand = m_sequential;
     //m_autonomousCommand =  new SequentialCommandGroup(m_robotContainer.rShoot(), 
-    //                        new SequentialCommandGroup( new WaitCommand(3),
+    //                        new SequentialCommandGroup( 
     //                          new ParallelCommandGroup(m_robotContainer.rOpen(), m_robotContainer.rIntake(), m_robotContainer.rIndex(), 
     //                            new SequentialCommandGroup(new WaitCommand(4), m_robotContainer.rClose(), m_robotContainer.rIndex(), m_robotContainer.getAutonomousNew()))));//(Command) chooser.getSelected();
 
@@ -167,11 +159,9 @@ boolean visionOverride = false;
       }
     } else {
         new RunTurretManual(m_robotContainer.turret);
-      }
-    
+      }    
     }
 
-  
 
   @Override
   public void testInit() {
