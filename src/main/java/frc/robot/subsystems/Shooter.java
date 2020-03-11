@@ -68,6 +68,7 @@ private WPI_TalonFX motorShooter;
 
     private final int TIMEOUT_MS = 10;
     private static final int MAX_TICKS_PER_SEC = 20000;
+    public static final double XBOX_INCREASE_DECREASE_SHOOTER_SPEED = 0.02;
 
     public Shooter() {
 
