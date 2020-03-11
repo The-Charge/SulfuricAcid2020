@@ -1,9 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
 
 package frc.robot;
 
@@ -42,15 +36,7 @@ public final class Constants {
         (kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
 
     public static final boolean kGyroReversed = true;
-
-    //FIXME: "DO NOT USE THESE FOR YOUR OWN ROBOT"
-    // Either put a TODO saying to tune these, or remove the comment and add one saying you tuned it.
-
-    // These are example values only - DO NOT USE THESE FOR YOUR OWN ROBOT!
-    // These characterization values MUST be determined either experimentally or theoretically
-    // for *your* robot's drive.
-    // The Robot Characterization Toolsuite provides a convenient tool for obtaining these
-    // values for your robot.
+  //TODO test/tune these values
     public static final double ksVolts = 0.501;
     public static final double kvVoltSecondsPerMeter = 1.6;
     public static final double kaVoltSecondsSquaredPerMeter = 0.176;

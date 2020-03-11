@@ -17,6 +17,11 @@ public class PositionsControl extends CommandBase {
 
     private Color targetColor;
     private String targetString;
+    private Color desiredColor = ColorMatch.makeColor(0.143, 0.427, 0.429);
+    if (gameData.equals("B")) desiredColor = ColorMatch.makeColor(0.143, 0.427, 0.429);
+    if (gameData.equals("G")) desiredColor = ColorMatch.makeColor(0.197, 0.561, 0.240);
+    if (gameData.equals("R")) desiredColor = ColorMatch.makeColor(0.561, 0.232, 0.114);
+    if (gameData.equals("Y")) desiredColor = ColorMatch.makeColor(0.361, 0.524, 0.113);
 
     public PositionsControl(ControlPanel controlPanel, ColorSensor colorSensor) {
         m_controlPanel = controlPanel;
@@ -30,13 +35,6 @@ public class PositionsControl extends CommandBase {
     @Override
     public void initialize() {
         String gameData = DriverStation.getInstance().getGameSpecificMessage();
-         
-        //FIXME: Move the makeColors to constants. 
-        Color desiredColor = ColorMatch.makeColor(0.143, 0.427, 0.429);
-        if (gameData.equals("B")) desiredColor = ColorMatch.makeColor(0.143, 0.427, 0.429);
-        if (gameData.equals("G")) desiredColor = ColorMatch.makeColor(0.197, 0.561, 0.240);
-        if (gameData.equals("R")) desiredColor = ColorMatch.makeColor(0.561, 0.232, 0.114);
-        if (gameData.equals("Y")) desiredColor = ColorMatch.makeColor(0.361, 0.524, 0.113);
         
         targetColor = desiredColor;
         targetString = gameData;

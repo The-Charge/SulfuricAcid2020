@@ -61,7 +61,7 @@ public class Shoot extends CommandBase {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     public boolean isFinished() {
-        return  m_shooter.isAtSpeed(m_speed);
+        return  m_shooter.Speed(m_speed);
         //return false;
     }
 

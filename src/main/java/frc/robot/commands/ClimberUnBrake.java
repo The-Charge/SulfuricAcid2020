@@ -20,10 +20,4 @@ public class ClimberUnBrake extends InstantCommand {
     public void initialize() {
         m_climber.disengageBrake();
     }
-
-    // Make this return true when this Command no longer needs to run execute()
-    @Override
-    public boolean isFinished() {
-        return true;
-    }
 }
