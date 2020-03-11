@@ -159,10 +159,10 @@ boolean visionOverride = false;
    */
   @Override
   public void teleopPeriodic() {
-    if (RobotContainer.buttonBox.getRawButtonPressed(8)) visionOverride = !visionOverride;
+    if (OI.buttonBox.getRawButtonPressed(8)) visionOverride = !visionOverride;
     
     if (!visionOverride){
-      if (RobotContainer.Xbox.getRawButtonPressed(9)){
+      if (OI.Xbox.getRawButtonPressed(9)){
         new RunTurretVision(m_robotContainer.turret, 0.8);
       }
     } else {

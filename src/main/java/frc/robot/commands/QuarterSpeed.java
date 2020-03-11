@@ -12,6 +12,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpiutil.math.MathUtil;
+import frc.robot.OI;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Drivetrain;
@@ -39,8 +40,8 @@ public class QuarterSpeed extends CommandBase {
     @Override
     public void execute() {
          double leftSpeed, rightSpeed;
-        rightSpeed = -RobotContainer.rightJoystick.getY() * 0.25;
-        leftSpeed = -RobotContainer.leftJoystick.getY() * 0.25;
+        rightSpeed = -OI.rightJoystick.getY() * 0.25;
+        leftSpeed = -OI.leftJoystick.getY() * 0.25;
         m_subsystem.run(leftSpeed, rightSpeed);
   
     }

@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.OI;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Shooter;
@@ -45,10 +46,10 @@ public class Shoot extends CommandBase {
     public void execute() {
         //m_speed = RobotContainer.buttonBox.getRawAxis(2);
         //m_speed = (m_speed + 1)/2;
-        if (RobotContainer.Xbox.getBackButtonPressed()){
+        if (OI.Xbox.getBackButtonPressed()){
             m_speed += 0.02;
         }
-        if (RobotContainer.Xbox.getStartButtonPressed()){
+        if (OI.Xbox.getStartButtonPressed()){
             m_speed -= 0.02;
         }
         m_shooter.setPercentSpeedPID(m_speed);

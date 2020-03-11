@@ -11,6 +11,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.OI;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Drivetrain;
@@ -40,8 +41,8 @@ public class HalfSpeed extends CommandBase {
     @Override
     public void execute() {
         double leftSpeed, rightSpeed;
-        rightSpeed = -RobotContainer.rightJoystick.getY() * 0.5;
-        leftSpeed = -RobotContainer.leftJoystick.getY() * 0.5;
+        rightSpeed = -OI.rightJoystick.getY() * 0.5;
+        leftSpeed = -OI.leftJoystick.getY() * 0.5;
         m_subsystem.run(leftSpeed, rightSpeed);
     }
 

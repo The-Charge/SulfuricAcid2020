@@ -8,10 +8,11 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-
 package frc.robot.commands;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.OI;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Drivetrain;
@@ -40,8 +41,8 @@ public class ToggleLockStraight extends CommandBase {
     @Override
     public void execute() {
         double leftSpeed, rightSpeed, avgSpeed;
-        rightSpeed = -RobotContainer.rightJoystick.getY();
-        leftSpeed = -RobotContainer.leftJoystick.getY();
+        rightSpeed = -OI.rightJoystick.getY();
+        leftSpeed = -OI.leftJoystick.getY();
         avgSpeed = (rightSpeed + leftSpeed) / 2;
         SmartDashboard.putNumber("RightSpeed: ", rightSpeed);
         SmartDashboard.putNumber("LeftSpeed: ", leftSpeed);

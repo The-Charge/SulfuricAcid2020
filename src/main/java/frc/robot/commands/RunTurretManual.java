@@ -12,6 +12,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.OI;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Turret;
@@ -46,7 +47,7 @@ public class RunTurretManual extends CommandBase {
     @Override
     public void execute() {
      
-         m_turretHorizontal = -RobotContainer.buttonBox.getY();
+         m_turretHorizontal = -OI.buttonBox.getY();
          m_turret.runHorizontalManual(-m_turretHorizontal); 
         
       
