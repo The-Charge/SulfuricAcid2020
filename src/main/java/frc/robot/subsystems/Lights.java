@@ -68,7 +68,7 @@ public class Lights implements Subsystem {
    
     public void changeLight()
     {
-        vision = m_turret.getVisionString();
+        vision = m_turret.getTurretStatus();
 
         if (vision.equals("locked"))
         {

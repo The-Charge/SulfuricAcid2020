@@ -19,31 +19,34 @@ import frc.robot.subsystems.Turret;
  *
  */
 public class RunTurretVision extends CommandBase {
-    private static final double H_TOLERANCE = 1;
-
     private double[] visionResults;
     private double horizontalAngle;
-    private double verticalAngle;
-    private double alignmentAngle;
-    private double distance;
     private final Turret m_turret;
+    private double timeSinceTarget;
+    private double currentTime;
+    private static final double WAIT_TIME = 1500;  // 1.5 seconds
     
     public RunTurretVision(Turret turret, double vertical) {
         m_turret = turret;
-        verticalAngle = vertical;
+        m_turret.setRawVertical(vertical);
         addRequirements(m_turret);
+
+        timeSinceTarget = 0;
     }
 
     // Called just before this Command runs the first time
     @Override
     public void initialize() {
         m_turret.enableVision();
+        m_turret.setTurretStatus("no target");
         visionResults = new double[] {0, 0};
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
+        visionResults = SmartDashboard.getNumberArray("Vision/result", new double[] {0, 0});
+        currentTime = System.currentTimeMillis();
         // Result key:
         //  0. timestamp
         //  1. success (0/1)
@@ -53,27 +56,18 @@ public class RunTurretVision extends CommandBase {
         //  5. alignment angle
         //  6. inner port (0/1)
         //  7. instantaneous FPS
-        visionResults = SmartDashboard.getNumberArray("Vision/result", new double[] {0, 0});
+
         if (visionResults[1] == 0) {
-            SmartDashboard.putString("Vision Status", "none");
-        } else {
-            distance = visionResults[2];
-            horizontalAngle = visionResults[3];
-            SmartDashboard.putNumber("Horizontal Angle", horizontalAngle);
-            double nothing = visionResults[4];
-            alignmentAngle = visionResults[5];
-
-            m_turret.gotoHorizontalAngle(horizontalAngle);
-            //m_turret.setVerticalAngle(verticalAngle);
-           
-
-            if (Math.abs(horizontalAngle) < H_TOLERANCE) {
-                SmartDashboard.putString("Vision Status", "locked");
-            } else {
-                SmartDashboard.putString("Vision Status", "homing");
+            m_turret.setTurretStatus("no target");
+            // If no target has been seen in WAIT_TIME milliseconds, reset to origin
+            if (currentTime - timeSinceTarget > WAIT_TIME) {
+                m_turret.runHorizontalManual(0);
             }
+        } else {
+            horizontalAngle = visionResults[3];
+            m_turret.gotoHorizontalAngle(horizontalAngle);
+            timeSinceTarget = currentTime;
         }
-        m_turret.setRawVertical(verticalAngle);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -86,6 +80,5 @@ public class RunTurretVision extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         m_turret.disableVision();
-        SmartDashboard.putString("Vision Status", "disabled");
     }
 }
