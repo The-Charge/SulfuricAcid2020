@@ -10,21 +10,10 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.subsystems.*;
-import frc.robot.RobotContainer;
-import frc.robot.commands.*;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Subsystem;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.I2C; //not sure if I need this. This is for the port
-import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.util.Color;
-import edu.wpi.first.wpilibj.*;
-
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class ControlPanel implements Subsystem {
@@ -38,12 +27,8 @@ private WPI_TalonSRX controlPanelMotor;
 
   
     public ControlPanel() {
-
     controlPanelMotor = new WPI_TalonSRX(11);
     }
-
- 
-    
 
     @Override
     public void periodic() {

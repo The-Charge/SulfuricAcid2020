@@ -1,11 +1,7 @@
 package frc.robot.commands;
 
-import java.security.PublicKey;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shifters;
 import frc.robot.subsystems.Turret;
-import frc.robot.Robot;
 
 public class ResetTurretEncoder extends CommandBase {
     

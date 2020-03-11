@@ -1,15 +1,12 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.*;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj.I2C;
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
-import java.util.concurrent.TimeoutException;
 import com.revrobotics.ColorMatch;
 
 public class ColorSensor implements Subsystem {
@@ -61,13 +58,10 @@ public class ColorSensor implements Subsystem {
 
       if (match.color == kBlueTarget) {
         colorString = "Blue";
-        //System.out.print("Bluekjlkjdflkgj");
       } else if (match.color == kRedTarget) {
         colorString = "Red";
-        //System.out.print("Redfdjkgldkjf");
       } else if (match.color == kGreenTarget) {
         colorString = "Green";
-       // System.out.print("Greendfglkdfglk");
       } else if (match.color == kYellowTarget) {
         colorString = "Yellow";
       } else {
@@ -75,13 +69,14 @@ public class ColorSensor implements Subsystem {
       }
     }
 
-    public Color getColor(){ //parameter String colors
+    public Color getColor(){ //reads the color from the color sensor
       return m_colorSensor.getColor();
     }
-    public String getColorString(){
+    public String getColorString(){ //returns a string of a color
       return colorString;
     }
-    public double getConfidence(){
+    public double getConfidence(){  
+    //getConfidence method returns the confidence it has of it determining the color it thinks it detects
     Color detectedColors = m_colorSensor.getColor();
     ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColors);
     return match.confidence;

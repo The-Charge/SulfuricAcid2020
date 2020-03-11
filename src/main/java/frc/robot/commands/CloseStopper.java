@@ -1,10 +1,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
 import frc.robot.subsystems.Stopper;
 import frc.robot.subsystems.Indexer;
-import frc.robot.subsystems.Shooter;
 
 public class CloseStopper extends CommandBase {
 
@@ -12,10 +10,9 @@ public class CloseStopper extends CommandBase {
     private final Indexer m_indexer;
    
     public CloseStopper(Stopper stopper, Indexer indexer) {
-
-    m_stopper = stopper;
-    m_indexer = indexer;
-        addRequirements(m_stopper, m_indexer);
+      m_stopper = stopper;
+      m_indexer = indexer;
+      addRequirements(m_stopper, m_indexer);
     }
 
     // Called repeatedly when this Command is scheduled to run

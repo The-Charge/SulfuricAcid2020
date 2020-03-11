@@ -1,13 +1,9 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Relay;
-import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Subsystem;
-import frc.robot.commands.RunTurretManual;
-import frc.robot.commands.RunTurretVision;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -19,7 +15,7 @@ public class Turret implements Subsystem {
     private static final double H_MIN_DEGREES = H_MIN_ENCODER_TICKS * H_DEGREES_PER_TICK;
     private static final double H_MAX_DEGREES = H_MAX_ENCODER_TICKS * H_DEGREES_PER_TICK;
     private static final double H_TOLERANCE = 0.5;
-    public static final double DEFAULT_HORIZONTAL_ENCODER_PERCENT = 0.2;
+    public final double DEFAULT_HORIZONTAL_ENCODER_PERCENT = 0.2;
 
     //Constants aquired from CAD team used for trig calculations (millimeters):
     public static final double TURRET_SIDE_A = 244.475;
@@ -113,7 +109,7 @@ public class Turret implements Subsystem {
 
         double error = target - ticks;
         double speed = 0.2;
-        
+
         SmartDashboard.putNumber("Turret Normal", ticks);
         SmartDashboard.putNumber("Turret Target", target);
         //FIXME: Move the magic number (0.03) to a constant. Document it.

@@ -132,7 +132,7 @@ public class RobotContainer {
     SmartDashboard.putData("Shoot: default", new Shoot(shooter,0.4));
     //SmartDashboard.putData("TurretCommand", new TurretCommand());
     SmartDashboard.putData("RunIntake: default", new RunIntake(intake, 0.4));
-    SmartDashboard.putData("DriveXFeetMM: default", new DriveXFeetMM(0, 0, 30, drivetrain));
+    SmartDashboard.putData("DriveXFeetMM: default", new DriveXFeetMM(30, drivetrain));
     //SmartDashboard.putData("TurnNDegreesAbsolute: default", new TurnNDegreesAbsolute(180));
     SmartDashboard.putData("InvertDrive", new InvertDrive(drivetrain));
     SmartDashboard.putData("QuarterSpeed", new QuarterSpeed(drivetrain));

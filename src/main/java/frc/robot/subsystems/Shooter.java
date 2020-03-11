@@ -10,21 +10,11 @@
 
 package frc.robot.subsystems;
 
-import frc.robot.RobotContainer;
-import frc.robot.commands.*;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Subsystem;
-import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.PIDSource;
-import edu.wpi.first.wpilibj.Solenoid;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
-
 
 /**
  *
@@ -68,7 +58,7 @@ private WPI_TalonFX motorShooter;
 
     private final int TIMEOUT_MS = 10;
     private static final int MAX_TICKS_PER_SEC = 20000;
-    public static final double XBOX_INCREASE_DECREASE_SHOOTER_SPEED = 0.02;
+    public final double XBOX_INCREASE_DECREASE_SHOOTER_SPEED = 0.02;
 
     public Shooter() {
 

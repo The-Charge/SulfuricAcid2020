@@ -1,17 +1,14 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.*;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Subsystem;
-import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.PIDSource;
-import javax.print.attribute.standard.OutputDeviceAssigned;
-import com.fasterxml.jackson.databind.ser.impl.FailingSerializer;
-import edu.wpi.first.wpilibj.DigitalInput;
 
 public class BallSensor implements Subsystem {
+    /*
+    The BallSensor class senses the amount of balls that go into the indexer, and the amount
+    of balls that goes out.
+    */
 
     boolean in = false;
     boolean out = false;
@@ -27,12 +24,6 @@ public class BallSensor implements Subsystem {
     setDefaultCommand(new BallCounter(this));
     m_indexer = indexer;
     m_stopper = stopper;
-    }
-    
-
-    @Override
-    public void periodic() {
-        // Put code here to be run every loop
     }
 
     public void setBallsgained(){
@@ -60,8 +51,7 @@ public class BallSensor implements Subsystem {
         SmartDashboard.putNumber("BallSensor # of Balls: ",output);
     }
 
-    public static int getOutput()
-    {
+    public static int getOutput(){
         return output;
     }
 }
