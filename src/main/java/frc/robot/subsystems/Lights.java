@@ -41,7 +41,6 @@ public class Lights implements Subsystem {
 
         if (vision.equals("Locked"))
         {
-            //FIXME: Move the magic numbers (242, 170, 53) to constants. Document them.
             canifier.setLEDOutput(242, CANifier.LEDChannel.LEDChannelA);
             canifier.setLEDOutput(170 ,CANifier.LEDChannel.LEDChannelB);
             canifier.setLEDOutput(53, CANifier.LEDChannel.LEDChannelC);
@@ -49,8 +48,6 @@ public class Lights implements Subsystem {
         else{
             if(BallSensor.getOutput() == 1)   
             {
-                //FIXME: Move the magic numbers (250, 250, 35) to constants. Document them.
-                // Note that there are more below, be sure to get them as well.
                 canifier.setLEDOutput(250, CANifier.LEDChannel.LEDChannelA);
                 canifier.setLEDOutput(250, CANifier.LEDChannel.LEDChannelB);
                 canifier.setLEDOutput(35, CANifier.LEDChannel.LEDChannelC);

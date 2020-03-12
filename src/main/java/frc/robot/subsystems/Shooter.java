@@ -103,7 +103,6 @@ private WPI_TalonFX motorShooter;
 
     public boolean Speed(double speed)
     {
-        //FIXME: Should split this line into a couple, one to calculate the current % speed, one to calculate the error, one to return
         double PercentSpeed = (Math.abs(getCurrentSpeed()/MAX_TICKS_PER_SEC - speed));
         return (PercentSpeed < AtSpeed);
     }

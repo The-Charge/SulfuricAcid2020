@@ -36,6 +36,8 @@ private DigitalInput ballIn;
     public final static int PID_SLOT_SPEED_MODE = 0;
 
     private final int TIMEOUT_MS = 10;
+    private final double BALL_SENSED_IN_SPEED = .4;
+    private final double BALL_SENSED_OUT_SPEED = .1;
     private static final int MAX_TICKS_PER_SEC = 130000;
 
     public Indexer(Stopper stopper) {
@@ -80,11 +82,11 @@ private DigitalInput ballIn;
         else if (m_stopper.ballSensedOut())
         {
             //FIXME: Move the magic numbers (0.1, 0.4) to constants. Document them
-            setSpeed = 0.1*setSpeed;
+            setSpeed = BALL_SENSED_OUT_SPEED*setSpeed;
         }
         else if (ballSensedIn())
         {
-            setSpeed = 0.4*setSpeed;
+            setSpeed = BALL_SENSED_IN_SPEED*setSpeed;
         }
         else 
         {
