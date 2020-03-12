@@ -11,12 +11,9 @@
 package frc.robot.commands;
 
 import com.revrobotics.ColorMatch;
-//import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
-import frc.robot.Robot;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanel;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -49,6 +46,7 @@ public class PositionsControl extends CommandBase {
     public void initialize() {
         String gameData = DriverStation.getInstance().getGameSpecificMessage();
          
+        //FIXME: Move the makeColors to constants. 
         Color desiredColor = ColorMatch.makeColor(0.143, 0.427, 0.429);
         if (gameData.equals("B")) desiredColor = ColorMatch.makeColor(0.143, 0.427, 0.429);
         if (gameData.equals("G")) desiredColor = ColorMatch.makeColor(0.197, 0.561, 0.240);
@@ -81,6 +79,7 @@ public class PositionsControl extends CommandBase {
         
     }
 
+    //FIXME: Remove excess comments
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     

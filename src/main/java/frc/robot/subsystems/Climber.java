@@ -10,16 +10,10 @@
 
 package frc.robot.subsystems;
 
-import frc.robot.commands.*;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -92,6 +86,9 @@ goingUp = false;
  
     public void limitCurrent()
     {
+        //FIXME: If you don't know the exact number, put a TODO to find a close enough value
+        // Or make a NOTE that you tested is this is a close enough value
+        //FIXME: Move the magic numbers (40, 100, 35) to constants. Document them
         //Don't know the exact max current number
         climberMotor.configPeakCurrentLimit(40); // don't activate current limit until current exceeds 30 A ...
         climberMotor.configPeakCurrentDuration(100); // ... for at least 100 ms

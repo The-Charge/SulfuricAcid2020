@@ -13,7 +13,6 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.MathUtil;
-import frc.robot.Robot;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.RobotContainer;
 
@@ -22,7 +21,7 @@ import frc.robot.RobotContainer;
  */
 public class TankDrive extends CommandBase {
 
-    private final Drivetrain m_subsystem;
+    public final Drivetrain m_subsystem;
 
     public TankDrive(Drivetrain subsystem) {
         m_subsystem = subsystem;
@@ -33,6 +32,8 @@ public class TankDrive extends CommandBase {
     // Called just before this Command runs the first time
     @Override
     public void initialize() {
+        // FIXME: initializeMotors takes care of setting up invert/follow/etc. 
+        // Remove it from here.
         m_subsystem.initializeMotors();
         m_subsystem.limitCurrent();
         m_subsystem.setPercentVBus();
@@ -48,6 +49,9 @@ public class TankDrive extends CommandBase {
         rightSpeed = MathUtil.adjSpeed(rightSpeed);
         leftSpeed = MathUtil.adjSpeed(leftSpeed);
 
+        //FIXME: Use better names for smartdashboard keys
+        // Would strongly recommend starting with class name. IE: DriveTrain left speed set
+        // Prevents key collision and helps speed up debugging
         SmartDashboard.putNumber("leftSpeed", leftSpeed);
         SmartDashboard.putNumber("rightSpeed", rightSpeed);
 

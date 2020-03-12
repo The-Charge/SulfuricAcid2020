@@ -10,10 +10,7 @@
 
 
 package frc.robot.commands;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Robot;
-import frc.robot.RobotContainer;
+
 import frc.robot.subsystems.BallSensor;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -21,6 +18,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  *
  */
+//FIXME: Would be better to have the subsystem handle it's own counting in it's periodic() method
+// If you do, get rid of this command
 public class BallCounter extends CommandBase {
 
     private final BallSensor m_BallSensor;
@@ -30,6 +29,7 @@ public class BallCounter extends CommandBase {
         addRequirements(m_BallSensor);
     }
 
+    //FIXME: If it's an empty method, remove it.
     // Called just before this Command runs the first time
     @Override
     public void initialize() { 
@@ -51,11 +51,13 @@ public class BallCounter extends CommandBase {
 
     // Called once after isFinished returns true
     
+    //FIXME: If it's an empty method, remove it.
     public void end() { 
 
     
        }
 
+    //FIXME: Clean up excess comments
     // Called when another command which requires one or more of the same
 
 }

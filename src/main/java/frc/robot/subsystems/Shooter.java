@@ -10,21 +10,11 @@
 
 package frc.robot.subsystems;
 
-import frc.robot.RobotContainer;
-import frc.robot.commands.*;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Subsystem;
-import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.PIDSource;
-import edu.wpi.first.wpilibj.Solenoid;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
-
 
 /**
  *
@@ -67,7 +57,8 @@ public WPI_TalonFX motorShooter;
     public double SHOOTER_OUTWARD_MULTIPLIER = 0;
 
     private final int TIMEOUT_MS = 10;
-    public static final double MAX_TICKS_PER_SEC = 20000.0;
+    private static final int MAX_TICKS_PER_SEC = 20000;
+    public final double XBOX_INCREASE_DECREASE_SHOOTER_SPEED = 0.02;
 
     public Shooter() {
 
@@ -120,8 +111,12 @@ public WPI_TalonFX motorShooter;
     public double getCurrentSpeed(){
         return motorShooter.getSelectedSensorVelocity();
     }
+
+    // FIXME: Should rename this as "speed" is actually a %, not the actual speed (in ticks per second)
     public boolean isAtSpeed(double speed)
     {
+        //FIXME: Move the magic number (0.1) to constants. Document them.
+        //FIXME: Should split this line into a couple, one to calculate the current % speed, one to calculate the error, one to return
         return (Math.abs(getCurrentSpeed()/MAX_TICKS_PER_SEC - speed) < .1);
     }
     public boolean checkTemp()

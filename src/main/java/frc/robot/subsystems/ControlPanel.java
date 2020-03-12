@@ -10,21 +10,10 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.subsystems.*;
-import frc.robot.RobotContainer;
-import frc.robot.commands.*;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Subsystem;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.I2C; //not sure if I need this. This is for the port
-import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.util.Color;
-import edu.wpi.first.wpilibj.*;
-
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class ControlPanel implements Subsystem {
@@ -38,12 +27,8 @@ private WPI_TalonSRX controlPanelMotor;
 
   
     public ControlPanel() {
-
     controlPanelMotor = new WPI_TalonSRX(11);
     }
-
- 
-    
 
     @Override
     public void periodic() {
@@ -57,22 +42,28 @@ public void stop(){
 }
 
 public void rotateX(ColorSensor m_colorSensor) {
+  //FIXME: Use better names for smartdashboard keys
+  // Would strongly recommend starting with class name. IE: DriveTrain left speed set
+  // Prevents key collision and helps speed up debugging
   SmartDashboard.putNumber("Counter", ctr);
   currentColor = m_colorSensor.getColorString();
   confidences = m_colorSensor.getConfidence();
   //System.out.println(confidences);
   
   //while (ctr<16){
+    //FIXME: Move the magic numbers (26, 0.5) to a constants. Document.
     if (ctr<26){
       controlPanelMotor.set(0.5);
     }
 
+    //FIXME: Remove these. I should not be seeing STDOUT anywhere in the code
     //System.out.println("TEMP:" + temp + temp + temp + temp + temp);
     //System.out.println("CURRENT:" + currentColor + currentColor + currentColor + currentColor + currentColor);
     //System.out.println("Check:" + ctr);
     //System.out.println("Confidence " + confidences);
 
     //everytime the color changes counter goes up
+    //FIXME: Move the magic number (.935) to a constant. Document it
     if (currentColor!= temp && confidences>.935) {
       ctr++;
       temp = currentColor;
@@ -83,6 +74,7 @@ public void rotateX(ColorSensor m_colorSensor) {
 public void rotateColor(Color desiredColor, ColorSensor colorSensor){
   Color currentColor = colorSensor.getColor();
   confidences = colorSensor.getConfidence();
+  //FIXME: Move the magic numbers (.8, 0.5) to constants. Document them
   if(!desiredColor.equals(currentColor) && confidences>.8){ 
     controlPanelMotor.set(.5);
   }
@@ -101,6 +93,7 @@ public void setBrakeMode(){
   controlPanelMotor.setNeutralMode(NeutralMode.Coast);
   }
 
+  //FIXME: Remove excess comments
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 

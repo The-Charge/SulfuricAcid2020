@@ -10,12 +10,8 @@
 
 package frc.robot.subsystems;
 
-import frc.robot.commands.*;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Subsystem;
-import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.PIDSource;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -59,6 +55,9 @@ private WPI_TalonSRX intakeMotor;
     @Override
     public void periodic() {
       
+        //FIXME: Use better names for smartdashboard keys
+        // Would strongly recommend starting with class name. IE: DriveTrain left speed set
+        // Prevents key collision and helps speed up debugging
         SmartDashboard.putBoolean("OnBall", onBall());
         
     }
@@ -87,7 +86,11 @@ private WPI_TalonSRX intakeMotor;
 	}
 
     public void setPercentSpeedPID(double setSpeed) {
+        //FIXME: Use better names for smartdashboard keys
+        // Would strongly recommend starting with class name. IE: DriveTrain left speed set
+        // Prevents key collision and helps speed up debugging
         SmartDashboard.putNumber("SetSpeed", setSpeed);
+        //FIXME: Move these to periodic()
         SmartDashboard.putNumber("CurrentSpeed", intakeMotor.getSelectedSensorPosition());
         SmartDashboard.putNumber("CurrentIntake", intakeMotor.getStatorCurrent());
         intakeMotor.set(ControlMode.Velocity, MAX_TICKS_PER_SEC * setSpeed);
@@ -107,6 +110,7 @@ private WPI_TalonSRX intakeMotor;
 	public void setCoastMode(){
         intakeMotor.setNeutralMode(NeutralMode.Coast);
     }
+    //FIXME: Call this in the constructor
 	public void initializeMotor()
     {
         intakeMotor.setInverted(true);

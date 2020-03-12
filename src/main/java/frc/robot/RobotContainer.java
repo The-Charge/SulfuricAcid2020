@@ -124,10 +124,8 @@ public class RobotContainer {
  
     // SmartDashboard Buttons
     SmartDashboard.putData("Run Vision", new RunTurretVision(turret, 0.4));
-    SmartDashboard.putData("Turn On Lights", new TurnOnVisionLights(turret));
     SmartDashboard.putData("Reset Encoder", new ResetTurretEncoder(turret));
     SmartDashboard.putData("Zero Turret", new TurretToZero(turret));
-    SmartDashboard.putData("Turn Off Lights", new TurnOffVisionLights(turret));
     SmartDashboard.putData("TankDrive", new TankDrive(drivetrain));
     SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
     SmartDashboard.putData("ShiftHigh", new ShiftHigh(shifters));
@@ -135,7 +133,7 @@ public class RobotContainer {
     SmartDashboard.putData("Shoot: default", new Shoot(shooter,0.4));
     //SmartDashboard.putData("TurretCommand", new TurretCommand());
     SmartDashboard.putData("RunIntake: default", new RunIntake(intake, 0.4));
-    SmartDashboard.putData("DriveXFeetMM: default", new DriveXFeetMM(0, 0, 30, drivetrain));
+    SmartDashboard.putData("DriveXFeetMM: default", new DriveXFeetMM(30, drivetrain));
     //SmartDashboard.putData("TurnNDegreesAbsolute: default", new TurnNDegreesAbsolute(180));
     SmartDashboard.putData("InvertDrive", new InvertDrive(drivetrain));
     SmartDashboard.putData("QuarterSpeed", new QuarterSpeed(drivetrain));
@@ -156,7 +154,7 @@ public class RobotContainer {
     SmartDashboard.putNumber("TurnPID P:", 0.05);
     SmartDashboard.putNumber("TurnPID I:", 0.00004);
     SmartDashboard.putNumber("TurnPID D:", 0.0025);
-    SmartDashboard.putData("Set Balls 0", new BallDetector(ballSensor));
+    SmartDashboard.putData("Set Balls 0", new BallCounterReset(ballSensor));
 
     //SmartDashboard.putData("Reinitialize PIDController:", new ReinitializePIDController());
   }
@@ -246,7 +244,8 @@ private void configureButtonBindings() {
 
   }
 
-  
+  //FIXME: Would recommend moving the Auton Command generating methods to a separate AutonomousCommandContainer
+  // Could also argue having each one be in it's own class to make it easier to find one when it breaks.
   public Command getAutonomousCorner() {
 
     // Create a voltage constraint to ensure we don't accelerate too fast
@@ -277,9 +276,7 @@ private void configureButtonBindings() {
       String trajectoryJSON = "paths/Corner.wpilib.json";
     Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
     Trajectory exampleTrajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
-    System.out.println(exampleTrajectory);
     exampleTrajectory = exampleTrajectory.transformBy(new Transform2d(new Pose2d(0, 0, new Rotation2d(0)), new Pose2d(-4, 6, new Rotation2d(0))));
-    System.out.println(exampleTrajectory);
     RamseteCommand ramseteCommand = new RamseteCommand(
         exampleTrajectory,
         drivetrain::getPose,

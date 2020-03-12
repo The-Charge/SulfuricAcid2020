@@ -3,6 +3,7 @@ package frc.robot;
 //import org.usfirst.frc2619.Plybot2020.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+//FIXME: WPILib now provides it's own MathUtil class. Should rename this to avoid conflict/confusion
 public class MathUtil {
 
 	public static double calcDirection(double current, double desired) {
@@ -16,6 +17,7 @@ public class MathUtil {
 		return direction;
 	}	//return +1 if direction is CW, -1 if CCW - copied from SteamBot
 
+	//FIXME: WPILib now provides it's own MathUtil.clamp. Can remove this.
 	//limits a value to a max and min
 	public static double clamp(double input, double min, double max){
 		input = input < min ? min : input;

@@ -11,7 +11,6 @@
 
 package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
 import frc.robot.subsystems.Lights;
 
 
@@ -53,6 +52,7 @@ public class ChangeLights extends CommandBase {
         m_lights.onStop();
     }
 
+    //FIXME: Clean up excess comments
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     

@@ -11,13 +11,12 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
 import frc.robot.subsystems.Stopper;
-import frc.robot.subsystems.Shooter;
 
 /**
  *
  */
+//FIXME: This should be an instant command
 public class OpenStopper extends CommandBase {
     private final Stopper m_stopper;
     
@@ -33,6 +32,7 @@ public class OpenStopper extends CommandBase {
         m_stopper.openStopper();
     }
 
+    //FIXME: If it's an empty method, remove it.
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
@@ -45,6 +45,7 @@ public class OpenStopper extends CommandBase {
         return true;
     }
 
+    //FIXME: If it's an empty method, remove it.
     // Called once after isFinished returns true
     @Override
     public void end(boolean interrupted) {

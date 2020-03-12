@@ -10,13 +10,9 @@
 
 package frc.robot.subsystems;
 
-import frc.robot.commands.*;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 //import edu.wpi.first.wpilibj.
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -34,6 +30,7 @@ public class Indexer implements Subsystem {
 
 private WPI_TalonSRX indexerMotorLF;
 private WPI_TalonSRX indexerMotorRF;
+//FIXME: This is unused. Remove.
 private Intake m_intake;
 private DigitalInput ballIn;
 private int timer;
@@ -57,6 +54,7 @@ private int timer;
     private final int TIMEOUT_MS = 10;
     private static final int MAX_TICKS_PER_SEC = 130000;
 
+    //FIXME: This is unused, remove
     private final SpeedControllerGroup indexerMotors 
 = new SpeedControllerGroup(indexerMotorRF,indexerMotorLF);
 
@@ -93,6 +91,7 @@ timer = 1000;
     	indexerMotorLF.config_kF(PID_SLOT_SPEED_MODE, speedF, TIMEOUT_MS);
 
         indexerMotorLF.selectProfileSlot(PID_SLOT_SPEED_MODE, 0);
+        //FIXME: Unless you intend on uncommenting this soon, remove it
         /*
         indexerMotorRF.set(ControlMode.Velocity, 0);
         
@@ -114,18 +113,20 @@ timer = 1000;
         }
         else if (m_stopper.ballSensedOut())
         {
-            setSpeed = 0.25*setSpeed;
+            //FIXME: Move the magic numbers (0.1, 0.4) to constants. Document them
+            setSpeed = 0.1*setSpeed;
         }
-        else if (ballSensedIn() || wasBallSensedIn())
+        else if (ballSensedIn())
         {
-            setSpeed = 0.45*setSpeed;
+            setSpeed = 0.4*setSpeed;
         }
-        else
-         setSpeed = 0*setSpeed;
+        //FIXME: Consistency. If you're using curly braces for one-line ifs, keep using them
+        else setSpeed = 0*setSpeed;
        
+        //FIXME: Use better names for smartdashboard keys
+        // Would strongly recommend starting with class name. IE: DriveTrain left speed set
+        // Prevents key collision and helps speed up debugging
         SmartDashboard.putNumber("PID Val", setSpeed);
-        SmartDashboard.putBoolean("BallSensedIn", ballSensedIn());
-        SmartDashboard.putBoolean("WasBallSensed", wasBallSensedIn());
         indexerMotorLF.set(ControlMode.Velocity, MAX_TICKS_PER_SEC * setSpeed);
         //indexerMotorRF.set(ControlMode.Velocity, MAX_TICKS_PER_SEC * setSpeed);
     }

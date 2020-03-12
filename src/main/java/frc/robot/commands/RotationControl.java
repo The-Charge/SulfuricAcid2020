@@ -11,14 +11,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
-//import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Robot;
 import frc.robot.subsystems.ColorSensor;
-//import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.ControlPanel;
-
-import com.revrobotics.ColorMatch;
 
 /**
  *
@@ -53,6 +47,9 @@ public class RotationControl extends CommandBase {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     public boolean isFinished() {
+        //FIXME: The part in the if-statement (foo>bar) is a boolean. Just return that
+        //FIXME: Move the magic number (26) to a constant. Document it
+        // Since the same number is used in the subsystem, would use that one.
         if (m_controlPanel.getCounter()>26) return true;
         return false;
     }
@@ -63,6 +60,7 @@ public class RotationControl extends CommandBase {
         m_controlPanel.stop();
     }
 
+    //FIXME: Remove excess comments
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     

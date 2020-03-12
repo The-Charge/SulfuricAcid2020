@@ -43,6 +43,9 @@ public final class Constants {
 
     public static final boolean kGyroReversed = true;
 
+    //FIXME: "DO NOT USE THESE FOR YOUR OWN ROBOT"
+    // Either put a TODO saying to tune these, or remove the comment and add one saying you tuned it.
+
     // These are example values only - DO NOT USE THESE FOR YOUR OWN ROBOT!
     // These characterization values MUST be determined either experimentally or theoretically
     // for *your* robot's drive.

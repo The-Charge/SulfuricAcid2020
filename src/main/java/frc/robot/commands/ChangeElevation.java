@@ -10,10 +10,7 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.Turret;
 
 /**
@@ -29,11 +26,6 @@ public class ChangeElevation extends CommandBase {
         addRequirements(m_turret);
     }
 
-    // Called just before this Command runs the first time
-    @Override
-    public void initialize() {
-
-    }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
@@ -47,9 +39,5 @@ public class ChangeElevation extends CommandBase {
         return true;
     }
 
-    // Called once after isFinished returns true
-    @Override
-    public void end(boolean interrupted) {
-      
-    }
+    
 }

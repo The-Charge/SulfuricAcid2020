@@ -10,9 +10,7 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Turret;
 
@@ -20,7 +18,7 @@ import frc.robot.subsystems.Turret;
  *
  */
 public class RunTurretManual extends CommandBase {
-    private double m_turretHorizontal, m_turretVertical;
+    private double m_turretHorizontal;
     private final Turret m_turret;
     //private boolean manualActivated = false;
     
@@ -29,10 +27,10 @@ public class RunTurretManual extends CommandBase {
         addRequirements(m_turret);
     }
 
-    public RunTurretManual(Turret turret, double turretHorizontal, Double turretVertical) {
+    //FIXME: You're not using this constructor, remove it
+    public RunTurretManual(Turret turret, double turretHorizontal) {
         m_turret = turret;
         m_turretHorizontal = turretHorizontal;
-        m_turretVertical = turretVertical;
         addRequirements(m_turret);
     }
 

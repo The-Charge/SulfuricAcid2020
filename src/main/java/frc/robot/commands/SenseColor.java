@@ -20,6 +20,7 @@ public class SenseColor extends CommandBase {
     addRequirements(m_colorSensor);
   }
 
+    //FIXME: If it's an empty method, remove it.
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
@@ -32,6 +33,7 @@ public class SenseColor extends CommandBase {
       m_colorSensor.ColorSensed();
   }
 
+    //FIXME: If it's an empty method, remove it.
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
