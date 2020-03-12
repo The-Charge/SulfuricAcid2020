@@ -80,7 +80,7 @@ public class RobotContainer {
   public static Joystick leftJoystick;
   public static Joystick rightJoystick;
   public static Joystick buttonBox;
-  public static XboxController Xbox;
+  public static Joystick Xbox;    //was XboxController
 
   //JOYSTICK BUTTONS
   public JoystickButton shiftHighWPBtn;
@@ -163,7 +163,7 @@ private void configureButtonBindings() {
     leftJoystick = new Joystick(0);
     rightJoystick = new Joystick(1);
     buttonBox = new Joystick(2);
-    Xbox = new XboxController(3);
+    Xbox = new Joystick(3);
 
     //reverse intake
     runIntakeInverseBtn = new JoystickButton(buttonBox, 1);
@@ -245,7 +245,7 @@ private void configureButtonBindings() {
     leftJoystick = new Joystick(0);
     rightJoystick = new Joystick(1);
     buttonBox = new Joystick(2);
-    Xbox = new XboxController(3);
+    Xbox = new Joystick(3);
 
     //reverse intake
     runIntakeInverseBtn = new JoystickButton(buttonBox, 8);
