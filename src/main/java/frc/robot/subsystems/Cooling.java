@@ -42,7 +42,7 @@ public class Cooling implements Subsystem {
         
        
     }
-    public void cool()
+    public void cool()  //if check temp in either drive train or shooter and activate the solenoids if true
     {
         SmartDashboard.putBoolean("Shooter Temp", m_shooter.checkTemp());
         if (m_drivetrain.checkTemp() || m_shooter.checkTemp())

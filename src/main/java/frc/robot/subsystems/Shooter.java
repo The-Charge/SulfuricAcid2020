@@ -80,16 +80,16 @@ public WPI_TalonFX motorShooter;
         SmartDashboard.putBoolean("Shooter Speed", isAtSpeed(getCurrentSpeed()));
     }
 
-    public void stop(){
+    public void stop(){ //stops the shooter motor
         motorShooter.set(0); 
         motorShooter.setNeutralMode(NeutralMode.Coast);
     }
 
-    public void run(double pow) {    	
+    public void run(double pow) {       //sets the shooter speed 	
         motorShooter.set(pow);     
     }
 
-    public void initSpeedMode() {    	
+    public void initSpeedMode() {    	//sets the pids
     	motorShooter.set(ControlMode.Velocity, 0);
         
         motorShooter.config_kP(PID_SLOT_SPEED_MODE, speedP, TIMEOUT_MS);
@@ -102,14 +102,14 @@ public WPI_TalonFX motorShooter;
         motorShooter.set(ControlMode.Velocity, 0);
     }
 
-    public void setPercentSpeedPID(double setSpeed) {
+    public void setPercentSpeedPID(double setSpeed) {   //sets the speed
         SmartDashboard.putNumber("Shooter PID Val", setSpeed);
         motorShooter.set(ControlMode.Velocity, MAX_TICKS_PER_SEC * setSpeed);
         //motorShooter.set(ControlMode.PercentOutput, setSpeed);
   
     }
     
-    public int getTicksPerSecondLeft(){
+    public int getTicksPerSecondLeft(){ 
         return motorShooter.getSelectedSensorVelocity();
     }
 
@@ -124,7 +124,7 @@ public WPI_TalonFX motorShooter;
     {
         return (Math.abs(getCurrentSpeed()/MAX_TICKS_PER_SEC - speed) < .1);
     }
-    public boolean checkTemp()
+    public boolean checkTemp()  //checks the temp
     {
         SmartDashboard.putNumber("Temp", motorShooter.getTemperature());
         if (motorShooter.getTemperature() > 35)

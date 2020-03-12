@@ -129,7 +129,7 @@ private final SpeedControllerGroup m_rightMotors =
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
-    public void run(double l, double r)
+    public void run(double l, double r) //runs the motors
     {
         double leftSpeed = l;
         double rightSpeed = r;
@@ -151,20 +151,20 @@ private final SpeedControllerGroup m_rightMotors =
         }
     }
 
-    public void stop()
+    public void stop()  //sets motors to 0
     {
         leftFrontMotor.set(0);
         rightFrontMotor.set(0);
     }
 
-    public void setPercentVBus()
+    public void setPercentVBus()  //sets to percent output mode
     {
      
         leftFrontMotor.set(ControlMode.PercentOutput, 0);
         rightFrontMotor.set(ControlMode.PercentOutput, 0);
     }
 
-    public void initSpeedMode()
+    public void initSpeedMode() //sets pids
     {
 		leftFrontMotor.set(ControlMode.Velocity, 0);
         rightFrontMotor.set(ControlMode.Velocity, 0);
@@ -181,11 +181,11 @@ private final SpeedControllerGroup m_rightMotors =
         rightFrontMotor.config_kF(1, SPEED_F_CONSTANT, TIMEOUT_MS);
         
 	}
-    public void setControlMode(ControlMode mode) {
+    public void setControlMode(ControlMode mode) {  //sets to control mode
  		leftFrontMotor.set(mode, 0);
         rightFrontMotor.set(mode, 0);
     }
-	 public ControlMode getControlMode() {
+	 public ControlMode getControlMode() { 
         return leftFrontMotor.getControlMode();
     }
     public AHRS getGyro() {
@@ -199,7 +199,7 @@ private final SpeedControllerGroup m_rightMotors =
 		return m_gyro.pidGet();
 		}
 	 
-	 public void setPercentSpeedPID (double setSpeedL, double setSpeedR)
+	 public void setPercentSpeedPID (double setSpeedL, double setSpeedR)  //sets speeds of motors
     {
         setSpeedR = MathUtil.clamp(setSpeedR, -1, 1);
 		 setSpeedL = MathUtil.clamp(setSpeedL, -1, 1);
@@ -207,10 +207,10 @@ private final SpeedControllerGroup m_rightMotors =
         rightFrontMotor.set(ControlMode.Velocity, MAX_TICKS_PER_SECOND * setSpeedR);
     }
        
-	public boolean getReversed(){
+	public boolean getReversed(){ //checks if reversed is true
         return isReversed;
     }
-    public void setReversed(boolean r){
+    public void setReversed(boolean r){ //setter for isreversed
         isReversed = r;
     }
 	 public void writePIDs(double output){

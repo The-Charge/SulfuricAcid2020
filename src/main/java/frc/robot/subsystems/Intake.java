@@ -66,11 +66,11 @@ private WPI_TalonSRX intakeMotor;
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
-    public void run (double setPower) {
+    public void run (double setPower) {     //runs the intake
         intakeMotor.set(setPower);
 	}
 
-    public void initSpeedMode() {    
+    public void initSpeedMode() {    //sets the intke pids
         intakeMotor.setInverted(true);	
     	intakeMotor.set(ControlMode.Velocity, 0);
         
@@ -82,11 +82,11 @@ private WPI_TalonSRX intakeMotor;
     	intakeMotor.selectProfileSlot(PID_SLOT_SPEED_MODE, 0);
     }
 
-	public void stop() {
+	public void stop() {    //stops the intake
         intakeMotor.set(0);
 	}
 
-    public void setPercentSpeedPID(double setSpeed) {
+    public void setPercentSpeedPID(double setSpeed) {   //sets intake speed
         SmartDashboard.putNumber("SetSpeed", setSpeed);
         SmartDashboard.putNumber("CurrentSpeed", intakeMotor.getSelectedSensorPosition());
         SmartDashboard.putNumber("CurrentIntake", intakeMotor.getStatorCurrent());
@@ -94,7 +94,7 @@ private WPI_TalonSRX intakeMotor;
     
     }
 
-	public void setPercentVBus() {
+	public void setPercentVBus() {  
         intakeMotor.set(ControlMode.PercentOutput, 0);
 	}
 

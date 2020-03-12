@@ -78,13 +78,13 @@ timer = 1000;
     {
       
     }
-    public void stop(){
+    public void stop(){ //sets the indexer motors to 0
         indexerMotorLF.set(0);
         indexerMotorRF.set(0);
     
     }
 
-    public void initSpeedMode() {    	
+    public void initSpeedMode() {    	//sets the pids for the indexer
     	indexerMotorLF.set(ControlMode.Velocity, 0);
         
         indexerMotorLF.config_kP(PID_SLOT_SPEED_MODE, speedP, TIMEOUT_MS);
@@ -106,7 +106,7 @@ timer = 1000;
     }
 
     
-    public void setPercentSpeedPID(double setSpeed, boolean shooterOpen) {
+    public void setPercentSpeedPID(double setSpeed, boolean shooterOpen) {  //sets the indexer speed
         //boolean wasBall = wasBallSensedIn();
         if (shooterOpen || setSpeed < 0)
         {
@@ -132,7 +132,7 @@ timer = 1000;
 
     
 
-    private boolean wasBallSensedIn() {
+    private boolean wasBallSensedIn() { //checks if a ball has been sensed for the past 30 seconds
         if (ballSensedIn()){
             timer = 0;
         }
@@ -141,7 +141,7 @@ timer = 1000;
         else return false;
     }
 
-    public int getTicksPerSecondLeft() {
+    public int getTicksPerSecondLeft() {    
         return indexerMotorLF.getSelectedSensorVelocity();
     }
 
@@ -162,7 +162,7 @@ timer = 1000;
         indexerMotorRF.setNeutralMode(NeutralMode.Brake);
         indexerMotorLF.setNeutralMode(NeutralMode.Brake);
     }
-    public boolean ballSensedIn(){
+    public boolean ballSensedIn(){  //checks if a ball is sensed
         return ballIn.get();
     }
 }

@@ -92,7 +92,7 @@ System.out.println(output);
     SmartDashboard.putNumber("Ball Count ",output); //puts number of balls on the smartdashboard
 
 }
-public static int getOutput()
+public static int getOutput()   //getter for the output data member
 {
     return output;
 }

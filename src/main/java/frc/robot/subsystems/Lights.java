@@ -66,7 +66,7 @@ public class Lights implements Subsystem {
 
     public boolean isDone(){return false;}
    
-    public void changeLight()
+    public void changeLight()   //changes the light in different situations
     {
         vision = m_turret.getVisionString();
 
