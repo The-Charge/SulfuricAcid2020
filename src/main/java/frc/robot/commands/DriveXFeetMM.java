@@ -15,7 +15,12 @@ public class DriveXFeetMM extends CommandBase {
         addRequirements(m_subsystem);
     }
 
-    // Called just before this Command runs the first time
+
+    public DriveXFeetMM(int velocity, int acceleration, double distance, Drivetrain subsystem) {
+        m_distance = distance;
+        m_subsystem = subsystem;
+        addRequirements(m_subsystem);
+    }
     @Override
     public void initialize() {
         // Robot.drivetrain.ResestEncoder();
@@ -24,11 +29,8 @@ public class DriveXFeetMM extends CommandBase {
 
         // else -- not necessary but may be used later during the season
         // Robot.drivetrain.MotionMagicInit(m_distance, m_velocity, m_acceleration);
-
     }
-
-    // Make this return true when this Command no longer needs to run execute()
-    @Override
+    // Called repeatedly when this Command is scheduled to run
     public boolean isFinished() {
         return m_subsystem.isAtPIDDestination();
     }

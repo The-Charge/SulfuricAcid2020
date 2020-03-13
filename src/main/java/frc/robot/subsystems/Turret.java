@@ -1,9 +1,12 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.robot.commands.RunTurretVision;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -21,7 +24,10 @@ public class Turret implements Subsystem {
     public static final double TURRET_SIDE_A = 244.475;
     public static final double TURRET_SIDE_B = 369.4176;
     private static final int TIMEOUT_MS = 10;
+    private static final int horizontalSetpoint = 0;
+    private static final int H_TOLERANCE_VISION = 0;
     private final WPI_TalonSRX turretMotor;
+    private final Servo elevationServo;
     private final Relay visionLights;
    
 

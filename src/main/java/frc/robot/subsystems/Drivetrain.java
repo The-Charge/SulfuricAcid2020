@@ -335,4 +335,11 @@ private final SpeedControllerGroup m_rightMotors =
       leftFrontMotor.configOpenloopRamp(0.5);
       leftMidMotor.configOpenloopRamp(0.5);
    }
+
+	public boolean checkTemp() {
+		return false;
+	}
+
+	public void limitCurrent() {
+	}
 }

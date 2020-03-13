@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.robot.commands.Cool;
 import edu.wpi.first.wpilibj.Solenoid;
 
 public class Cooling implements Subsystem {

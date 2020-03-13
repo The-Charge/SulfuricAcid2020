@@ -127,7 +127,6 @@ public class RobotContainer {
     SmartDashboard.putData("Reset Encoder", new ResetTurretEncoder(turret));
     SmartDashboard.putData("Zero Turret", new TurretToZero(turret));
     SmartDashboard.putData("TankDrive", new TankDrive(drivetrain));
-    SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
     SmartDashboard.putData("ShiftHigh", new ShiftHigh(shifters));
     SmartDashboard.putData("ShiftLow", new ShiftLow(shifters));
     SmartDashboard.putData("Shoot: default", new Shoot(shooter,0.4));
