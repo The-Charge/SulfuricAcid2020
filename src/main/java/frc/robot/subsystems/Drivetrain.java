@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.kauailabs.navx.frc.AHRS;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -336,10 +337,23 @@ private final SpeedControllerGroup m_rightMotors =
       leftMidMotor.configOpenloopRamp(0.5);
    }
 
-	public boolean checkTemp() {
-		return false;
-	}
+   public boolean checkTemp()
+   {
+       if (rightFrontMotor.getTemperature()> MAX_TEMP || rightMidMotor.getTemperature()> MAX_TEMP || rightBackMotor.getTemperature()> MAX_TEMP || leftFrontMotor.getTemperature()> MAX_TEMP || leftMidMotor.getTemperature()> MAX_TEMP || leftBackMotor.getTemperature()> MAX_TEMP)
+           return true;
+       else
+           return false;
+   }
+   public void limitCurrent()
+   {
+     
+     rightFrontMotor.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 40, 45, 0.5));
+     rightMidMotor.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 40, 45, 0.5));
+     rightBackMotor.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 40, 45, 0.5));
 
-	public void limitCurrent() {
-	}
+     leftFrontMotor.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 40, 45, 0.5));
+     leftMidMotor.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 40, 45, 0.5));
+     leftBackMotor.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 40, 45, 0.5));
+   }
+
 }

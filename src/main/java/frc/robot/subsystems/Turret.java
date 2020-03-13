@@ -25,7 +25,7 @@ public class Turret implements Subsystem {
     public static final double TURRET_SIDE_B = 369.4176;
     private static final int TIMEOUT_MS = 10;
     private static final int horizontalSetpoint = 0;
-    private static final int H_TOLERANCE_VISION = 0;
+    private static final int H_TOLERANCE_VISION = 1;
     private final WPI_TalonSRX turretMotor;
     private final Servo elevationServo;
     private final Relay visionLights;
