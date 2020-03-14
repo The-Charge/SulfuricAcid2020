@@ -53,7 +53,7 @@ public final class Constants {
     public static final double initElevation = .8;
     public static final double initShootSpeed = 0.65;
     public static final double kMaxSpeedMetersPerSecond = 1.5; //1.0
-    public static final double kMaxAccelerationMetersPerSecondSquared = 1.0; //.5
+    public static final double kMaxAccelerationMetersPerSecondSquared = .75; //.5
 
     // Reasonable baseline values for a RAMSETE follower in units of meters and seconds
     public static final double kRamseteB = 2;

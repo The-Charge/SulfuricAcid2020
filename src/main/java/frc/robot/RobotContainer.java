@@ -764,20 +764,20 @@ private void configureButtonBindings() {
 
     // An example trajectory to follow.  All units in meters.
 
-    config.setReversed(true);
+    //config.setReversed(true);
     
     
     Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
-        // Start at the origin facing the +X direction
-        new Pose2d(0 , 0, new Rotation2d(0)),
-        // Pass through these two interior waypoints, making an 's' curve path
-        List.of(
-          new Translation2d(.5, 0),
-          new Translation2d(1, -1),
-          new Translation2d(1, -3)
-        ),
-        // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(1, -5, new Rotation2d(0)),
+      List.of(
+        new Pose2d(0, 0, new Rotation2d()),
+        new Pose2d(.25,-1, new Rotation2d(-Math.PI/2)),
+        new Pose2d(.25,-2, new Rotation2d(-Math.PI/2)),
+        new Pose2d(.27,-3, new Rotation2d(-Math.PI/2)),
+        new Pose2d(.29,-4, new Rotation2d(-Math.PI/2)),
+        new Pose2d(.3,-4.5, new Rotation2d(-Math.PI/2))
+      ),
+
+       
         // Pass config
         config
     );
@@ -823,7 +823,7 @@ private void configureButtonBindings() {
   }
 
   public Command rClose() {
-    return new CloseStopper(stopper, indexer);
+    return new CloseStopperAuton(stopper);
   }
 
   public Command rOpen()
