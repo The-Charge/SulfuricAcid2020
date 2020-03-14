@@ -1,10 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.CommandGroupBase;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.Robot;
 import frc.robot.subsystems.*;
 
 public class IdleState extends ParallelCommandGroup {
@@ -20,13 +17,12 @@ public class IdleState extends ParallelCommandGroup {
         m_indexer = indexer;
         m_stopper = stooper;
         m_shooter = snooter;
-    }
-    public void addCommands​(Command... commands)
-    {
-        new Index(m_indexer, 0);
-        new RunIntake(m_intake, 0);
-        new CloseStopper(m_stopper, m_indexer); 
-        new Shoot(m_shooter, 0);
+    addCommands(
+    
+        new Index(m_indexer, 0),
+        new RunIntake(m_intake, 0),
+        //new CloseStopper(m_stopper, m_indexer),
+        new Shoot(m_shooter, 0));
 
     }
 }

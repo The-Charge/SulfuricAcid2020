@@ -68,6 +68,7 @@ public WPI_TalonFX motorShooter;
 
     private final int TIMEOUT_MS = 10;
     public static final double MAX_TICKS_PER_SEC = 20000.0;
+    private double targetSpeed;
 
     public Shooter() {
 
@@ -103,6 +104,7 @@ public WPI_TalonFX motorShooter;
     }
 
     public void setPercentSpeedPID(double setSpeed) {
+        targetSpeed = setSpeed;
         SmartDashboard.putNumber("Shooter PID Val", setSpeed);
         motorShooter.set(ControlMode.Velocity, MAX_TICKS_PER_SEC * setSpeed);
         //motorShooter.set(ControlMode.PercentOutput, setSpeed);
@@ -123,6 +125,10 @@ public WPI_TalonFX motorShooter;
     public boolean isAtSpeed(double speed)
     {
         return (Math.abs(getCurrentSpeed()/MAX_TICKS_PER_SEC - speed) < .1);
+    }
+    public boolean isAtSpeed()
+    {
+        return (Math.abs(getCurrentSpeed()/MAX_TICKS_PER_SEC - targetSpeed) < .1);
     }
     public boolean checkTemp()
     {

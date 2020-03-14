@@ -76,7 +76,7 @@ timer = 1000;
 
     public void periodic()
     {
-      
+      SmartDashboard.putBoolean("FronBallSensor", ballSensedIn());
     }
     public void stop(){
         indexerMotorLF.set(0);
@@ -104,7 +104,11 @@ timer = 1000;
         indexerMotorRF.selectProfileSlot(PID_SLOT_SPEED_MODE, 0);
         */
     }
-
+    public void setRawPercentSpeedPID(double setSpeed)
+    {
+        SmartDashboard.putNumber("PID Val", setSpeed);
+        indexerMotorLF.set(ControlMode.Velocity, MAX_TICKS_PER_SEC * setSpeed);
+    }
     
     public void setPercentSpeedPID(double setSpeed, boolean shooterOpen) {
         //boolean wasBall = wasBallSensedIn();

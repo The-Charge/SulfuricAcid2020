@@ -90,7 +90,7 @@ public class Turret implements Subsystem {
     }
 
     public void disableVision() {
-        visionLights.set(Value.kReverse);
+        visionLights.set(Value.kOff);
     }
 
     private double calcActuatorDistance(final double angle) {

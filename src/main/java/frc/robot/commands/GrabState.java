@@ -21,7 +21,7 @@ public class GrabState extends ParallelCommandGroup {
         m_stopper = stooper;
         m_shooter = snooter;
     }
-    public void addCommands​(Command... commands)
+    public void addCommands()
     {
         new Index(m_indexer, 0);
         new RunIntake(m_intake, 0.4);

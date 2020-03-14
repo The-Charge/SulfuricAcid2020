@@ -34,19 +34,20 @@ public class CloseStopper extends CommandBase {
     // Called just before this Command runs the first time
     @Override
     public void initialize() {
-      m_indexer.initalizeMotors();
+      //m_indexer.initalizeMotors();
 
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
-      m_indexer.setPercentSpeedPID(-0.2, true);
+      //m_indexer.setPercentSpeedPID(-0.2, true);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     public boolean isFinished() {
+      //add time element
       return !m_stopper.ballSensedOut();
     }
 

@@ -23,10 +23,14 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.*;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.triggers.BallIn;
+import frc.robot.triggers.IntakeOnly;
+import frc.robot.triggers.ShootTrigger;
+import frc.robot.triggers.TopBall;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -51,8 +55,6 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
-
-import static edu.wpi.first.wpilibj.XboxController.Button;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -113,6 +115,9 @@ public class RobotContainer {
   public JoystickButton yButton;
   public JoystickButton openStopperBtn;
   public Trigger intakeFastTrigger;
+  public Trigger intakeSlowTrigger;
+  public Trigger shootTrigger;
+  public Trigger intakeOnlyTrigger;
 
   public boolean realButtonBox = true;
 
@@ -213,11 +218,23 @@ private void configureButtonBindings() {
 
     //STATE MACHINE
     runIntakeIndexerBtn = new JoystickButton(Xbox, 5);
-    runIntakeIndexerBtn.whileHeld(new GrabState(intake, indexer, stopper, shooter));
+    //runIntakeIndexerBtn.whileHeld(new RunIntake(intake, 0.4));
+    //runIntakeIndexerBtn.whileHeld(new GrabState(intake, indexer, stopper, shooter));
+    //runIntakeIndexerBtn.whenReleased(new IdleState(intake, indexer, stopper, shooter));
+    intakeOnlyTrigger = new IntakeOnly(indexer);
+    intakeOnlyTrigger.and(runIntakeIndexerBtn).whileActiveContinuous(new RunIntake(intake, 0.4));
 
     intakeFastTrigger = new BallIn(indexer);
-    intakeFastTrigger.whileActiveContinuous(new IntakeFastState(intake, indexer, stopper, shooter));
+    intakeFastTrigger.and(runIntakeIndexerBtn).whileActiveContinuous(new IntakeFastState(intake, indexer, stopper));
 
+    //intakeSlowTrigger = new TopBall(stopper);
+    //intakeSlowTrigger.and(runIntakeIndexerBtn).and(intakeFastTrigger).whileActiveContinuous(new IntakeSlowState(intake, indexer, stopper));
+
+    //openStopperBtn = new JoystickButton(Xbox, 10);
+    //shootTrigger = new ShootTrigger(shooter);
+    //shootTrigger.and(openStopperBtn).whileActiveContinuous(new OpenStopper(stopper));
+    
+    //if (intakeSlowTrigger.get()) openStopperBtn.whenReleased(new StopShootState(intake, indexer, stopper, shooter));
 
     //Drive Train buttons
     
@@ -251,8 +268,9 @@ private void configureButtonBindings() {
       yButton = new JoystickButton(Xbox, 4);
       yButton.whenPressed(new Shoot(shooter, .48));
       yButton.whenPressed(new RunTurretVision(turret, 0.4));
-      openStopperBtn = new JoystickButton(Xbox, 10);
-      openStopperBtn.whenPressed(new OpenStopper(stopper));
+      
+      //openStopperBtn = new JoystickButton(Xbox, 10);
+      //openStopperBtn.whenPressed(new OpenStopper(stopper));
 
 
 
