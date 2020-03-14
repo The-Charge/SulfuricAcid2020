@@ -24,7 +24,9 @@ import frc.robot.*;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.triggers.BallIn;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -110,6 +112,7 @@ public class RobotContainer {
   public JoystickButton xButton;
   public JoystickButton yButton;
   public JoystickButton openStopperBtn;
+  public Trigger intakeFastTrigger;
 
   public boolean realButtonBox = true;
 
@@ -166,17 +169,23 @@ private void configureButtonBindings() {
     buttonBox = new Joystick(2);
     Xbox = new XboxController(3);
 
-    //reverse intake
-    runIntakeInverseBtn = new JoystickButton(buttonBox, 1);
-    runIntakeInverseBtn.whileHeld(new RunIntake(intake, -0.2));
-    runIntakeInverseBtn.whileHeld(new Index(indexer, -0.7));
-      
     //climb up/climb down
     climbDown = new JoystickButton(buttonBox, 3);
     climbDown.whileHeld(new ClimberRun(climber, -0.6));
     climbUp = new JoystickButton(buttonBox, 2);
     climbUp.whileHeld((new SequentialCommandGroup(new ClimberUnBrake(climber), new WaitCommand(1), new ClimberRun(climber, 0.7))));
     climbUp.whenReleased(new ClimberBrake(climber));
+
+    positionControlBtn = new JoystickButton(buttonBox, 5);
+    positionControlBtn.whileHeld(new PositionsControl(controlPanel, colorSensor));
+    rotationControlBtn = new JoystickButton(buttonBox, 6);
+    rotationControlBtn.whileHeld(new RotationControl(controlPanel, colorSensor));
+
+    /*
+    //reverse intake
+    runIntakeInverseBtn = new JoystickButton(buttonBox, 1);
+    runIntakeInverseBtn.whileHeld(new RunIntake(intake, -0.2));
+    runIntakeInverseBtn.whileHeld(new Index(indexer, -0.7));
       
     //manualElevation = new JoystickButton(buttonBox, 2);
     //manualElevation.whileHeld(new ManualTurretElevation(0));
@@ -189,7 +198,6 @@ private void configureButtonBindings() {
     runIntakeIndexerBtn = new JoystickButton(Xbox, 5);
     runIntakeIndexerBtn.whileHeld(new RunIntake(intake, 0.6));
     runIntakeIndexerBtn.whileHeld(new Index(indexer, 1));
-    
 
     shootBtn = new JoystickButton(Xbox, 6);
     //shootBtn.whileHeld(new ParallelCommandGroup(new OpenStopper(stopper))); indexer, slow speed
@@ -199,13 +207,17 @@ private void configureButtonBindings() {
     visionOverrideBtn = new JoystickButton(buttonBox, 8);
     visionOverrideBtn.whenPressed(new RunTurretManual(turret));
      
-    positionControlBtn = new JoystickButton(buttonBox, 5);
-    positionControlBtn.whileHeld(new PositionsControl(controlPanel, colorSensor));
-    rotationControlBtn = new JoystickButton(buttonBox, 6);
-    rotationControlBtn.whileHeld(new RotationControl(controlPanel, colorSensor));
-
     //senseColorBtn = new JoystickButton(buttonBox, 5);
     //senseColorBtn.whileHeld(new SenseColor(colorSensor));
+    */
+
+    //STATE MACHINE
+    runIntakeIndexerBtn = new JoystickButton(Xbox, 5);
+    runIntakeIndexerBtn.whileHeld(new GrabState(intake, indexer, stopper, shooter));
+
+    intakeFastTrigger = new BallIn(indexer);
+    intakeFastTrigger.whileActiveContinuous(new IntakeFastState(intake, indexer, stopper, shooter));
+
 
     //Drive Train buttons
     
