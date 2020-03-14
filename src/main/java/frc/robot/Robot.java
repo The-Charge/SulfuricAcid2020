@@ -96,7 +96,7 @@ boolean visionOverride = false;
     SequentialCommandGroup m_sequential = new SequentialCommandGroup(m_parallel, new WaitCommand(1),
                                             new ParallelCommandGroup(
                                               new ParallelCommandGroup(m_robotContainer.rOpen(), m_robotContainer.rIntake(), m_robotContainer.rIndex()),
-                                                new SequentialCommandGroup(new WaitCommand(4), m_robotContainer.rClose(),
+                                                new SequentialCommandGroup(new WaitCommand(4), 
                                                   new ParallelCommandGroup(new SequentialCommandGroup(m_robotContainer.rResetTurret(),m_robotContainer.rZeroTurret()), 
                                                     new SequentialCommandGroup(m_robotContainer.getAutonomousNew()))))
                                             );
@@ -106,7 +106,7 @@ boolean visionOverride = false;
                                           //new ParallelCommandGroup(m_robotContainer.rIndexReverse(), m_robotContainer.rIntakeReverse(),
                                             //new SequentialCommandGroup(new WaitCommand(4), 
                                               //new SequentialCommandGroup(m_robotContainer.rResetTurret(),m_robotContainer.rZeroTurret()))));
-    m_autonomousCommand = m_sequential;
+    m_autonomousCommand = m_robotContainer.getAutonomousNew();
     //m_autonomousCommand =  new SequentialCommandGroup(m_robotContainer.rShoot(), 
     //                        new SequentialCommandGroup( new WaitCommand(3),
     //                          new ParallelCommandGroup(m_robotContainer.rOpen(), m_robotContainer.rIntake(), m_robotContainer.rIndex(), 

@@ -764,7 +764,7 @@ private void configureButtonBindings() {
 
     // An example trajectory to follow.  All units in meters.
 
-    //config.setReversed(true);
+    config.setReversed(false);
     
     
     Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
