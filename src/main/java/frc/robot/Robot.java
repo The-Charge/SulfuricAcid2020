@@ -54,12 +54,13 @@ boolean visionOverride = false;
     m_robotContainer = new RobotContainer(); 
     chooser = new SendableChooser<Command>();
     //m_robotContainer.drivetrain.invertMotors();
-    chooser.setDefaultOption("Drive Forward", new SequentialCommandGroup(m_robotContainer.getAutonomousForward()));
+    //chooser.setDefaultOption("Drive Forward", new SequentialCommandGroup(m_robotContainer.getAutonomousForward()));
     //chooser.addOption("Shoot Drive Forward", new SequentialCommandGroup(m_robotContainer.shoot(), m_robotContainer.getAutonomousForward()));
-    chooser.addOption("Drive Backward", new SequentialCommandGroup(m_robotContainer.getAutonomousBackward()));
-    chooser.addOption("Corner", new SequentialCommandGroup(m_robotContainer.getAutonomousCorner(), m_robotContainer.getAutonomousCorner2()));
-    chooser.addOption("PortTR", new SequentialCommandGroup(m_robotContainer.getAutonomousPortTR(), m_robotContainer.getAutonomousPortTR2()));
+    //chooser.addOption("Drive Backward", new SequentialCommandGroup(m_robotContainer.getAutonomousBackward()));
+    //chooser.addOption("Corner", new SequentialCommandGroup(m_robotContainer.getAutonomousCorner(), m_robotContainer.getAutonomousCorner2()));
+    //chooser.addOption("PortTR", new SequentialCommandGroup(m_robotContainer.getAutonomousPortTR(), m_robotContainer.getAutonomousPortTR2()));
     SmartDashboard.putData("AutoSelect", chooser);
+    m_robotContainer.rElevation();
   }
 
   /**
@@ -96,18 +97,18 @@ boolean visionOverride = false;
   public void autonomousInit() {
     
     m_robotContainer.drivetrain.resetEncoders();
-    m_robotContainer.stopper.closeStopper();
+   // m_robotContainer.stopper.closeStopper();
     m_robotContainer.drivetrain.resetOdometry(new Pose2d(0, 0, new Rotation2d(0)));
-    ParallelCommandGroup m_parallel = new ParallelCommandGroup(m_robotContainer.rShoot(), m_robotContainer.rElevation(), new WaitCommand(1));
-    SequentialCommandGroup m_sequential = new SequentialCommandGroup(m_parallel, 
-                                            new ParallelCommandGroup(
-                                              new ParallelCommandGroup(m_robotContainer.rOpen(), m_robotContainer.rIntake(), m_robotContainer.rIndex()),
-                                                new SequentialCommandGroup(new WaitCommand(4), 
-                                                  new ParallelCommandGroup(new SequentialCommandGroup(m_robotContainer.rResetTurret(),m_robotContainer.rZeroTurret()), 
-                                                    new SequentialCommandGroup(m_robotContainer.getAutonomousBackwardS()))))
-                                            );
+    //ParallelCommandGroup m_parallel = new ParallelCommandGroup(m_robotContainer.rShoot(), new WaitCommand(1));
+    //SequentialCommandGroup m_sequential = new SequentialCommandGroup(m_parallel, 
+    //                                        new ParallelCommandGroup(
+    //                                          new ParallelCommandGroup(m_robotContainer.rOpen(), m_robotContainer.rIntake(), m_robotContainer.rIndex()),
+    //                                            new SequentialCommandGroup(new WaitCommand(4), 
+    //                                              new ParallelCommandGroup(new SequentialCommandGroup(m_robotContainer.rResetTurret(),m_robotContainer.rZeroTurret()), 
+    //                                                new SequentialCommandGroup(m_robotContainer.getAutonomousBackwardS()))))
+    //                                        );
                                             //m_robotContainer.rResetTurret(),m_robotContainer.rZeroTurret() m_robotContainer.getAutonomousBackwardS2()
-    m_autonomousCommand = m_sequential;
+    m_autonomousCommand = new AutoShoot(m_robotContainer.IndexerBasic, m_robotContainer.ShooterBasic, m_robotContainer.IntakeBasic, m_robotContainer.stopper, 3);
     //m_autonomousCommand =  new SequentialCommandGroup(m_robotContainer.rShoot(), 
     //                        new SequentialCommandGroup( 
     //                          new ParallelCommandGroup(m_robotContainer.rOpen(), m_robotContainer.rIntake(), m_robotContainer.rIndex(), 
@@ -124,12 +125,12 @@ boolean visionOverride = false;
    */
   @Override
   public void autonomousPeriodic() {
-    SmartDashboard.putNumber("Left Encoder", m_robotContainer.drivetrain.leftFrontMotor.getSelectedSensorPosition(0));
-    SmartDashboard.putNumber("Right Encoder", m_robotContainer.drivetrain.rightFrontMotor.getSelectedSensorPosition(0));
-    SmartDashboard.putNumber("Gyro Reading", m_robotContainer.drivetrain.getHeading());
-    SmartDashboard.putString("Pose", m_robotContainer.drivetrain.m_odometry.getPoseMeters().getTranslation().toString());
-    SmartDashboard.putNumber("Shooter", m_robotContainer.shooter.motorShooter.getSelectedSensorVelocity()/20000.0);
-    SmartDashboard.putNumber("Turrett", m_robotContainer.turret.getCurrentHorizontalAngle());
+    //SmartDashboard.putNumber("Left Encoder", m_robotContainer.drivetrain.leftFrontMotor.getSelectedSensorPosition(0));
+    //SmartDashboard.putNumber("Right Encoder", m_robotContainer.drivetrain.rightFrontMotor.getSelectedSensorPosition(0));
+    //SmartDashboard.putNumber("Gyro Reading", m_robotContainer.drivetrain.getHeading());
+    //SmartDashboard.putString("Pose", m_robotContainer.drivetrain.m_odometry.getPoseMeters().getTranslation().toString());
+    //SmartDashboard.putNumber("Shooter", m_robotContainer.shooter.motorShooter.getSelectedSensorVelocity()/20000.0);
+    //SmartDashboard.putNumber("Turrett", m_robotContainer.turret.getCurrentHorizontalAngle());
     //SmartDashboard.putData("", m_robotContainer.m_robotDrive.getPose());
     //SmartDashboard.putNumber("Left Encoder", System.currentTimeMillis());
   }
@@ -151,15 +152,15 @@ boolean visionOverride = false;
    */
   @Override
   public void teleopPeriodic() {
-    if (RobotContainer.buttonBox.getRawButtonPressed(8)) visionOverride = !visionOverride;
+    //if (RobotContainer.buttonBox.getRawButtonPressed(8)) visionOverride = !visionOverride;
     
-    if (!visionOverride){
-      if (RobotContainer.Xbox.getRawButtonPressed(9)){
-        new RunTurretVision(m_robotContainer.turret, 0.8);
-      }
-    } else {
-        new RunTurretManual(m_robotContainer.turret);
-      }    
+    //if (!visionOverride){
+    //  if (RobotContainer.Xbox.getRawButtonPressed(9)){
+    //    new RunTurretVision(m_robotContainer.turret, 0.8);
+    //  }
+    //} else {
+    //    new RunTurretManual(m_robotContainer.turret);
+    //  }    
     }
 
 

@@ -62,11 +62,11 @@ private int timer;
 
     public Indexer(Stopper stopper) {
 
-indexerMotorLF = new WPI_TalonSRX(8);
+//indexerMotorLF = new WPI_TalonSRX(8);
 
 
         
-indexerMotorRF = new WPI_TalonSRX(10);
+//indexerMotorRF = new WPI_TalonSRX(10);
 
 ballIn = new DigitalInput(2);
 m_stopper = stopper;

@@ -19,6 +19,40 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+  public static final class ShooterConstants{
+    public final static double SPEED_P_CONSTANT = 0.1;
+    public final static double SPEED_I_CONSTANT = 0.0001;
+    public final static double SPEED_D_CONSTANT = 0.0;
+    public final static double SPEED_F_CONSTANT = 0.0;
+    public final static int PID_SLOT_SPEED_MODE = 0;
+    public final static int TIMEOUT_MS = 10;
+    public static final double MAX_TICKS_PER_100mSEC = 20000.0;
+    public final static int CAN_ID = 0;
+    public final static double FRACTION_SPEED_TOLERANCE = 0.02;
+    public final static double FRACTION_SPEED_DROP_WHEN_SHOOTING = 0.1;
+  }
+  public static final class IndexerConstants{
+    public final static double SPEED_P_CONSTANT = 0.01;
+    public final static double SPEED_I_CONSTANT = 0.00001;
+    public final static double SPEED_D_CONSTANT = 0.0;
+    public final static double SPEED_F_CONSTANT = 0.0;  
+    public final static int PID_SLOT_SPEED_MODE = 0;
+    public final static int TIMEOUT_MS = 10;
+    public final static double MAX_TICKS_PER_100mSEC = 130000;
+    public final static int LF_CAN_ID = 8;
+    public final static int RF_CAN_ID = 10;
+  }
+  public static final class IntakeConstants{
+    public final static double SPEED_P_CONSTANT = 0.05;
+    public final static double SPEED_I_CONSTANT = 0.0003;
+    public final static double SPEED_D_CONSTANT = 0.0;
+    public final static double SPEED_F_CONSTANT = 0.0;
+    public final static int PID_SLOT_SPEED_MODE = 0;
+    public final static int TIMEOUT_MS = 10;
+    public static final double MAX_TICKS_PER_100mSEC = 31000;
+    public final static int CAN_ID = 9;
+  }
+
   public static final class DriveConstants {
     public static final int kLeftMotor1Port = 1;
     public static final int kLeftMotor2Port = 2;
@@ -61,8 +95,10 @@ public final class Constants {
   }
 
   public static final class AutoConstants {
-    public static final double initElevation = .8;
+    public static final double initElevation = 0.8;
     public static final double initShootSpeed = 0.65;
+    
+    public static final double indexFastSpeed = 0.6;
     public static final double kMaxSpeedMetersPerSecond = 1.5; //1.0
     public static final double kMaxAccelerationMetersPerSecondSquared = 1.0; //.5
 

@@ -48,7 +48,7 @@ private WPI_TalonSRX intakeMotor;
 
 
     public Intake() {
-        intakeMotor = new WPI_TalonSRX(9);
+        //intakeMotor = new WPI_TalonSRX(9);
     }
 
     @Override
