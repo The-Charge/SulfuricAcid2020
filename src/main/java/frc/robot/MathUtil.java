@@ -1,7 +1,6 @@
 package frc.robot;
 
 //import org.usfirst.frc2619.Plybot2020.subsystems.Drivetrain;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 //FIXME: WPILib now provides it's own MathUtil class. Should rename this to avoid conflict/confusion
 public class MathUtil {

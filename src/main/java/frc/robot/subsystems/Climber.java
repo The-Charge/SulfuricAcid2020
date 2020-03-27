@@ -18,7 +18,7 @@ private final int PEAK_CURRENT_DURATION = 100; // ... for at least 100 ms
 private final int CONTINUOUS_CURRENT_LIMIT = 35;// once current-limiting is actived, hold at 20A
 
     final int TIMEOUT_MS = 10;   //needs tuning
-    private final static int MAX_TICKS_PER_SEC = 934;
+    //private final static int MAX_TICKS_PER_SEC = 934;
    
 
     public Climber() {
@@ -26,8 +26,6 @@ climberMotor = new WPI_TalonSRX(12);
 climberBrakeDoubleSolenoid = new DoubleSolenoid(0, 3, 4);
         
 goingUp = false;
-//setDefaultCommand(new ClimberBrake(this));
-
     }
 
     public void stopMotor(){
