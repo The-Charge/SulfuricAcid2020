@@ -3,6 +3,8 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+//import edu.wpi.first.wpilibj.
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -11,6 +13,8 @@ public class Indexer implements Subsystem {
 
 private WPI_TalonSRX indexerMotorLF;
 private WPI_TalonSRX indexerMotorRF;
+//FIXME: This is unused. Remove.
+private Intake m_intake;
 private DigitalInput ballIn;
 private int timer;
 
