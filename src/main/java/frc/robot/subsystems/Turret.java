@@ -99,7 +99,7 @@ public class Turret implements Subsystem {
             double percent = Math.abs(setpoint) / 40;
             percent = Math.max(0.06, Math.min(0.19, percent));
             if (setpoint < 0) { percent = -percent; }
-            turretMotor.set(ControlMode.PercentOutput, percent);
+            turretMotor.set(ControlMode.PercentOutput, -percent);
         } else {
             turretMotor.set(ControlMode.PercentOutput, 0);
         }
